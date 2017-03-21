@@ -10,9 +10,10 @@
 <body>
 <%
 showInfo bean=(showInfo)request.getAttribute("test");  
-String classname = bean.getInfo();
+int classname = bean.getClassNum();
+String name = bean.getClassName();
 
-	out.print(classname); 
+	out.print(name); 
 	out.print("<br><br>");
 
  

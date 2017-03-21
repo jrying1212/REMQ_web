@@ -40,19 +40,12 @@ public class homepageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
+
 		showInfo info = new showInfo();
-//		String[] a = info.getInfo();
-//		System.out.println(a[1]);
+
 		request.setAttribute("test", info);
-//		response.getWriter().write(info.getInfo());
 		RequestDispatcher view = request.getRequestDispatcher("/test.jsp");
 	    view.forward(request, response); 
-	    
-	    
-
-	}
-	
-
+	    	   
+	}	
 }
