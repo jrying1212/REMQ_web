@@ -9,12 +9,25 @@
 </head>
 <body>
 <%
-showInfo bean=(showInfo)request.getAttribute("test");  
-int classname = bean.getClassNum();
-String name = bean.getClassName();
-
-	out.print(name); 
-	out.print("<br><br>");
+showInfo bean=(showInfo)request.getAttribute("test"); 
+int classNum = bean.getClassNum();
+out.print("Class number : "+classNum); 
+out.print("<br><br>");
+	
+for (int i=0;i<bean.getClassName().size();i++){
+	String name = bean.getClassName().get(i);
+	int methodNum = bean.getMethodNum().get(i);
+	int attNum = bean.getAttNum().get(i);
+	out.print((i+1)+". Class name: "+name); 
+	out.print("<br><br>");	
+	out.print("NOM : "+methodNum);
+	out.print("<br>");
+	out.print("NOA : "+attNum);
+	
+	out.print("<br><br><br>");
+	}
+		
+	
 
  
 %>
