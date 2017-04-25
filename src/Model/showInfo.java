@@ -12,7 +12,11 @@ public class showInfo {
 	ArrayList<String> class_name = new ArrayList<String>();
 	ArrayList<Integer> att_num = new ArrayList<Integer>();
 	ArrayList<Integer> method_num = new ArrayList<Integer>();
+	int total_attNum=0;
+	int total_methodNum=0;
 	int class_num =0;
+	int private_AttNum=0;
+	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
 
 	public showInfo(){
 
@@ -68,12 +72,34 @@ public class showInfo {
 			}
 			else{
 				setAttNum(att.length());
+				setClassAttNum(att.length());
 			}
-
+			
+			
+			int count_private=0;
+			int count_coupling=0;
 			System.out.println(att.length());
 			for (int j=0; j<att.length();j++){
-	        System.out.println(att.getJSONObject(j).getString("att_type"));
+//				System.out.println(att.getJSONObject(j).getString("att_type"));
+				
+				String accessifier = att.getJSONObject(j).getString("att_accessfier");
+				if (accessifier.equals("private")){
+					count_private++;
+				}
+				
+				String type = att.getJSONObject(j).getString("att_type");
+				
+				if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")){
+					count_coupling++;
+					
+					System.out.println("coupling: "+att.getJSONObject(j).getString("att_type"));
+				}
+	        
 			}
+			setPrivateAttNum(count_private);
+			setCouplingNum(count_coupling);
+			System.out.println("pc:"+count_private);
+			System.out.println("coup:"+count_coupling);
 		}
 
 	}
@@ -96,20 +122,42 @@ public class showInfo {
 		return class_name;
 	}
 	
-	public void setAttNum(int num){
+	public void setClassAttNum(int num){
 		att_num.add(num);
 	}
 	
-	public ArrayList<Integer> getAttNum(){
+	public ArrayList<Integer> getClassAttNum(){
 		return att_num;
 	}
 	
-	public void setMethodNum(int num){
-		method_num.add(num);
+	public void setAttNum(int num){
+		total_attNum+=num;
 	}
 	
-	public ArrayList<Integer> getMethodNum(){
-		return method_num;
+	public int getAttNum(){
+		return total_attNum;
+	}
+	
+	public void setMethodNum(int num){
+		total_methodNum+=num;
+	}
+	
+	public int getMethodNum(){
+		return total_methodNum;
+	}
+	
+	public void setPrivateAttNum(int num){
+		private_AttNum+=num;
+	}
+	
+	public int getPrivateAttNum(){
+		return private_AttNum;
+	}
+	public void setCouplingNum(int num){
+		att_coupling.add(num);
+	}
+	public ArrayList<Integer> getCouplingNum(){
+		return att_coupling;
 	}
 	
 }

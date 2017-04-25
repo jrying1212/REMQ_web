@@ -1,11 +1,6 @@
 package Controller;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Model.coupling;
+import Model.security;
 import Model.showInfo;
 
 /**
@@ -42,8 +39,11 @@ public class homepageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		showInfo info = new showInfo();
-
-		request.setAttribute("test", info);
+		security se = new security();
+		coupling cp =new coupling();
+		request.setAttribute("basic", info);
+		request.setAttribute("security", se);
+		request.setAttribute("coupling", cp);
 		RequestDispatcher view = request.getRequestDispatcher("/test.jsp");
 	    view.forward(request, response); 
 	    	   
