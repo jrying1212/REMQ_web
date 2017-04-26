@@ -32,7 +32,7 @@ public class showInfo {
 	}
 
 	public String getInfo() throws IOException{
-		FileReader fr = new FileReader("C://uploads/test.txt");
+		FileReader fr = new FileReader("C://uploads/data.txt");
 		BufferedReader br = new BufferedReader(fr);
 		String str ="";
 		while (br.ready()) { 

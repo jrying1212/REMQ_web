@@ -18,7 +18,7 @@ public class FileServer extends Thread {
 		
 		byte [] bytearray = new byte [filesize]; 
 		InputStream is = socket.getInputStream(); 
-		FileOutputStream fos = new FileOutputStream("C://uploads/test.txt"); 
+		FileOutputStream fos = new FileOutputStream("C://uploads/data.txt"); 
 		BufferedOutputStream bos = new BufferedOutputStream(fos); 
 		bytesRead = is.read(bytearray,0,bytearray.length); 
 		currentTot = bytesRead; 

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>Insert title here</title>
+<title>HomePage</title>
 </head>
 <body>
 <h1>Reverse Engineering UML Structural Model Quality Metrics</h1>
