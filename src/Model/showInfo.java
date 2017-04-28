@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +14,10 @@ public class showInfo {
 	ArrayList<String> class_name = new ArrayList<String>();
 	ArrayList<Integer> att_num = new ArrayList<Integer>();
 	ArrayList<Integer> method_num = new ArrayList<Integer>();
+	ArrayList<Integer> class_LOC = new ArrayList<Integer>();
+//	ArrayList<Integer> method_LOC = new ArrayList<Integer>();
+	List<List<Integer>> AllMethod_LOC = new ArrayList<List<Integer>>();
+
 	int total_attNum=0;
 	int total_methodNum=0;
 	int class_num =0;
@@ -50,10 +56,12 @@ public class showInfo {
 		JSONArray arr_class = new JSONArray(str); 
 		setClassNum(arr_class.length());
 		for(int i=0; i<arr_class.length();i++){
+			List<Integer> method_LOC = new ArrayList<Integer>();
 			JSONObject jsonObj  = arr_class.getJSONObject(i);
 			System.out.println(jsonObj.getString("className"));
 			setClassName(jsonObj.getString("className"));
-
+			setClassLOC(jsonObj.getInt("classLOC"));
+			System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
 			JSONArray met = jsonObj.optJSONArray("Method List");
 			if (met.getJSONObject(0).getString("method_name").equals("null")){
 				setMethodNum(0);
@@ -61,11 +69,15 @@ public class showInfo {
 			else{
 				setMethodNum(met.length());
 			}
-
 			for (int j=0; j<met.length();j++){
-//	        System.out.println(met.getJSONObject(j).getString("method_name"));
+//	        System.out.println(met.getJSONObject(j).getString("method_name"));	
+				method_LOC.add(met.getJSONObject(j).getInt("method_LOC"));
 			}
-			
+			setMethodLOC(method_LOC);
+
+			System.out.println("AA:"+getMethodLOC().get(i).size());
+//			method_LOC.clear();
+//			System.out.println("MET_LOC: "+methodLOC[0]);
 			JSONArray att = jsonObj.optJSONArray("Attribute List");
 			if (att.getJSONObject(0).getString("att_name").equals("null")){
 				setAttNum(0);
@@ -158,6 +170,23 @@ public class showInfo {
 	}
 	public ArrayList<Integer> getCouplingNum(){
 		return att_coupling;
+	}
+	
+	public void setClassLOC(int Num){
+		class_LOC.add(Num);
+	}
+	
+	public ArrayList<Integer> getClassLOC(){
+		return class_LOC;
+	}
+	
+	public void setMethodLOC(List<Integer> num){
+		AllMethod_LOC.add(num);
+		
+	}
+	
+	public List<List<Integer>> getMethodLOC(){
+		return AllMethod_LOC;
 	}
 	
 }

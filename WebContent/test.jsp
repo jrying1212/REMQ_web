@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="BIG5"%>
     <%@ page import="Model.showInfo" %> 
+    <%@ page import="Model.complexity" %> 
     <%@ page import="Model.security" %> 
     <%@ page import="Model.coupling" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,13 +23,12 @@
 <body>
 <body class="landing">
 <%
-showInfo bean=(showInfo)request.getAttribute("basic"); 
-security se_bean=(security)request.getAttribute("security");
-coupling cp_bean=(coupling)request.getAttribute("coupling");
-int classNum = bean.getClassNum();
-int totalAtt = bean.getAttNum();
-int privateN = bean.getPrivateAttNum(); 
+showInfo bean = (showInfo)request.getAttribute("basic"); 
+complexity comp_bean = (complexity)request.getAttribute("complexity");
+security se_bean = (security)request.getAttribute("security");
+coupling cp_bean = (coupling)request.getAttribute("coupling");
 
+int classNum = bean.getClassNum();
 //out.print("Class number : "+classNum); 
 
 //out.print("<br><br>");
@@ -43,7 +43,7 @@ double ahf = se_bean.countAHF();
 //out.print("Security : ");
 //out.print("AHF : "+ahf);
 //out.print("<br><br>");
-
+double simplexity = comp_bean.countSimplexity();
 //out.print("<br><br>");	
 for (int i=0;i<bean.getClassName().size();i++){
 	String name = bean.getClassName().get(i);
@@ -94,7 +94,7 @@ for (int i=0;i<bean.getClassName().size();i++){
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-briefcase"></span></span>
 						<h3>Complexity</h3>
-						<p></p>
+						<h3><%out.print(simplexity); %></h3>
 						<a href="#" class="button button-style1">Read More</a>
 					</section>
 					<section class="3u">

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Model.coupling;
 import Model.security;
+import Model.complexity;
 import Model.showInfo;
 
 /**
@@ -39,9 +40,11 @@ public class homepageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		showInfo info = new showInfo();
+		complexity comp = new complexity();
 		security se = new security();
 		coupling cp =new coupling();
 		request.setAttribute("basic", info);
+		request.setAttribute("complexity", comp);
 		request.setAttribute("security", se);
 		request.setAttribute("coupling", cp);
 		RequestDispatcher view = request.getRequestDispatcher("/test.jsp");
