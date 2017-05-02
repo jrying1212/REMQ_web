@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,8 +17,9 @@ public class showInfo {
 	ArrayList<Integer> att_num = new ArrayList<Integer>();
 	ArrayList<Integer> method_num = new ArrayList<Integer>();
 	ArrayList<Integer> class_LOC = new ArrayList<Integer>();
-//	ArrayList<Integer> method_LOC = new ArrayList<Integer>();
 	List<List<Integer>> AllMethod_LOC = new ArrayList<List<Integer>>();
+	ArrayList<Integer> att_called = new ArrayList<Integer>();
+	Map<String, Integer> method_reuse = new HashMap<String, Integer>();
 
 	int total_attNum=0;
 	int total_methodNum=0;
@@ -54,66 +57,97 @@ public class showInfo {
 		
 		String str = getInfo();
 		JSONArray arr_class = new JSONArray(str); 
+
 		setClassNum(arr_class.length());
 		for(int i=0; i<arr_class.length();i++){
-			List<Integer> method_LOC = new ArrayList<Integer>();
-			JSONObject jsonObj  = arr_class.getJSONObject(i);
-			System.out.println(jsonObj.getString("className"));
-			setClassName(jsonObj.getString("className"));
-			setClassLOC(jsonObj.getInt("classLOC"));
-			System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
-			JSONArray met = jsonObj.optJSONArray("Method List");
-			if (met.getJSONObject(0).getString("method_name").equals("null")){
-				setMethodNum(0);
-			}
-			else{
-				setMethodNum(met.length());
-			}
-			for (int j=0; j<met.length();j++){
-//	        System.out.println(met.getJSONObject(j).getString("method_name"));	
-				method_LOC.add(met.getJSONObject(j).getInt("method_LOC"));
-			}
-			setMethodLOC(method_LOC);
-
-			System.out.println("AA:"+getMethodLOC().get(i).size());
-//			method_LOC.clear();
-//			System.out.println("MET_LOC: "+methodLOC[0]);
-			JSONArray att = jsonObj.optJSONArray("Attribute List");
-			if (att.getJSONObject(0).getString("att_name").equals("null")){
-				setAttNum(0);
-			}
-			else{
-				setAttNum(att.length());
-				setClassAttNum(att.length());
-			}
 			
-			
-			int count_private=0;
-			int count_coupling=0;
-			System.out.println(att.length());
-			for (int j=0; j<att.length();j++){
-//				System.out.println(att.getJSONObject(j).getString("att_type"));
-				
-				String accessifier = att.getJSONObject(j).getString("att_accessfier");
-				if (accessifier.equals("private")){
-					count_private++;
+				List<Integer> method_LOC = new ArrayList<Integer>();
+				JSONObject jsonObj  = arr_class.getJSONArray(i).getJSONObject(0);
+				System.out.println(jsonObj.getString("className"));
+				setClassName(jsonObj.getString("className"));
+				setClassLOC(jsonObj.getInt("classLOC"));
+				System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
+				JSONArray met = jsonObj.optJSONArray("Method List");
+				if (met.getJSONObject(0).getString("method_name").equals("null")){
+					setMethodNum(0);
+					setClassMethodNum(0);
 				}
-				
-				String type = att.getJSONObject(j).getString("att_type");
-				
-				if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")){
-					count_coupling++;
+				else{
+					setMethodNum(met.length());
+					setClassMethodNum(met.length());
+				}
+				for (int j=0; j<met.length();j++){
+//		        System.out.println(met.getJSONObject(j).getString("method_name"));	
+					method_LOC.add(met.getJSONObject(j).getInt("method_LOC"));
+				}
+				setMethodLOC(method_LOC);
+
+				System.out.println("AA:"+getMethodLOC().get(i).size());
+//				method_LOC.clear();
+//				System.out.println("MET_LOC: "+methodLOC[0]);
+				JSONArray att = jsonObj.optJSONArray("Attribute List");
+				if (att.getJSONObject(0).getString("att_name").equals("null")){
+					setAttNum(0);
+					setClassAttNum(0);
+				}
+				else{
+					setAttNum(att.length());
+					setClassAttNum(att.length());
+				}
+							
+				int count_private=0;
+				int count_coupling=0;
+				System.out.println(att.length());
+				for (int j=0; j<att.length();j++){
+//					System.out.println(att.getJSONObject(j).getString("att_type"));
 					
-					System.out.println("coupling: "+att.getJSONObject(j).getString("att_type"));
-				}
-	        
-			}
-			setPrivateAttNum(count_private);
-			setCouplingNum(count_coupling);
-			System.out.println("pc:"+count_private);
-			System.out.println("coup:"+count_coupling);
-		}
+					String accessifier = att.getJSONObject(j).getString("att_accessfier");
+					if (accessifier.equals("private")){
+						count_private++;
+					}
+					
+					String type = att.getJSONObject(j).getString("att_type");
+					
+					if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")){
+						count_coupling++;
+						
+						System.out.println("coupling: "+att.getJSONObject(j).getString("att_type"));
+					}
+					
+					int called = att.getJSONObject(j).getInt("att_called");
+					setAttCalled(att.getJSONObject(j).getInt("att_called"));
+					System.out.println("called: "+called);
 
+				}
+											
+				setPrivateAttNum(count_private);
+				setCouplingNum(count_coupling);
+				System.out.println("pc:"+count_private);
+				System.out.println("coup:"+count_coupling);
+				
+				JSONObject jsonObj_internal  = arr_class.getJSONArray(i).getJSONObject(1);
+				JSONObject jsonObj_external  = arr_class.getJSONArray(i).getJSONObject(2);
+				
+				JSONArray met_int = jsonObj_internal.optJSONArray("met_internalInfo");
+				 System.out.println("leng "+met_int.length());
+				for (int j=0; j<met_int.length();j++){
+					int count = met_int.getJSONObject(j).getInt("methodInternalCalled");
+			        System.out.println(met_int.getJSONObject(j).get("methodInternalCalled"));	
+					System.out.println("CN"+jsonObj.getString("className"));
+					setMethodCalled(jsonObj.getString("className"),count);
+						
+					}
+				JSONArray met_ext = jsonObj_external.optJSONArray("met_externalInfo");
+				if (met_ext!=null){
+					for (int j=0; j<met_ext.length();j++){
+						String ext_class = met_ext.getJSONObject(j).getString("className");
+				        System.out.println(met_ext.getJSONObject(j).getString("className"));	
+						System.out.println("CN"+jsonObj.getString("className"));
+						setMethodCalled(ext_class, 1);
+					}
+				}
+				System.out.println("get method called: "+method_reuse);
+		}	
 	}
 	
 	public void setClassNum(int num){
@@ -140,6 +174,14 @@ public class showInfo {
 	
 	public ArrayList<Integer> getClassAttNum(){
 		return att_num;
+	}
+	
+	public void setClassMethodNum(int num){
+		method_num.add(num);
+	}
+	
+	public ArrayList<Integer> getClassMethodNum(){
+		return method_num;
 	}
 	
 	public void setAttNum(int num){
@@ -182,11 +224,30 @@ public class showInfo {
 	
 	public void setMethodLOC(List<Integer> num){
 		AllMethod_LOC.add(num);
-		
 	}
 	
 	public List<List<Integer>> getMethodLOC(){
 		return AllMethod_LOC;
 	}
 	
+	public void setAttCalled(int num){
+		att_called.add(num);
+	}
+	
+	public ArrayList<Integer> getAttCalled(){
+		return att_called;
+	}
+	
+	public void setMethodCalled(String className, int num){
+		if (method_reuse.containsKey(className)){
+			method_reuse.put(className, method_reuse.get(className)+num);
+		}
+		else{
+			method_reuse.put(className, num);
+		}
+	}
+
+	public Map<String, Integer> getMethodCalled(){
+		return method_reuse;
+	}
 }

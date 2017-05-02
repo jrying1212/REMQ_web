@@ -12,7 +12,9 @@ public class coupling {
 			att_coupling = sh.getCouplingNum().get(i);
 			att_num = sh.getClassAttNum().get(i);
 			
-			class_coupling += att_coupling/att_num;
+			if (att_num>0){
+				class_coupling += att_coupling/att_num;	
+			}
 			System.out.println(att_coupling+" "+att_num+" "+class_coupling);
 		
 		}

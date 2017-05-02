@@ -4,6 +4,7 @@
     <%@ page import="Model.complexity" %> 
     <%@ page import="Model.security" %> 
     <%@ page import="Model.coupling" %> 
+    <%@ page import="Model.cohesion" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,6 +28,7 @@ showInfo bean = (showInfo)request.getAttribute("basic");
 complexity comp_bean = (complexity)request.getAttribute("complexity");
 security se_bean = (security)request.getAttribute("security");
 coupling cp_bean = (coupling)request.getAttribute("coupling");
+cohesion ch_bean = (cohesion)request.getAttribute("cohesion");
 
 int classNum = bean.getClassNum();
 //out.print("Class number : "+classNum); 
@@ -39,12 +41,16 @@ double wtcoup = cp_bean.countWTCoup();
 //out.print("WTCoup : "+wtcoup);
 //out.print("<br><br>");
 
-double ahf = se_bean.countAHF();
+double security = se_bean.countSecurity();
 //out.print("Security : ");
 //out.print("AHF : "+ahf);
 //out.print("<br><br>");
 double simplexity = comp_bean.countSimplexity();
+
+double reusability = comp_bean.countReusability();
 //out.print("<br><br>");	
+double cohesion = ch_bean.countCohesion();
+
 for (int i=0;i<bean.getClassName().size();i++){
 	String name = bean.getClassName().get(i);
 	int attNum = bean.getClassAttNum().get(i);
@@ -66,10 +72,10 @@ for (int i=0;i<bean.getClassName().size();i++){
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="active"><a href="homePage.jsp">Home page</a></li>
-						<li><a href="left-sidebar.html">Historical data</a></li>
+						<li class="active"><a href="#">Home page</a></li>
+						<li><a href="history.jsp">Historical data</a></li>
 						<li><a href="right-sidebar.html">Sign up</a></li>
-						<li><a href="no-sidebar.html">Log out</a></li>
+						<li><a href="homePage.jsp">Log out</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -94,26 +100,24 @@ for (int i=0;i<bean.getClassName().size();i++){
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-briefcase"></span></span>
 						<h3>Complexity</h3>
-						<h3><%out.print(simplexity); %></h3>
-						<a href="#" class="button button-style1">Read More</a>
+						<h3><%out.print("Simplexity: "+simplexity); %></h3>
+						<h3><%out.print("Reusability: "+reusability); %></h3>
 					</section>
 					<section class="3u">
-						<span class="pennant"><span class="fa fa-lock"></span></span>
+						<span class="pennant"><span class="fa fa-globe"></span></span>
 						<h3>Coupling</h3>
 						<h3><%out.print(wtcoup);%></h3>
-						<a href="#" class="button button-style1">Read More</a>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>
 						<h3>Cohesion</h3>
-						<p></p>
-						<a href="#" class="button button-style1">Read More</a>
+						<h3><%out.print(cohesion);%></h3>
+
 					</section>
 					<section class="3u">
-						<span class="pennant"><span class="fa fa-briefcase"></span></span>
+						<span class="pennant"><span class="fa fa-lock"></span></span>
 						<h3>Security</h3>
-						<h3><%out.print("AHF : "+ahf); %></h3>
-						<a href="#" class="button button-style1">Read More</a>
+						<h3><%out.print(security); %></h3>
 					</section>
 
 
@@ -121,56 +125,45 @@ for (int i=0;i<bean.getClassName().size();i++){
 			</div>
 		</div>
 
-	<!-- Main --><!-- 
+	<!-- Main --> 
 		<div id="main">
 			<div id="content" class="container">
+					<section >
+						<header>
+							<h2>Complexity</h2>
+						</header>
+						<h2> </h2>
+					</section>				
+					<section>
+						<header>
+							<h2>Cohesion</h2>
+						</header>
+						<p> </p>
+					</section>				
 
-				<div class="row">
-					<section class="6u">
-						<a href="#" class="image full"><img src="images/pic01.jpg" alt=""></a>
-						<header>
-							<h2>Mauris vulputate dolor</h2>
-						</header>
-						<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-					</section>				
-					<section class="6u">
-						<a href="#" class="image full"><img src="images/pic02.jpg" alt=""></a>
-						<header>
-							<h2>Mauris vulputate dolor</h2>
-						</header>
-						<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-					</section>				
-				</div>
 
-				<div class="row">
-					<section class="6u">
-						<a href="#" class="image full"><img src="images/pic03.jpg" alt=""></a>
+					<section >
 						<header>
-							<h2>Mauris vulputate dolor</h2>
+							<h2>Coupling</h2>
 						</header>
-						<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
+						<p> </p>
 					</section>				
-					<section class="6u">
-						<a href="#" class="image full"><img src="images/pic04.jpg" alt=""></a>
+					<section >
 						<header>
-							<h2>Mauris vulputate dolor</h2>
+							<h2>Security</h2>
 						</header>
-						<p>In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat. Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue rutrum.</p>
-					</section>				
-				</div>
-			
+						<p> </p>
+					</section>										
 			</div>
 		</div>
--->
-	<!-- Tweet --><!--
+
+	<!-- Tweet -->
 		<div id="tweet">
-			<div class="container">
-				<section>
-					<blockquote>&ldquo;In posuere eleifend odio. Quisque semper augue mattis wisi. Maecenas ligula. Pellentesque viverra vulputate enim. Aliquam erat volutpat.&rdquo;</blockquote>
-				</section>
+			<div class="container">				
+						<blockquote>ddddddddddddd</blockquote>
+						<a href="feedback.jsp" class="button button-style1">Feedback</a>
 			</div>
 		</div>
--->
 	<!-- Footer -->
 		<div id="footer">
 			<div class="container">

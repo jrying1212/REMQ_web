@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import Model.coupling;
 import Model.security;
 import Model.complexity;
+import Model.cohesion;
 import Model.showInfo;
 
 /**
@@ -42,11 +43,13 @@ public class homepageServlet extends HttpServlet {
 		showInfo info = new showInfo();
 		complexity comp = new complexity();
 		security se = new security();
-		coupling cp =new coupling();
+		coupling cp = new coupling();
+		cohesion ch = new cohesion();
 		request.setAttribute("basic", info);
 		request.setAttribute("complexity", comp);
 		request.setAttribute("security", se);
 		request.setAttribute("coupling", cp);
+		request.setAttribute("cohesion", ch);		
 		RequestDispatcher view = request.getRequestDispatcher("/test.jsp");
 	    view.forward(request, response); 
 	    	   
