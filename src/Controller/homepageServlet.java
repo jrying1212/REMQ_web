@@ -12,11 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import Bean.userBean;
 import DAO.userDAO;
-import Model.coupling;
-import Model.security;
-import Model.complexity;
-import Model.cohesion;
-import Model.showInfo;
 
 /**
  * Servlet implementation class homepageServlet
