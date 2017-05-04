@@ -8,7 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import Bean.userBean;
+import DAO.userDAO;
 import Model.coupling;
 import Model.security;
 import Model.complexity;
@@ -39,19 +42,36 @@ public class homepageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try
+		{	    
 
-		showInfo info = new showInfo();
-		complexity comp = new complexity();
-		security se = new security();
-		coupling cp = new coupling();
-		cohesion ch = new cohesion();
-		request.setAttribute("basic", info);
-		request.setAttribute("complexity", comp);
-		request.setAttribute("security", se);
-		request.setAttribute("coupling", cp);
-		request.setAttribute("cohesion", ch);		
-		RequestDispatcher view = request.getRequestDispatcher("/test.jsp");
-	    view.forward(request, response); 
+		     userBean user = new userBean();
+		     user.setAccount(request.getParameter("username"));
+		     user.setPassword(request.getParameter("password"));
+
+		     user = userDAO.login(user);
+			   		    
+		     if (user.isValid())
+		     {
+			        
+		          HttpSession session = request.getSession(true);	    
+		          session.setAttribute("currentSessionUser",user); 
+		          request.setAttribute("userInfo", user);
+//		          response.sendRedirect("showAllResult.jsp"); //logged-in page
+		  		RequestDispatcher view = request.getRequestDispatcher("/showAllResult.jsp");
+			    view.forward(request, response); 
+		     }
+			        
+		     else 
+		          response.sendRedirect("CountResult.jsp"); //error page 
+		} 
+				
+				
+		catch (Throwable theException) 	    
+		{
+		     System.out.println(theException); 
+		}
+		
 	    	   
 	}	
 }
