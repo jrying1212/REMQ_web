@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="BIG5"%>
 <%@ page import="Bean.resultBean"%>     
+<%@ page import="Bean.commentBean"%> 
+<%@page import="java.sql.*"%>  
+<%@ page import="Model.connectDBManager"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
@@ -24,6 +27,13 @@ double coupling = bean.getCoupling();
 double cohesion = bean.getCohesion();
 double security = bean.getSecurity();
 String id = bean.getID();
+
+commentBean cbean = (commentBean)request.getAttribute("comment"); 
+
+String complexityComment = cbean.getComplexityComment();
+String cohesionComment = cbean.getCohesionComment();
+String couplingComment = cbean.getCouplingComment();
+String securityComment = cbean.getSecurityComment();
 %>
 
 <html>
@@ -67,24 +77,24 @@ String id = bean.getID();
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-briefcase"></span></span>
 						<h3>Complexity</h3>
-						<h3><%out.print("Simplicity: "+simplicity); %></h3>
-						<h3><%out.print("Reusability: "+reusability); %></h3>
+						<h3>Simplicity: <%=simplicity %></h3>
+						<h3>Reusability: <%=reusability%></h3>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>
 						<h3>Coupling</h3>
-						<h3><%out.print(coupling);%></h3>
+						<h3><%=coupling %></h3>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>
 						<h3>Cohesion</h3>
-						<h3><%out.print(cohesion);%></h3>
+						<h3><%=cohesion%></h3>
 
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-lock"></span></span>
 						<h3>Security</h3>
-						<h3><%out.print(security); %></h3>
+						<h3><%=security%></h3>
 					</section>
 
 
@@ -99,27 +109,27 @@ String id = bean.getID();
 						<header>
 							<h2>Complexity</h2>
 						</header>
-						<h2> </h2>
+						<h2><%=complexityComment %> </h2>
 					</section>				
 					<section>
 						<header>
-							<h2>Cohesion</h2>
+							<h2>Coupling</h2>
 						</header>
-						<p> </p>
+						<p><%=couplingComment %></p>
 					</section>				
 
 
 					<section >
 						<header>
-							<h2>Coupling</h2>
+							<h2>Cohesion</h2>
 						</header>
-						<p> </p>
+						<p><%=cohesionComment%> </p>
 					</section>				
 					<section >
 						<header>
 							<h2>Security</h2>
 						</header>
-						<p> </p>
+						<p><%=securityComment %> </p>
 					</section>										
 			</div>
 		</div>

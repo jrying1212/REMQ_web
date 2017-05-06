@@ -1,6 +1,6 @@
 package Bean;
 
-public class resultBean {
+public class commentBean {
 	
 	private String packageName;
 	private String  id;
@@ -12,8 +12,12 @@ public class resultBean {
 	private double AHF;
 	private double HC;
 	private double security;
-	private String time;
-	private String owner;
+	private String complexityComment;
+	private String cohesionComment;
+	private String couplingComment;
+	private String AHFComment;
+	private String HCComment;
+	private String securityComment;
 	
 	public void setPackageName(String packageName){
 		this.packageName = packageName;
@@ -95,20 +99,40 @@ public class resultBean {
 		return security;
 	}
 	
-	public void setTime(String time){
-		this.time = time;
+	public void setComplexityComment(String complexityComment){
+		this.complexityComment = complexityComment;
 	}
 	
-	public String getTime(){
-		return time;
+	public String getComplexityComment(){
+		return complexityComment;
 	}
 	
-	public void setOwner(String owner){
-		this.owner = owner;
+	public void setCohesionComment(String cohesionComment){
+		this.cohesionComment = cohesionComment;
 	}
 	
-	public String getOwner(){
-		return owner;
+	public String getCohesionComment(){
+		return cohesionComment;
 	}
-
+	
+	public void setCouplingComment(String couplingComment){
+		this.couplingComment = couplingComment;
+	}
+	
+	public String getCouplingComment(){
+		return couplingComment;
+	}
+	
+	public void setAHFComment(String AHFComment){
+		this.AHFComment = AHFComment;
+	}
+	
+	public void setHCComment(String HCComment){
+		this.HCComment = HCComment;
+	}
+	
+	public String getSecurityComment(){
+		securityComment = AHFComment+"¡B"+ HCComment;
+		return securityComment;
+	}
 }

@@ -10,12 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Bean.commentBean;
 import Bean.resultBean;
+import DAO.commentDAO;
 import DAO.resultDAO;
-/**
- * Servlet implementation class getResultServlet
- */
-import DAO.userDAO;
 @WebServlet("/getResultServlet")
 public class getResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,12 +39,22 @@ public class getResultServlet extends HttpServlet {
 		resultBean result = new resultBean();
 		result.setPackageName(packageName);
 		result.setID(id);
-		result = resultDAO.getData(result);
+		result = resultDAO.selectData(result);
+		
+		commentBean comment = new commentBean();
+		comment.setPackageName(packageName);
+		comment.setID(id);
+		comment = commentDAO.selectData(comment);
+		comment = commentDAO.getComplexityComment(comment);
+		comment = commentDAO.getCohesionComment(comment);
+		comment = commentDAO.getCouplingComment(comment);
+		comment = commentDAO.getSecurityComment(comment);
 
 		        
 	    HttpSession session = request.getSession(true);	    
 	    
 	    request.setAttribute("result", result);
+	    request.setAttribute("comment", comment);
 	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
 		view.forward(request, response); 		       					
 		

@@ -10,8 +10,9 @@ import Model.connectDBManager;
 public class resultDAO {
 	 static Connection currentCon = null;
      static ResultSet rs = null;  
+     static int rs_insert;
 	
-     public static resultBean getData(resultBean bean) {
+     public static resultBean selectData(resultBean bean) {
 	
         //preparing some objects for connection 
         Statement stmt = null;    
@@ -105,7 +106,64 @@ public class resultDAO {
         }
      }
 
-return bean;
+     return bean;
 	
      }	
+     
+     
+     public static resultBean insertData(resultBean bean) {
+    		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+         String packageName = bean.getPackageName();  
+         int classNum = bean.getClassNum();
+         double simplicity = bean.getSimplicity();
+         double  reusability = bean.getResuability();
+         double cohesion = bean.getCohesion();
+         double coupling = bean.getCoupling();
+         double AHF = bean.getAHF();
+         double HC = bean.getHC();
+         double security = bean.getSecurity();
+         String time = bean.getTime();
+         String owner = bean.getOwner(); 
+ 	    
+         String insertQuery =
+        		 "insert into historical_data(PackageName, ClassNum, Simplicity, Reusability, "
+        		 + "Cohesion, Coupling, AHF, HC, Security, Time, owner) values ('"
+                 + packageName + "' ,'"
+                 + classNum + "' ,'"
+                 + simplicity+ "' ,'"
+                 + reusability+ "' ,'"
+                 + cohesion+ "' ,'"
+                 + coupling+ "' ,'"
+                 + AHF+ "' ,'"
+                 + HC+ "' ,'"
+                 + security+ "' ,'"
+                 + time+ "' ,'"
+                 + owner+ "')";
+ 	    
+      // "System.out.println" prints in the console; Normally used to trace the process
+      System.out.println("Your user name is " + packageName);          
+      System.out.println("Your password is " + classNum);
+      System.out.println("Query: "+insertQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         rs_insert = stmt.executeUpdate(insertQuery);	        
+ 	      
+      } 
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      }  	      
+
+      return bean;
+ 	
+      }
+     
 }
