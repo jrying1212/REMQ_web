@@ -5,6 +5,12 @@
     <%@ page import="Model.security" %> 
     <%@ page import="Model.coupling" %> 
     <%@ page import="Model.cohesion" %> 
+    <%@ page import="Bean.resultBean"%>
+    <%@ page import="DAO.resultDAO"%>
+    <%@ page import="java.util.Date"%>
+    <%@ page import="java.text.DateFormat"%>
+    <%@ page import="java.text.SimpleDateFormat"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,38 +36,38 @@ security se_bean = (security)request.getAttribute("security");
 coupling cp_bean = (coupling)request.getAttribute("coupling");
 cohesion ch_bean = (cohesion)request.getAttribute("cohesion");
 
+
+DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+Date date = new Date();
+out.println(dateFormat.format(date));
+
+String packageName = "test";
 int classNum = bean.getClassNum();
-//out.print("Class number : "+classNum); 
-
-//out.print("<br><br>");
-
-double wtcoup = cp_bean.countWTCoup();
-//out.print("Coupling : ");
-//out.print("<br><br>");
-//out.print("WTCoup : "+wtcoup);
-//out.print("<br><br>");
-
-double security = se_bean.countSecurity();
-//out.print("Security : ");
-//out.print("AHF : "+ahf);
-//out.print("<br><br>");
-double simplexity = comp_bean.countSimplexity();
-
+double simplicity = comp_bean.countSimplicity();
 double reusability = comp_bean.countReusability();
-//out.print("<br><br>");	
 double cohesion = ch_bean.countCohesion();
+double coupling = cp_bean.countWTCoup();
+double AHF = se_bean.countAHF();
+double HC = se_bean.countHC();
+double security = se_bean.countSecurity();
+String time = dateFormat.format(date);
+String owner = "123";
 
-for (int i=0;i<bean.getClassName().size();i++){
-	String name = bean.getClassName().get(i);
-	int attNum = bean.getClassAttNum().get(i);
-	int coupling = bean.getCouplingNum().get(i);
-//	out.print((i+1)+". Class name: "+name); 	
-//	out.print("<br><br>");
-//	out.print("attNum: "+attNum); 
-//	out.print("<br><br>");
-//	out.print("coupling: "+coupling); 
-//	out.print("<br><br>");
-	} 
+
+resultBean result = new resultBean();
+result.setPackageName(packageName);
+result.setClassNum(classNum);
+result.setSimplicity(simplicity);
+result.setResuability(reusability);
+result.setCohesion(cohesion);
+result.setCoupling(coupling);
+result.setAHF(AHF);
+result.setHC(HC);
+result.setSecurity(security);
+result.setTime(time);
+result.setOwner(owner);
+
+result = resultDAO.insertData(result);
 
 %>
 
@@ -93,20 +99,20 @@ for (int i=0;i<bean.getClassName().size();i++){
 		<div id="featured">
 			<div class="container">
 				<header>
-					<h3><%out.print("Package name : <br>Class number : "+classNum);%></h3>				
+					<h3><%out.print(time+"Package name : <br>Class number : "+classNum);%></h3>				
 				</header>
 				<hr />
 				<div class="row">
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-briefcase"></span></span>
 						<h3>Complexity</h3>
-						<h3><%out.print("Simplexity: "+simplexity); %></h3>
+						<h3><%out.print("Simplexity: "+simplicity); %></h3>
 						<h3><%out.print("Reusability: "+reusability); %></h3>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>
 						<h3>Coupling</h3>
-						<h3><%out.print(wtcoup);%></h3>
+						<h3><%out.print(coupling);%></h3>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>

@@ -54,7 +54,7 @@ public class countResultServlet extends HttpServlet {
 		request.setAttribute("security", se);
 		request.setAttribute("coupling", cp);
 		request.setAttribute("cohesion", ch);		
-		RequestDispatcher view = request.getRequestDispatcher("/test.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("/resultPage.jsp");
 	    view.forward(request, response); 
 	}
 

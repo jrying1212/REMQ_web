@@ -18,7 +18,7 @@ public class feedbackDAO {
         String content = bean.getContent();    
         String id = bean.getProjID();   
 	    
-        String searchQuery =
+        String insertQuery =
               "insert into feedback(content,projID) values ('"
                        + content
                        + "' ,'"
@@ -28,14 +28,14 @@ public class feedbackDAO {
      // "System.out.println" prints in the console; Normally used to trace the process
      System.out.println("Your user name is " + content);          
      System.out.println("Your password is " + id);
-     System.out.println("Query: "+searchQuery);
+     System.out.println("Query: "+insertQuery);
 	    
      try 
      {
         //connect to DB 
         currentCon = connectDBManager.getConnection();
         stmt=currentCon.createStatement();
-        int rs = stmt.executeUpdate(searchQuery);
+        int rs = stmt.executeUpdate(insertQuery);
      }
 	       
         

@@ -12,6 +12,8 @@ public class security {
 		double AHF = private_att/total_att;
 
 		System.out.println(AHF);
+		DecimalFormat df = new DecimalFormat("##.00");
+		AHF =Double.parseDouble(df.format(AHF));
 		return AHF;
 	}
 	
