@@ -4,7 +4,6 @@ public class userBean {
 	
 	private String account;
 	private String password;
-	private String company;
 	public boolean valid;
 	
 	public void setAccount(String account){
@@ -22,16 +21,8 @@ public class userBean {
 	public String getPassword(){
 		return password;
 	}
-	
-	public void setCompany(String company){
-		this.company = company;
-	}
-	
-	public String getCompany(){
-		return company;
-	}
-	
-	public void setValid(boolean valid){
+
+		public void setValid(boolean valid){
 		this.valid = valid;
 	}
 	

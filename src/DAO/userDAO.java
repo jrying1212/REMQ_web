@@ -47,14 +47,10 @@ public class userDAO {
         else if (more) 
         {
            String account = rs.getString("account");
-           String company = rs.getString("company");
            
-           System.out.println("Welcome " + account+" from"+company);
-           bean.setCompany(company);
            bean.setAccount(account);
            bean.setPassword(password);
            bean.setValid(true);
-           System.out.println(" from"+bean.getCompany());
         }
      } 
 

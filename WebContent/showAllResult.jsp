@@ -5,14 +5,11 @@
 
 <%
 userBean bean = (userBean)request.getAttribute("userInfo"); 
-String company = bean.getCompany();
 Connection con = null;
 Statement stmt = null;
 ResultSet rs = null;
     try {
-      String sql = "select ID,PackageName,ClassNum,Time from historical_data where owner='"
-              + company                     
-              + "'";;
+      String sql = "select ID,PackageName,ClassNum,Time from historical_data ";
       con = connectDBManager.getConnection();
       stmt=con.createStatement();
       rs = stmt.executeQuery(sql);	 
@@ -48,7 +45,7 @@ ResultSet rs = null;
         <tbody>
             <tr id="test">
           
-            <td><a href="getResultServlet?param1=<%=PackageName%>&param2=<%=id%>"> <%=PackageName%> </a></td>
+            <td><a href="getResultServlet?param1=<%=id%>"> <%=PackageName%> </a></td>
             <td><%=ClassNum%></td>
             <td><%=Time%></td>
           </tr>

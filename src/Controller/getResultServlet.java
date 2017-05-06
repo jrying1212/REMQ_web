@@ -32,17 +32,14 @@ public class getResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String packageName = request.getParameter("param1");
-		String id = request.getParameter("param2");
+		String id = request.getParameter("param1");
 		
 		
 		resultBean result = new resultBean();
-		result.setPackageName(packageName);
 		result.setID(id);
 		result = resultDAO.selectData(result);
 		
 		commentBean comment = new commentBean();
-		comment.setPackageName(packageName);
 		comment.setID(id);
 		comment = commentDAO.selectData(comment);
 		comment = commentDAO.getComplexityComment(comment);

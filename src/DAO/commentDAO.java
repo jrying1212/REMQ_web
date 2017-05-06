@@ -21,9 +21,7 @@ public class commentDAO {
         String id = bean.getID();   
 	    
         String searchQuery =
-              "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from historical_data where PackageName='"
-                       + packageName
-                       + "' AND ID='"
+              "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from historical_data where ID='"                       
                        + id
                        + "'";
 	    
@@ -100,7 +98,89 @@ public class commentDAO {
         }
      }
      return bean;	
-     }	
+     }
+     
+     public static commentBean selectlastData(commentBean bean) {
+    		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+         
+         String searchQuery =
+               "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security "
+               + "from historical_data order by ID desc limit 1";
+ 	    
+
+      System.out.println("Query: "+searchQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         rs = stmt.executeQuery(searchQuery);	        
+         boolean more = rs.next();
+ 	       
+         // if user does not exist set the isValid variable to false
+         if (!more) 
+         {
+            System.out.println("Sorry, you are not a registered user! Please sign up first");
+         } 
+ 	        
+         //if user exists set the isValid variable to true
+         else if (more) 
+         {           
+            Double Simplicity = rs.getDouble("Simplicity");
+            Double Reusability = rs.getDouble("Reusability");
+            Double Cohesion = rs.getDouble("Cohesion");
+            Double Coupling = rs.getDouble("Coupling");
+            Double AHF = rs.getDouble("AHF");
+            Double HC = rs.getDouble("HC");
+            Double Security = rs.getDouble("Security");
+            
+            bean.setSimplicity(Simplicity);
+            bean.setResuability(Reusability);
+            bean.setCohesion(Cohesion);
+            bean.setCoupling(Coupling);
+            bean.setAHF(AHF);
+            bean.setHC(HC);
+            bean.setSecurity(Security);          
+         }
+      } 
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      } 
+ 	    
+      //some exception handling
+      finally 
+      {
+         if (rs != null)	{
+            try {
+               rs.close();
+            } catch (Exception e) {}
+               rs = null;
+            }
+ 	
+         if (stmt != null) {
+            try {
+               stmt.close();
+            } catch (Exception e) {}
+               stmt = null;
+            }
+ 	
+         if (currentCon != null) {
+            try {
+               currentCon.close();
+            } catch (Exception e) {
+            }
+
+            currentCon = null;
+         }
+      }
+      return bean;	
+      }	
      
      public static commentBean getComplexityComment(commentBean bean) {
     		

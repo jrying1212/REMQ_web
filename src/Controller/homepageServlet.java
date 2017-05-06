@@ -58,7 +58,7 @@ public class homepageServlet extends HttpServlet {
 		     }
 			        
 		     else 
-		          response.sendRedirect("CountResult.jsp"); //error page 
+		          response.sendRedirect("homePage.jsp"); //error page 
 		} 
 				
 				

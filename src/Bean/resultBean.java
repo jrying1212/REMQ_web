@@ -13,7 +13,6 @@ public class resultBean {
 	private double HC;
 	private double security;
 	private String time;
-	private String owner;
 	
 	public void setPackageName(String packageName){
 		this.packageName = packageName;
@@ -102,13 +101,6 @@ public class resultBean {
 	public String getTime(){
 		return time;
 	}
-	
-	public void setOwner(String owner){
-		this.owner = owner;
-	}
-	
-	public String getOwner(){
-		return owner;
-	}
+
 
 }

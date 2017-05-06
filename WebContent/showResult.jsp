@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="Bean.resultBean"%>     
 <%@ page import="Bean.commentBean"%> 
 <%@page import="java.sql.*"%>  
@@ -34,11 +34,12 @@ String complexityComment = cbean.getComplexityComment();
 String cohesionComment = cbean.getCohesionComment();
 String couplingComment = cbean.getCouplingComment();
 String securityComment = cbean.getSecurityComment();
+System.out.println(couplingComment);
 %>
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Show Result</title>
 </head>
 <body>
@@ -50,8 +51,8 @@ String securityComment = cbean.getSecurityComment();
 				<nav id="nav">
 					<ul>
 						<li class="active"><a href="#">Home page</a></li>
-						<li><a href="history.jsp">Historical data</a></li>
-						<li><a href="right-sidebar.html">Sign up</a></li>
+						<li><a href="showAllResult.jsp">Historical data</a></li>
+						<li><a href="homePage.jsp">Sign up</a></li>
 						<li><a href="homePage.jsp">Log out</a></li>
 					</ul>
 				</nav>
@@ -78,12 +79,12 @@ String securityComment = cbean.getSecurityComment();
 						<span class="pennant"><span class="fa fa-briefcase"></span></span>
 						<h3>Complexity</h3>
 						<h3>Simplicity: <%=simplicity %></h3>
-						<h3>Reusability: <%=reusability%></h3>
+						<h3>Reusability : <%=reusability%></h3>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>
 						<h3>Coupling</h3>
-						<h3><%=coupling %></h3>
+						<h3>耦合<%=coupling %></h3>
 					</section>
 					<section class="3u">
 						<span class="pennant"><span class="fa fa-globe"></span></span>

@@ -16,19 +16,13 @@ public class resultDAO {
 	
         //preparing some objects for connection 
         Statement stmt = null;    
-	
-        String packageName = bean.getPackageName();    
+	 
         String id = bean.getID();   
 	    
         String searchQuery =
-              "select * from historical_data where PackageName='"
-                       + packageName
-                       + "' AND ID='"
-                       + id
-                       + "'";
-	    
-     // "System.out.println" prints in the console; Normally used to trace the process
-     System.out.println("Your user name is " + packageName);          
+              "select * from historical_data where ID='"
+                       + id + "'";
+	           
      System.out.println("Your password is " + id);
      System.out.println("Query: "+searchQuery);
 	    
@@ -49,6 +43,8 @@ public class resultDAO {
         //if user exists set the isValid variable to true
         else if (more) 
         {
+        
+           String packageName = rs.getString("PackageName");
            int ClassNum = rs.getInt("ClassNum");
            Double Simplicity = rs.getDouble("Simplicity");
            Double Reusability = rs.getDouble("Reusability");
@@ -126,7 +122,6 @@ public class resultDAO {
          double HC = bean.getHC();
          double security = bean.getSecurity();
          String time = bean.getTime();
-         String owner = bean.getOwner(); 
  	    
          String insertQuery =
         		 "insert into historical_data(PackageName, ClassNum, Simplicity, Reusability, "
@@ -140,8 +135,7 @@ public class resultDAO {
                  + AHF+ "' ,'"
                  + HC+ "' ,'"
                  + security+ "' ,'"
-                 + time+ "' ,'"
-                 + owner+ "')";
+                 + time+ "')";
  	    
       // "System.out.println" prints in the console; Normally used to trace the process
       System.out.println("Your user name is " + packageName);          

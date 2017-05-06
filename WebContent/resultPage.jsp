@@ -7,6 +7,8 @@
     <%@ page import="Model.cohesion" %> 
     <%@ page import="Bean.resultBean"%>
     <%@ page import="DAO.resultDAO"%>
+    <%@ page import="DAO.commentDAO"%>
+    <%@ page import="Bean.commentBean"%>    
     <%@ page import="java.util.Date"%>
     <%@ page import="java.text.DateFormat"%>
     <%@ page import="java.text.SimpleDateFormat"%>
@@ -51,7 +53,6 @@ double AHF = se_bean.countAHF();
 double HC = se_bean.countHC();
 double security = se_bean.countSecurity();
 String time = dateFormat.format(date);
-String owner = "123";
 
 
 resultBean result = new resultBean();
@@ -65,9 +66,21 @@ result.setAHF(AHF);
 result.setHC(HC);
 result.setSecurity(security);
 result.setTime(time);
-result.setOwner(owner);
 
 result = resultDAO.insertData(result);
+
+commentBean comment = new commentBean();
+
+comment = commentDAO.selectlastData(comment);
+comment = commentDAO.getComplexityComment(comment);
+comment = commentDAO.getCohesionComment(comment);
+comment = commentDAO.getCouplingComment(comment);
+comment = commentDAO.getSecurityComment(comment);
+
+String complexityComment = comment.getComplexityComment();
+String cohesionComment = comment.getCohesionComment();
+String couplingComment = comment.getCouplingComment();
+String securityComment = comment.getSecurityComment();
 
 %>
 
@@ -138,13 +151,13 @@ result = resultDAO.insertData(result);
 						<header>
 							<h2>Complexity</h2>
 						</header>
-						<h2> </h2>
+						<h2><%=complexityComment %> </h2>
 					</section>				
 					<section>
 						<header>
 							<h2>Cohesion</h2>
 						</header>
-						<p> </p>
+						<p> <%=cohesionComment %></p>
 					</section>				
 
 
@@ -152,13 +165,13 @@ result = resultDAO.insertData(result);
 						<header>
 							<h2>Coupling</h2>
 						</header>
-						<p> </p>
+						<p><%=couplingComment %> </p>
 					</section>				
 					<section >
 						<header>
 							<h2>Security</h2>
 						</header>
-						<p> </p>
+						<p><%=securityComment %> </p>
 					</section>										
 			</div>
 		</div>
