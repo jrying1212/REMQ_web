@@ -137,6 +137,26 @@ public class resultDAO {
       return rs;
  	
       }	
+     
+     public static ResultSet selectLastID() {
+ 		
+         Statement stmt = null;     
+         String searchQuery = "select * from historical_data order by ID desc limit 1";
+	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         rs = stmt.executeQuery(searchQuery);;
+         System.out.println(rs);
+      } 	                
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      }       
+      return rs; 	
+      }	
       
      
      public static resultBean insertData(resultBean bean) {
@@ -157,7 +177,7 @@ public class resultDAO {
  	    
          String insertQuery =
         		 "insert into historical_data(PackageName, ClassNum, Simplicity, Reusability, "
-        		 + "Cohesion, Coupling, AHF, HC, Security, Time, owner) values ('"
+        		 + "Cohesion, Coupling, AHF, HC, Security, Time) values ('"
                  + packageName + "' ,'"
                  + classNum + "' ,'"
                  + simplicity+ "' ,'"

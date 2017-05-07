@@ -50,9 +50,13 @@ public class homepageServlet extends HttpServlet {
 		     {
 			        
 		          HttpSession session = request.getSession(true);	    
-		          session.setAttribute("currentSessionUser",user); 
+		          session.setAttribute("admin",user.isAdmin()); 
 		          request.setAttribute("userInfo", user);
 //		          response.sendRedirect("showAllResult.jsp"); //logged-in page
+		          session.setAttribute("login", user.getAccount());
+		          session.getAttribute("admin");
+		          session.getAttribute("login");
+		          System.out.println(session.getAttribute("admin")); 
 		  		RequestDispatcher view = request.getRequestDispatcher("/showAllResult.jsp");
 			    view.forward(request, response); 
 		     }

@@ -4,6 +4,11 @@
 <%@ page import="Model.connectDBManager"%>
 
 <% 
+session=request.getSession(false);
+if(session.getAttribute("login")==null){
+	response.sendRedirect("homePage.jsp");		
+}
+
 String id = request.getParameter("param1");
 %>
 <html>
@@ -24,16 +29,27 @@ String id = request.getParameter("param1");
 <body>
     
 <!-- Header -->
-			<header id="header">
+			<header id="header">			  
 				<h1><a href="index.html">NCU ISQ</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Home</a></li>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
-						<li><a href="homePage.jsp">Sign Up</a></li>
+						<%						
+						if(session.getAttribute("admin")==null){														
+						%>							
+						<div style="display:none">
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>												
+						</div>	
+						<%} 
+						else{
+						%>
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>		
+						<%} %>					
 						<li><a href="homePage.jsp" class="button special">Log out</a></li>
 					</ul>
-				</nav>
+				</nav>				
 			</header>
     
     <!-- Feedback -->

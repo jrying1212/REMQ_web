@@ -21,21 +21,32 @@
 <body>
 
 <!-- Header -->
-			<header id="header">
+			<header id="header">			  
 				<h1><a href="index.html">NCU ISQ</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Home</a></li>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
-						<li><a href="homePage.jsp">Sign Up</a></li>
+						<%						
+						if(session.getAttribute("admin")==null){														
+						%>							
+						<div style="display:none">
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>												
+						</div>	
+						<%} 
+						else{
+						%>
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>		
+						<%} %>					
 						<li><a href="homePage.jsp" class="button special">Log out</a></li>
 					</ul>
-				</nav>
+				</nav>				
 			</header>
 			<!-- Banner -->
 			<section id="banner">
 				<h2>Hi. This is REMQ.</h2>
-				<p>Press to analyze the quality of your project.</p>
+				<p>Press the button to analyze the quality of your project.</p>
 				<ul class="actions">
 					<li>
 						<a href="countResultServlet" class="button big">Check Result</a>

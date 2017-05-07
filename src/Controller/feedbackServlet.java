@@ -1,6 +1,9 @@
 package Controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,8 +55,14 @@ public class feedbackServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(id);
 		String content = request.getParameter("feedback");
 		feedbackBean feedback = new feedbackBean();
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String time = dateFormat.format(date);
+		
 		feedback.setProjID(id);
-		feedback.setContent(content);		
+		feedback.setContent(content);	
+		feedback.setTime(time);
 		feedback = feedbackDAO.insertData(feedback);
 		
 				

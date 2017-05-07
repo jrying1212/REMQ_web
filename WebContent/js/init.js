@@ -86,3 +86,11 @@
 	});
 
 })(jQuery);
+
+if (userBean.isAdmin == "true"){
+	 $("div.admin").show();
+	}
+
+	if (userBean.isAdmin == "false"){
+	 $("div.other").show();
+	}

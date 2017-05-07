@@ -46,9 +46,14 @@ public class userDAO {
         //if user exists set the isValid variable to true
         else if (more) 
         {
-           String account = rs.getString("account");
+           int admin = rs.getInt("admin");
            
-           bean.setAccount(account);
+           if(admin ==1){
+        	   bean.setAdmin("admin");
+           }
+           
+           
+           bean.setAccount(username);
            bean.setPassword(password);
            bean.setValid(true);
         }

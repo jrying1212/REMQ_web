@@ -12,20 +12,20 @@ public class feedbackDAO {
 	 static ResultSet rs = null;   
      public static feedbackBean insertData(feedbackBean bean) {
 	
-        //preparing some objects for connection 
-        Statement stmt = null;    
-         
+        Statement stmt = null;           
         String content = bean.getContent();    
-        String id = bean.getProjID();   
-	    
+        String id = bean.getProjID();
+        String time = bean.getTime();
         String insertQuery =
-              "insert into feedback(content,projID) values ('"
+              "insert into feedback(content,projID,date) values ('"
                        + content
                        + "' ,'"
                        + id
+                       + "' ,'"
+                       + time
                        + "')";
 	    
-     // "System.out.println" prints in the console; Normally used to trace the process
+
      System.out.println("Your user name is " + content);          
      System.out.println("Your password is " + id);
      System.out.println("Query: "+insertQuery);
@@ -36,18 +36,13 @@ public class feedbackDAO {
         currentCon = connectDBManager.getConnection();
         stmt=currentCon.createStatement();
         int insert_rs = stmt.executeUpdate(insertQuery);
-     }
-	       
-        
-
+     }	               
      catch (Exception ex) 
      {
         System.out.println("Log In failed: An Exception has occurred! " + ex);
      } 
-	
-     
-
-return bean;
+	     
+     return bean;
 	
      }	
      
@@ -58,7 +53,9 @@ return bean;
  	
  	    
          String selectQuery =
-        		 "select * from feedback ";
+        		 "select historical_data.PackageName,feedback.content,feedback.ID,feedback.date "
+        		 + "from remq.feedback, remq.historical_data "
+        		 + "where feedback.projID=historical_data.ID";
  	    
       System.out.println("Query: "+selectQuery);
  	    
@@ -68,18 +65,13 @@ return bean;
          currentCon = connectDBManager.getConnection();
          stmt=currentCon.createStatement();
          rs = stmt.executeQuery(selectQuery);;
-      }
- 	       
-         
-
+      } 	                
       catch (Exception ex) 
       {
          System.out.println("Log In failed: An Exception has occurred! " + ex);
-      } 
- 	
-      
+      }  	    
 
- return rs;
+      return rs;
  	
       }	
 }

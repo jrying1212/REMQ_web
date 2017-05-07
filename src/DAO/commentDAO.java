@@ -507,4 +507,73 @@ public class commentDAO {
       }
       return bean;	
       }	
+     
+     public static ResultSet selectComplexityRuleData() {
+ 		
+         Statement stmt = null;    	    
+         String selectQuery = "select * from complexity_rule "; 	     	    
+         try 
+         {
+        	 currentCon = connectDBManager.getConnection();
+        	 stmt=currentCon.createStatement();
+        	 rs = stmt.executeQuery(selectQuery);;
+         } 	                
+         catch (Exception ex) 
+         {
+        	 System.out.println("Log In failed: An Exception has occurred! " + ex);
+         }  	    
+         return rs;	
+      }	
+     
+     public static ResultSet selectCouplingRuleData() {
+ 		
+         Statement stmt = null;     		    
+         String selectQuery = "select * from coupling_rule "; 	    
+         try 
+         {
+        	 currentCon = connectDBManager.getConnection();
+        	 stmt=currentCon.createStatement();
+        	 rs = stmt.executeQuery(selectQuery);;
+         } 	                
+         catch (Exception ex) 
+         {
+        	 System.out.println("Log In failed: An Exception has occurred! " + ex);
+         }  	    
+         return rs;
+      }	
+     
+     public static ResultSet selectCohesionRuleData() {
+ 		
+         Statement stmt = null;        
+         String selectQuery = "select * from cohesion_rule ";	    
+         try 
+         {
+        	 currentCon = connectDBManager.getConnection();
+        	 stmt=currentCon.createStatement();
+        	 rs = stmt.executeQuery(selectQuery);;
+         }
+         catch (Exception ex) 
+         {
+        	 System.out.println("Log In failed: An Exception has occurred! " + ex);
+         }  	    
+         return rs; 	
+      }	
+     
+     public static ResultSet selectSecurityRuleData() {
+ 		
+
+         Statement stmt = null;     	 	   
+         String selectQuery = "select * from security_rule order by type ";	    
+         try 
+         {
+        	 currentCon = connectDBManager.getConnection();
+        	 stmt=currentCon.createStatement();
+        	 rs = stmt.executeQuery(selectQuery);;
+         }
+         catch (Exception ex) 
+         {
+        	 System.out.println("Log In failed: An Exception has occurred! " + ex);
+         }  	    
+         return rs;
+     }	
 }

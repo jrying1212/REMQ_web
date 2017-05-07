@@ -2,7 +2,6 @@
     pageEncoding="BIG5"%>
     <%@page import="java.sql.*" %>
     <%@ page import="DAO.feedbackDAO"%> 
-<%@ page import="Model.connectDBManager"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
@@ -25,8 +24,11 @@
 
 <html>
 <%
-Connection con = null;
-Statement stmt = null;
+session=request.getSession(false);
+if(session.getAttribute("login")==null){
+	response.sendRedirect("homePage.jsp");		
+}
+
 ResultSet rs = null;
 
 rs = feedbackDAO.selectAllData();
@@ -40,9 +42,9 @@ rs = feedbackDAO.selectAllData();
 				<h1><a href="index.html">NCU ISQ</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Home</a></li>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
-						<li><a href="homePage.jsp">View Feedback</a></li>
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>
 						<li><a href="homePage.jsp" class="button special">Log out</a></li>
 					</ul>
 				</nav>
@@ -61,21 +63,24 @@ rs = feedbackDAO.selectAllData();
       <thead>
         <tr>
           <th>ID</th>
-          <th>Content</th>
           <th>Project ID</th>
+          <th>Content</th>          
+          <th>Date</th>
         </tr>
         <%
         while(rs.next()){
           String ID = rs.getString("ID");
           String Content = rs.getString("content");
-          String ProjectID = rs.getString("projID");
+          String ProjectID = rs.getString("PackageName");
+          String date = rs.getString("date");
         %>
         <tbody>
         
           <tr>
-          <td data-title="ID"><a href="getResultServlet?param1=<%=ProjectID%>"> <%=ID%> </a></td>
-          <td data-title="Name"><%=Content%></td>
+          <td data-title="ID"><a href="getResultServlet?param1=<%=ProjectID%>"> <%=ID%> </a></td>          
           <td data-title="Status"><%=ProjectID%></td>
+          <td data-title="Name"><%=Content%></td>
+          <td data-title="Name"><%=date%></td>
         </tr>
         
         </tbody>

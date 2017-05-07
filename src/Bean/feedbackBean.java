@@ -4,7 +4,7 @@ public class feedbackBean {
 	
 	private String projID;
 	private String content;
-	
+	private String time;
 	
 	public void setProjID(String projID){
 		this.projID = projID;
@@ -20,6 +20,14 @@ public class feedbackBean {
 	
 	public String getContent(){
 		return content;
+	}
+	
+	public void setTime(String time){
+		this.time = time;
+	}
+	
+	public String getTime(){
+		return time;
 	}
 
 }

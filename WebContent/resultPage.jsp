@@ -12,25 +12,12 @@
     <%@ page import="java.util.Date"%>
     <%@ page import="java.text.DateFormat"%>
     <%@ page import="java.text.SimpleDateFormat"%>
+    <%@page import="java.sql.*"%>  
+    <%@ page import="Model.connectDBManager"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-		</noscript>
-		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/skel-layers.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
-		</noscript>
-<title>Result page</title>
-</head>
-<body>
-<body>
 <%
 showInfo bean = (showInfo)request.getAttribute("basic"); 
 complexity comp_bean = (complexity)request.getAttribute("complexity");
@@ -41,7 +28,6 @@ cohesion ch_bean = (cohesion)request.getAttribute("cohesion");
 
 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 Date date = new Date();
-out.println(dateFormat.format(date));
 
 String packageName = "test";
 int classNum = bean.getClassNum();
@@ -81,20 +67,49 @@ String cohesionComment = comment.getCohesionComment();
 String couplingComment = comment.getCouplingComment();
 String securityComment = comment.getSecurityComment();
 
+ResultSet rs = null;
+rs = resultDAO.selectLastID();
+boolean more = rs.next();
+
 %>
 
+<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+		</noscript>
+		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/skel-layers.min.js"></script>
+		<script src="${pageContext.request.contextPath}/js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
+		</noscript>
+<title>Result page</title>
+</head>
+<body>
 		
 <!-- Header -->
-			<header id="header">
+			<header id="header">			  
 				<h1><a href="index.html">NCU ISQ</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Home</a></li>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
-						<li><a href="homePage.jsp">Sign Up</a></li>
+						<%						
+						if(session.getAttribute("admin")==null){														
+						%>							
+						<div style="display:none">
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>												
+						</div>	
+						<%} 
+						else{
+						%>
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>		
+						<%} %>					
 						<li><a href="homePage.jsp" class="button special">Log out</a></li>
 					</ul>
-				</nav>
+				</nav>				
 			</header>
 
 	<!-- One -->
@@ -102,7 +117,7 @@ String securityComment = comment.getSecurityComment();
 				<div class="container">
 					<header class="major">
 						<h2>Result</h2>
-						<p>Package name : <%=packageName%><br>Class number :<%=classNum %></p>
+						<p>Package name : <%=packageName%><br>Class number :<%=classNum %><br>Date :<%=time %></p>
 					</header>
 					<div class="row 100%">
 						<div class="3u 6u(medium)">
@@ -155,7 +170,7 @@ String securityComment = comment.getSecurityComment();
 						<p>對於評論有任何意見，歡迎填寫回饋</p>
 						<ul class="actions">
 							<li>
-								<a href="feedback.jsp" class="button big">Feedback</a>
+								<a href="feedback.jsp?param1=<%=rs.getInt("ID") %>" class="button big">Feedback</a>
 							</li>
 						</ul>
 					</footer>
@@ -165,51 +180,7 @@ String securityComment = comment.getSecurityComment();
 
 	<!-- Footer -->
 			<footer id="footer">
-				<div class="container">
-					<section class="links">
-						<div class="row">
-							<section class="3u 6u(medium) 12u$(small)">
-								<h3>Lorem ipsum dolor</h3>
-								<ul class="unstyled">
-									<li><a href="#">Lorem ipsum dolor sit</a></li>
-									<li><a href="#">Nesciunt itaque, alias possimus</a></li>
-									<li><a href="#">Optio rerum beatae autem</a></li>
-									<li><a href="#">Nostrum nemo dolorum facilis</a></li>
-									<li><a href="#">Quo fugit dolor totam</a></li>
-								</ul>
-							</section>
-							<section class="3u 6u$(medium) 12u$(small)">
-								<h3>Culpa quia, nesciunt</h3>
-								<ul class="unstyled">
-									<li><a href="#">Lorem ipsum dolor sit</a></li>
-									<li><a href="#">Reiciendis dicta laboriosam enim</a></li>
-									<li><a href="#">Corporis, non aut rerum</a></li>
-									<li><a href="#">Laboriosam nulla voluptas, harum</a></li>
-									<li><a href="#">Facere eligendi, inventore dolor</a></li>
-								</ul>
-							</section>
-							<section class="3u 6u(medium) 12u$(small)">
-								<h3>Neque, dolore, facere</h3>
-								<ul class="unstyled">
-									<li><a href="#">Lorem ipsum dolor sit</a></li>
-									<li><a href="#">Distinctio, inventore quidem nesciunt</a></li>
-									<li><a href="#">Explicabo inventore itaque autem</a></li>
-									<li><a href="#">Aperiam harum, sint quibusdam</a></li>
-									<li><a href="#">Labore excepturi assumenda</a></li>
-								</ul>
-							</section>
-							<section class="3u$ 6u$(medium) 12u$(small)">
-								<h3>Illum, tempori, saepe</h3>
-								<ul class="unstyled">
-									<li><a href="#">Lorem ipsum dolor sit</a></li>
-									<li><a href="#">Recusandae, culpa necessita nam</a></li>
-									<li><a href="#">Cupiditate, debitis adipisci blandi</a></li>
-									<li><a href="#">Tempore nam, enim quia</a></li>
-									<li><a href="#">Explicabo molestiae dolor labore</a></li>
-								</ul>
-							</section>
-						</div>
-					</section>
+				<div class="container">					
 					<div class="row">
 						<div class="8u 12u$(medium)">
 							<ul class="copyright">

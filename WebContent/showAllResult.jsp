@@ -2,33 +2,36 @@
 <%@page import="java.sql.*"%>  
 <%@ page import="Bean.userBean"%> 
 <%@ page import="DAO.resultDAO"%> 
-<%@ page import="Model.connectDBManager"%> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
 
-     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
     <script src="${pageContext.request.contextPath}/js/table.js"></script>
-    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel-panels.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/init.js"></script>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel-layers.min.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel-noscript.css" />
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-desktop.css" />
-						<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 		</noscript>
 
 </head>
 <%
+session=request.getSession(false);
+if(session.getAttribute("login")==null){
+	response.sendRedirect("homePage.jsp");		
+}
+
+
 userBean bean = (userBean)request.getAttribute("userInfo"); 
-Connection con = null;
-Statement stmt = null;
+
+
 ResultSet rs = null;
 rs = resultDAO.selectALLData();
 %>
@@ -37,17 +40,29 @@ rs = resultDAO.selectALLData();
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Show All Result</title>
   <!-- Header -->
-			<header id="header">
+			<header id="header">			  
 				<h1><a href="index.html">NCU ISQ</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Home</a></li>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
-						<li><a href="homePage.jsp">View Feedback</a></li>
+						<%						
+						if(session.getAttribute("admin")==null){														
+						%>							
+						<div style="display:none">
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>												
+						</div>	
+						<%} 
+						else{
+						%>
+						<li><a href="viewFeedback.jsp">View Feedback</a></li>
+						<li><a href="showRule.jsp">View Rule</a></li>		
+						<%} %>					
 						<li><a href="homePage.jsp" class="button special">Log out</a></li>
 					</ul>
-				</nav>
+				</nav>				
 			</header>
+			
 <!-- form -->
 	<section id="one" class="wrapper style1 special">
 	<div class="container">

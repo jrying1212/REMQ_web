@@ -5,6 +5,7 @@ public class userBean {
 	private String account;
 	private String password;
 	public boolean valid;
+	public String admin;
 	
 	public void setAccount(String account){
 		this.account = account;
@@ -28,5 +29,13 @@ public class userBean {
 	
 	public boolean isValid(){
 		return valid;
+	}
+	
+	public void setAdmin(String admin){
+	this.admin = admin;
+}
+	
+	public String isAdmin(){
+		return admin;
 	}
 }
