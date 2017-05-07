@@ -107,6 +107,38 @@ public class resultDAO {
      }	
      
      
+     public static ResultSet selectALLData() {
+    		
+         //preparing some objects for connection 
+         Statement stmt = null;      
+ 	    
+         String searchQuery =
+               "select ID,PackageName,ClassNum,Time from historical_data";
+
+      System.out.println("Query: "+searchQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         rs = stmt.executeQuery(searchQuery);;
+      }
+ 	       
+         
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      } 
+ 	
+      
+
+      return rs;
+ 	
+      }	
+      
+     
      public static resultBean insertData(resultBean bean) {
     		
          //preparing some objects for connection 

@@ -6,18 +6,131 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">  
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login_style.css">
+
+
+  
 <title>HomePage</title>
 </head>
 <body>
-<h1>Reverse Engineering UML Structural Model Quality Metrics</h1>
-	<form action="homepageServlet" method="post">
-        Username : <input type="text" name="username"> <br><br>
-		Password : <input type="password" name="password"> <br><br>
-		<input type="submit" />
-	</form>
-	
-<br />
-<input type="submit" value="Upload File" />
+		
+<!-- Header -->
+			<header id="header">
+				<h1><a href="index.html">NCU ISQ</a></h1>
+				<nav id="nav">
+					<ul>
+						<li>Reverse Engineering Model Quality</li>
+					</ul>
+				</nav>
+			</header>		
+		
+<!-- login/register -->		
+<div class="form">
+      
+      <ul class="tab-group">
+        <li class="tab active"><a href="#login">Log In</a></li>
+        <li class="tab"><a href="#signup">Sign Up</a></li>
+      </ul>
+     
+      <div class="tab-content">
+      
+          <div id="login">   
+          <h1>Welcome Back!</h1>
+          
+          <form action="homepageServlet" method="post">
+          
+            <div class="field-wrap">
+            <label>
+              Username<span class="req">*</span>
+            </label>
+            <input type="text" name="username"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password" name="password"/>
+          </div>
+          
+          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          
+          <button class="button button-block"/>Log In</button>
+          
+          </form>
 
+        </div>
+        
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+          
+          <form action="/" method="post">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off"/>
+          </div>
+          
+          <button type="submit" class="button button-block"/>Get Started</button>
+          
+          </form>
+
+        </div>        
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="${pageContext.request.contextPath}/js/login_index.js"></script>
+    
+    <!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					
+					<div class="row">
+						<div class="8u 12u$(medium)">
+							<ul class="copyright">
+								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
+								<li>Design: Jrying Yang</li>
+								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+							</ul>
+						</div>						
+					</div>
+				</div>
+			</footer>
+  
 </body>
+
+
 </html>
+
+

@@ -9,12 +9,12 @@ import Model.connectDBManager;
 
 public class feedbackDAO {
 	 static Connection currentCon = null;
-	
+	 static ResultSet rs = null;   
      public static feedbackBean insertData(feedbackBean bean) {
 	
         //preparing some objects for connection 
         Statement stmt = null;    
-	
+         
         String content = bean.getContent();    
         String id = bean.getProjID();   
 	    
@@ -35,7 +35,7 @@ public class feedbackDAO {
         //connect to DB 
         currentCon = connectDBManager.getConnection();
         stmt=currentCon.createStatement();
-        int rs = stmt.executeUpdate(insertQuery);
+        int insert_rs = stmt.executeUpdate(insertQuery);
      }
 	       
         
@@ -50,4 +50,36 @@ public class feedbackDAO {
 return bean;
 	
      }	
+     
+     public static ResultSet selectAllData() {
+    		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+ 	    
+         String selectQuery =
+        		 "select * from feedback ";
+ 	    
+      System.out.println("Query: "+selectQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         rs = stmt.executeQuery(selectQuery);;
+      }
+ 	       
+         
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      } 
+ 	
+      
+
+ return rs;
+ 	
+      }	
 }

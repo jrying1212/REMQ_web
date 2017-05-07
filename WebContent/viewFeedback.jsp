@@ -1,12 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>  
-<%@page import="java.sql.*"%>  
-<%@ page import="Bean.userBean"%> 
-<%@ page import="DAO.resultDAO"%> 
+<%@ page language="java" contentType="text/html; charset=BIG5"
+    pageEncoding="BIG5"%>
+    <%@page import="java.sql.*" %>
+    <%@ page import="DAO.feedbackDAO"%> 
 <%@ page import="Model.connectDBManager"%> 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
     <script src="${pageContext.request.contextPath}/js/table.js"></script>
     
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -24,13 +23,13 @@
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 		</noscript>
 
-</head>
+<html>
 <%
-userBean bean = (userBean)request.getAttribute("userInfo"); 
 Connection con = null;
 Statement stmt = null;
 ResultSet rs = null;
-rs = resultDAO.selectALLData();
+
+rs = feedbackDAO.selectAllData();
 %>
 
   
@@ -52,7 +51,7 @@ rs = resultDAO.selectALLData();
 	<section id="one" class="wrapper style1 special">
 	<div class="container">
  	<header class="major">
-	<h2>Result</h2>
+	<h2>Feedback list</h2>
 	</header>
   <%
     if(rs!=null){
@@ -61,23 +60,22 @@ rs = resultDAO.selectALLData();
         <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
         <tr>
-          <th>PackageName</th>
-          <th>ClassNum</th>
-          <th>Time</th>
+          <th>ID</th>
+          <th>Content</th>
+          <th>Project ID</th>
         </tr>
         <%
         while(rs.next()){
-          String PackageName = rs.getString("PackageName");
-          String ClassNum = rs.getString("ClassNum");
-          String Time = rs.getString("Time");
-          String id = rs.getString("ID");
+          String ID = rs.getString("ID");
+          String Content = rs.getString("content");
+          String ProjectID = rs.getString("projID");
         %>
         <tbody>
         
           <tr>
-          <td data-title="ID"><a href="getResultServlet?param1=<%=id%>"> <%=PackageName%> </a></td>
-          <td data-title="Name"><%=ClassNum%></td>
-          <td data-title="Status"><%=Time%></td>
+          <td data-title="ID"><a href="getResultServlet?param1=<%=ProjectID%>"> <%=ID%> </a></td>
+          <td data-title="Name"><%=Content%></td>
+          <td data-title="Status"><%=ProjectID%></td>
         </tr>
         
         </tbody>
@@ -124,5 +122,3 @@ rs = resultDAO.selectALLData();
 					</div>
 				</div>
 			</footer>
-  
- 
