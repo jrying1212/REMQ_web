@@ -19,7 +19,7 @@
 		
 <!-- Header -->
 			<header id="header">
-				<h1><a href="index.html">NCU ISQ</a></h1>
+				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
 					<ul>
 						<li>Reverse Engineering Model Quality</li>
@@ -35,14 +35,17 @@
 <!-- login/register -->		
 <div class="form">
       
-      <ul class="tab-group">
-        <li class="tab active"><a href="#login">Log In</a></li>
-        <li class="tab"><a href="#signup">Sign Up</a></li>
-      </ul>
-     
-      <div class="tab-content">
       
-          <div id="login">   
+      <ul class="tab-group">
+      <li class="tab active"><a href="#login">Log In</a></li>
+        <li class="tab "><a href="#signup">Sign Up</a></li>
+        
+      </ul>
+      
+      <div class="tab-content">
+       
+        
+        <div id="login">   
           <h1>Welcome Back!</h1>
           
           <form action="homepageServlet" method="post">
@@ -51,14 +54,14 @@
             <label>
               Username<span class="req">*</span>
             </label>
-            <input type="text" name="username"/>
+            <input type="text"required autocomplete="off" name="username"/>
           </div>
           
           <div class="field-wrap">
             <label>
               Password<span class="req">*</span>
             </label>
-            <input type="password" name="password"/>
+            <input type="password"required autocomplete="off" name="password"/>
           </div>
           
           <p class="forgot"><a href="#">Forgot Password?</a></p>
@@ -68,8 +71,7 @@
           </form>
 
         </div>
-        
-        <div id="signup">   
+         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
           <form action="/" method="post">
@@ -108,14 +110,13 @@
           
           </form>
 
-        </div>        
-        
+        </div>
       </div><!-- tab-content -->
       
 </div> <!-- /form -->
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-    <script src="${pageContext.request.contextPath}/js/login_index.js"></script>
+    <script src="js/login_index.js"></script>
     
     <!-- Footer -->
 			<footer id="footer">

@@ -48,7 +48,7 @@ System.out.println(couplingComment);
 
 		<!-- Header -->
 			<header id="header">			  
-				<h1><a href="index.html">NCU ISQ</a></h1>
+				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
 					<ul>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
@@ -80,28 +80,28 @@ System.out.println(couplingComment);
 					<div class="row 100%">
 						<div class="3u 6u(medium)">
 							<section class="box">
-								<i class="icon big rounded color1 fa-cloud"></i>
+								<img src="images/complexity.png">
 								<h3>Complexity</h3>
 								<p>Simplicity: <%=simplicity %>.<br>Reusability : <%=reusability%></p>
 							</section>
 						</div>
 						<div class="3u 6u(medium)">
 							<section class="box">
-								<i class="icon big rounded color9 fa-desktop"></i>
+								<img src="images/coupling.png">
 								<h3>Coupling</h3>
 								<p><%=coupling %></p>
 							</section>
 						</div>
 						<div class="3u 6u(medium)">
 							<section class="box">
-								<i class="icon big rounded color6 fa-rocket"></i>
+								<img src="images/cohesion.png">
 								<h3>Cohesion</h3>
 								<p><%=cohesion%></p>
 							</section>
 						</div>
 						<div class="3u 6u(medium)">
 							<section class="box">
-								<i class="icon big rounded color6 fa-rocket"></i>
+								<img src="images/security.png">
 								<h3>Security</h3>
 								<p><%=security%></p>
 							</section>
@@ -159,7 +159,7 @@ System.out.println(couplingComment);
 									<a class="icon rounded fa-google-plus"><span class="label">Google+</span></a>
 								</li>
 								<li>
-									<a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a>
+									<a class="icon rounded fa-lock"><span class="label">LinkedIn</span></a>
 								</li>
 							</ul>
 						</div>

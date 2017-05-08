@@ -19,6 +19,7 @@ String id = request.getParameter("param1");
 		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel-layers.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/init.js"></script>
+		 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 		<noscript>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
@@ -30,7 +31,7 @@ String id = request.getParameter("param1");
     
 <!-- Header -->
 			<header id="header">			  
-				<h1><a href="index.html">NCU ISQ</a></h1>
+				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
 					<ul>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
@@ -66,7 +67,7 @@ String id = request.getParameter("param1");
 						<div >
 							
 							<div class="12u$">
-								<textarea name="feedback" id="message" placeholder="Please enter your feedback." rows="6"></textarea>
+								<textarea name="feedback" id="message" placeholder="Please enter your feedback." rows="6" required autocomplete="off"></textarea>
 							</div>
 							<br>
 							<div class="12u$">

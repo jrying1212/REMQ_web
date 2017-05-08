@@ -22,7 +22,7 @@
 
 <!-- Header -->
 			<header id="header">			  
-				<h1><a href="index.html">NCU ISQ</a></h1>
+				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
 					<ul>
 						<li><a href="showAllResult.jsp">Historical data</a></li>
