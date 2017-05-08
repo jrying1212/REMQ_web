@@ -25,13 +25,7 @@
 						<li>Reverse Engineering Model Quality</li>
 					</ul>
 				</nav>
-			</header>		
-		<div class="admin">
-<center><h1>Welcome admin User!</h1></center>
-<div class="other">
-<center><h1>Welcome other User!</h1></center>
-</div>
-</div>
+			</header>				
 <!-- login/register -->		
 <div class="form">
       

@@ -32,7 +32,7 @@
 <body>
 <%
 session=request.getSession(false);
-if(session.getAttribute("login")==null){
+if(session.getAttribute("admin")==null){
 	response.sendRedirect("homePage.jsp");		
 }
 
@@ -53,7 +53,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 						<li><a href="showAllResult.jsp">Historical data</a></li>
 						<li><a href="viewFeedback.jsp">View Feedback</a></li>
 						<li><a href="showRule.jsp">View Rule</a></li>
-						<li><a href="homePage.jsp" class="button special">Log out</a></li>
+						<li><a href="logoutServlet" class="button special">Log out</a></li>
 					</ul>
 				</nav>
 			</header>

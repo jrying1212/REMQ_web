@@ -19,6 +19,11 @@
 <html>
 <head>
 <%
+session=request.getSession(false);
+if(session.getAttribute("login")==null){
+	response.sendRedirect("homePage.jsp");		
+}
+
 showInfo bean = (showInfo)request.getAttribute("basic"); 
 complexity comp_bean = (complexity)request.getAttribute("complexity");
 security se_bean = (security)request.getAttribute("security");
@@ -29,17 +34,22 @@ cohesion ch_bean = (cohesion)request.getAttribute("cohesion");
 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 Date date = new Date();
 
-String packageName = "test";
-int classNum = bean.getClassNum();
-double simplicity = comp_bean.countSimplicity();
-double reusability = comp_bean.countReusability();
-double cohesion = ch_bean.countCohesion();
-double coupling = cp_bean.countWTCoup();
-double AHF = se_bean.countAHF();
-double HC = se_bean.countHC();
-double security = se_bean.countSecurity();
-String time = dateFormat.format(date);
 
+String packageName="",time="";
+int classNum=0;
+double simplicity =0, reusability=0, cohesion=0, coupling=0, AHF=0, HC=0, security=0;
+if (bean!=null){
+	 packageName = "test";
+	 classNum = bean.getClassNum();
+	 simplicity = comp_bean.countSimplicity();
+	 reusability = comp_bean.countReusability();
+	 cohesion = ch_bean.countCohesion();
+	 coupling = cp_bean.countWTCoup();
+	 AHF = se_bean.countAHF();
+	 HC = se_bean.countHC();
+	 security = se_bean.countSecurity();
+	 time = dateFormat.format(date);
+}
 
 resultBean result = new resultBean();
 result.setPackageName(packageName);
@@ -107,7 +117,7 @@ boolean more = rs.next();
 						<li><a href="viewFeedback.jsp">View Feedback</a></li>
 						<li><a href="showRule.jsp">View Rule</a></li>		
 						<%} %>					
-						<li><a href="homePage.jsp" class="button special">Log out</a></li>
+						<li><a href="logoutServlet" class="button special">Log out</a></li>
 					</ul>
 				</nav>				
 			</header>

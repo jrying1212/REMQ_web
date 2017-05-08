@@ -1217,9 +1217,4 @@
 
 		.grid-demo .row.flush > div:last-child span {
 			border-radius: 0 4px 4px 0;
-		}
-		
-		
-		div.admin, div.other{
-display: none;
-}
+		}		

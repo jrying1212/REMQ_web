@@ -2,6 +2,13 @@
     pageEncoding="BIG5"%>
             <%@page import="java.sql.*" %>
     <%@ page import="DAO.commentDAO"%> 
+    <%
+session=request.getSession(false);
+if(session.getAttribute("login")==null){
+	response.sendRedirect("homePage.jsp");		
+}
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
     <script src="${pageContext.request.contextPath}/js/table.js"></script>
@@ -23,13 +30,7 @@
 		</noscript>
 
 <html>
-<%
-session=request.getSession(false);
-if(session.getAttribute("login")==null){
-	response.sendRedirect("homePage.jsp");		
-}
 
-%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
  <title>Show All Result</title>
@@ -41,28 +42,34 @@ if(session.getAttribute("login")==null){
 						<li><a href="showAllResult.jsp">Historical data</a></li>
 						<li><a href="viewFeedback.jsp">View Feedback</a></li>
 						<li><a href="showRule.jsp">View Rule</a></li>
-						<li><a href="homePage.jsp" class="button special">Log out</a></li>
+						<li><a href="logoutServlet" class="button special">Log out</a></li>
 					</ul>
 				</nav>
 			</header>
 <% 
-int type =Integer.valueOf(request.getParameter("type"));
 String name="";
-switch(type){
-case 1:
-	name = "Complexity";
-	break;
-case 2:
-	name = "Coupling";	
-	break;
-case 3 :
-	name = "Cohesion";
-	break;
-case 4:
-	name = "Security";
-	break;
+int type=0;
+if (request.getParameter("type")!=null){
+	type =Integer.valueOf(request.getParameter("type"));
+	
+	switch(type){
+	case 1:
+		name = "Complexity";
+		break;
+	case 2:
+		name = "Coupling";	
+		break;
+	case 3 :
+		name = "Cohesion";
+		break;
+	case 4:
+		name = "Security";
+		break;
+	}
+	System.out.println(type);
 }
-System.out.println(type);
+
+
 %>
 <title>Insert title here</title>
 </head>

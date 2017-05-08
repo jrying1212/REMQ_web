@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Model.cohesion;
 import Model.complexity;
@@ -34,8 +35,9 @@ public class countResultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+	    HttpSession session = request.getSession(true);	
+        session.setAttribute("login", "software_engineer");
+		
 		showInfo info = new showInfo();
 		complexity comp = new complexity();
 		security se = new security();
@@ -47,15 +49,16 @@ public class countResultServlet extends HttpServlet {
 		request.setAttribute("coupling", cp);
 		request.setAttribute("cohesion", ch);		
 		RequestDispatcher view = request.getRequestDispatcher("/resultPage.jsp");
-	    view.forward(request, response); 
+	    view.forward(request, response); 	    
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	    
+	    HttpSession session = request.getSession(true);	
+        session.setAttribute("login", "software_engineer");
+		
 		showInfo info = new showInfo();
 		complexity comp = new complexity();
 		security se = new security();
@@ -69,5 +72,4 @@ public class countResultServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher("/resultPage.jsp");
 	    view.forward(request, response); 
 	}
-
 }

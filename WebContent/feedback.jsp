@@ -48,7 +48,7 @@ String id = request.getParameter("param1");
 						<li><a href="viewFeedback.jsp">View Feedback</a></li>
 						<li><a href="showRule.jsp">View Rule</a></li>		
 						<%} %>					
-						<li><a href="homePage.jsp" class="button special">Log out</a></li>
+						<li><a href="logoutServlet" class="button special">Log out</a></li>
 					</ul>
 				</nav>				
 			</header>

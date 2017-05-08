@@ -17,23 +17,37 @@
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 		</noscript>
 <%
+
+session=request.getSession(false);
+if(session.getAttribute("login")==null){
+	response.sendRedirect("homePage.jsp");		
+}
+
 resultBean bean = (resultBean)request.getAttribute("result"); 
-String packageName = bean.getPackageName();
-int classNum = bean.getClassNum();
-double simplicity = bean.getSimplicity();
-double reusability = bean.getResuability();
-double coupling = bean.getCoupling();
-double cohesion = bean.getCohesion();
-double security = bean.getSecurity();
-String id = bean.getID();
+String packageName="", id="";
+int classNum=0;
+double simplicity=0, reusability=0, coupling=0, cohesion=0, security=0;
+if (bean!=null){
+	 packageName = bean.getPackageName();
+	 classNum = bean.getClassNum();
+	 simplicity = bean.getSimplicity();
+	 reusability = bean.getResuability();
+	 coupling = bean.getCoupling();
+	 cohesion = bean.getCohesion();
+	 security = bean.getSecurity();
+	 id = bean.getID();
+}
 
 commentBean cbean = (commentBean)request.getAttribute("comment"); 
+String complexityComment="", cohesionComment="", couplingComment="", securityComment="";
+if (cbean!=null){
+	 complexityComment = cbean.getComplexityComment();
+	 cohesionComment = cbean.getCohesionComment();
+	 couplingComment = cbean.getCouplingComment();
+	 securityComment = cbean.getSecurityComment();
+	System.out.println(couplingComment);
+}
 
-String complexityComment = cbean.getComplexityComment();
-String cohesionComment = cbean.getCohesionComment();
-String couplingComment = cbean.getCouplingComment();
-String securityComment = cbean.getSecurityComment();
-System.out.println(couplingComment);
 
 %>
 
@@ -43,8 +57,6 @@ System.out.println(couplingComment);
 <title>Show Result</title>
 </head>
 <body class>
-
-
 
 		<!-- Header -->
 			<header id="header">			  
@@ -65,7 +77,7 @@ System.out.println(couplingComment);
 						<li><a href="viewFeedback.jsp">View Feedback</a></li>
 						<li><a href="showRule.jsp">View Rule</a></li>		
 						<%} %>					
-						<li><a href="homePage.jsp" class="button special">Log out</a></li>
+						<li><a href="logoutServlet" class="button special">Log out</a></li>
 					</ul>
 				</nav>				
 			</header>
