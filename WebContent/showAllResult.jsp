@@ -1,9 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>  
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@page import="java.sql.*"%>  
 <%@ page import="Bean.userBean"%> 
 <%@ page import="DAO.resultDAO"%> 
+<%request.setCharacterEncoding("UTF-8");%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
     <script src="${pageContext.request.contextPath}/js/table.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
@@ -37,7 +39,7 @@ rs = resultDAO.selectALLData();
 %>
 
   
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Show All Result</title>
   <!-- Header -->
 			<header id="header">			  
@@ -58,7 +60,7 @@ rs = resultDAO.selectALLData();
 						<li><a href="viewFeedback.jsp">View Feedback</a></li>
 						<li><a href="showRule.jsp">View Rule</a></li>		
 						<%} %>					
-						<li><a href="logoutServlet" class="button special">Log out</a></li>
+						<li><a href="homePage.jsp" class="button special">Log out</a></li>
 					</ul>
 				</nav>				
 			</header>
@@ -117,7 +119,7 @@ rs = resultDAO.selectALLData();
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

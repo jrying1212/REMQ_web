@@ -1,8 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="java.sql.*"%>  
 <%@ page import="Model.connectDBManager"%>
-
+<%request.setCharacterEncoding("UTF-8");%>
 <% 
 session=request.getSession(false);
 if(session.getAttribute("login")==null){
@@ -13,7 +14,7 @@ String id = request.getParameter("param1");
 %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		</noscript>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
@@ -58,10 +59,10 @@ String id = request.getParameter("param1");
 				<div class="container">
 					<header class="major">
 						<h2>Feedback</h2>
-						<p>填寫意見，協助REMQ變得更好!</p>
+						<p>填寫意見，以協助系統更完善!</p>
 					</header>
 				</div>
-				<div class="container">
+				<div class="container">		
 					<form action="feedbackServlet" method="post">
 					    <input type="hidden" name="proj_id" value="<%=id %>"/>
 						<div >
@@ -72,7 +73,7 @@ String id = request.getParameter("param1");
 							<br>
 							<div class="12u$">
 								<ul class="actions">
-									<li><input value="Send" class="special big" type="submit"></li>
+									<li><%request.setCharacterEncoding("UTF-8");%><input value="Send" class="special big" type="submit"></li>
 								</ul>
 							</div>
 						</div>
@@ -88,7 +89,7 @@ String id = request.getParameter("param1");
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

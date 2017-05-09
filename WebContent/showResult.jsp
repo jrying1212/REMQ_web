@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ page import="Bean.resultBean"%>     
 <%@ page import="Bean.commentBean"%> 
 <%@ page import="DAO.resultDAO"%>   
 <%@page import="java.sql.*"%>  
+<%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 		</noscript>
@@ -17,7 +18,7 @@
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 		</noscript>
 <%
-
+request.setCharacterEncoding("utf-8"); 
 session=request.getSession(false);
 if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
@@ -37,7 +38,7 @@ if (bean!=null){
 	 security = bean.getSecurity();
 	 id = bean.getID();
 }
-
+request.setCharacterEncoding("utf-8");
 commentBean cbean = (commentBean)request.getAttribute("comment"); 
 String complexityComment="", cohesionComment="", couplingComment="", securityComment="";
 if (cbean!=null){
@@ -53,7 +54,7 @@ if (cbean!=null){
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Show Result</title>
 </head>
 <body class>
@@ -93,6 +94,7 @@ if (cbean!=null){
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/complexity.png">
+								<br><br><br>
 								<h3>Complexity</h3>
 								<p>Simplicity: <%=simplicity %>.<br>Reusability : <%=reusability%></p>
 							</section>
@@ -100,6 +102,7 @@ if (cbean!=null){
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/coupling.png">
+								<br><br><br>
 								<h3>Coupling</h3>
 								<p><%=coupling %></p>
 							</section>
@@ -107,6 +110,7 @@ if (cbean!=null){
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/cohesion.png">
+								<br><br><br>
 								<h3>Cohesion</h3>
 								<p><%=cohesion%></p>
 							</section>
@@ -114,6 +118,7 @@ if (cbean!=null){
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/security.png">
+								<br><br><br>
 								<h3>Security</h3>
 								<p><%=security%></p>
 							</section>
@@ -137,7 +142,7 @@ if (cbean!=null){
 					</header>
 					
 					<footer>
-						<p>對於評論有任何意見，歡迎填寫回饋</p>
+						<p></p>
 						<ul class="actions">
 							<li>
 								<a href="feedback.jsp?param1=<%=id%>" class="button big">Feedback</a>
@@ -156,7 +161,7 @@ if (cbean!=null){
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</a></li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

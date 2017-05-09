@@ -40,7 +40,42 @@ public class feedbackServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String id = request.getParameter("proj_id");
+		response.getWriter().append("Served at: ").append(id);
+		request.setCharacterEncoding("utf-8"); 
+		String content = request.getParameter("feedback");
+		feedbackBean feedback = new feedbackBean();
 		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String time = dateFormat.format(date);
+		
+		feedback.setProjID(id);
+		feedback.setContent(content);	
+		feedback.setTime(time);
+		feedback = feedbackDAO.insertData(feedback);
+		
+				
+		resultBean result = new resultBean();
+		result.setID(id);
+		result = resultDAO.selectData(result);
+		
+		commentBean comment = new commentBean();
+		comment.setID(id);
+		comment = commentDAO.selectData(comment);
+		comment = commentDAO.getComplexityComment(comment);
+		comment = commentDAO.getCohesionComment(comment);
+		comment = commentDAO.getCouplingComment(comment);
+		comment = commentDAO.getSecurityComment(comment);
+
+		        
+	    HttpSession session = request.getSession(true);	    
+	    
+	    request.setAttribute("result", result);
+	    request.setAttribute("comment", comment);
+	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
+		view.forward(request, response); 
 //		request.setAttribute("id", id);
 //	  	RequestDispatcher view = request.getRequestDispatcher("/homePage.jsp");
 	}
@@ -53,9 +88,10 @@ public class feedbackServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String id = request.getParameter("proj_id");
 		response.getWriter().append("Served at: ").append(id);
+		request.setCharacterEncoding("utf-8"); 
 		String content = request.getParameter("feedback");
 		feedbackBean feedback = new feedbackBean();
-		
+		System.out.println(content);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String time = dateFormat.format(date);

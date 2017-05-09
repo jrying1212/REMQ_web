@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
     <%@page import="java.sql.*" %>
     <%@ page import="DAO.feedbackDAO"%> 
+    <%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
@@ -35,7 +36,7 @@ rs = feedbackDAO.selectAllData();
 %>
 
   
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Show All Result</title>
   <!-- Header -->
 			<header id="header">
@@ -105,7 +106,7 @@ rs = feedbackDAO.selectAllData();
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

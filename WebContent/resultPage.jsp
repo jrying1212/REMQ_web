@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
     <%@ page import="Model.showInfo" %> 
     <%@ page import="Model.complexity" %> 
     <%@ page import="Model.security" %> 
@@ -14,7 +14,7 @@
     <%@ page import="java.text.SimpleDateFormat"%>
     <%@page import="java.sql.*"%>  
     <%@ page import="Model.connectDBManager"%>
-
+<%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,7 +39,7 @@ String packageName="",time="";
 int classNum=0;
 double simplicity =0, reusability=0, cohesion=0, coupling=0, AHF=0, HC=0, security=0;
 if (bean!=null){
-	 packageName = "test";
+	 packageName = "case2";
 	 classNum = bean.getClassNum();
 	 simplicity = comp_bean.countSimplicity();
 	 reusability = comp_bean.countReusability();
@@ -83,7 +83,7 @@ boolean more = rs.next();
 
 %>
 
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		</noscript>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
@@ -133,6 +133,7 @@ boolean more = rs.next();
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/complexity.png">
+								<br><br><br>
 								<h3>Complexity</h3>
 								<p>Simplicity: <%=simplicity %>.<br>Reusability : <%=reusability%></p>
 							</section>
@@ -140,6 +141,7 @@ boolean more = rs.next();
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/coupling.png">
+								<br><br><br>
 								<h3>Coupling</h3>
 								<p><%=coupling %></p>
 							</section>
@@ -147,6 +149,7 @@ boolean more = rs.next();
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/cohesion.png">
+								<br><br><br>
 								<h3>Cohesion</h3>
 								<p><%=cohesion%></p>
 							</section>
@@ -154,6 +157,7 @@ boolean more = rs.next();
 						<div class="3u 6u(medium)">
 							<section class="box">
 								<img src="images/security.png">
+								<br><br><br>
 								<h3>Security</h3>
 								<p><%=security%></p>
 							</section>
@@ -177,7 +181,7 @@ boolean more = rs.next();
 					</header>
 					
 					<footer>
-						<p>對於評論有任何意見，歡迎填寫回饋</p>
+						<p></p>
 						<ul class="actions">
 							<li>
 								<a href="feedback.jsp?param1=<%=rs.getInt("ID") %>" class="button big">Feedback</a>
@@ -196,7 +200,7 @@ boolean more = rs.next();
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</a></li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

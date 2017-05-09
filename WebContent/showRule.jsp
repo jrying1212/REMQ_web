@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
         <%@page import="java.sql.*" %>
     <%@ page import="DAO.commentDAO"%> 
+    <%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -26,7 +27,7 @@
 
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>showRule</title>
 </head>
 <body>
@@ -80,6 +81,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
         <%
         while(rs_comp.next()){
           Double sim_rate_from = rs_comp.getDouble("sim_rate_from");
+          
           Double sim_rate_to = rs_comp.getDouble("sim_rate_to");
           Double reu_rate_from = rs_comp.getDouble("reu_rate_from");
           Double reu_rate_to = rs_comp.getDouble("reu_rate_to");
@@ -87,7 +89,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
         %>
         <tbody>       
           <tr>
-          <td data-title="ID" > <%=sim_rate_from%></td>
+          <td data-title="ID"  > <%=sim_rate_from%></td>        
           <td data-title="Name" ><%=sim_rate_to%></td>
           <td data-title="Status" ><%=reu_rate_from%></td>
           <td data-title="Status" ><%=reu_rate_to%></td>
@@ -270,7 +272,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

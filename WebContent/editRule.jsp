@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
             <%@page import="java.sql.*" %>
     <%@ page import="DAO.commentDAO"%> 
+    <%request.setCharacterEncoding("UTF-8");%>
     <%
 session=request.getSession(false);
 if(session.getAttribute("login")==null){
@@ -32,7 +33,7 @@ if(session.getAttribute("login")==null){
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=BIG5">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
  <title>Show All Result</title>
   <!-- Header -->
 			<header id="header">
@@ -94,7 +95,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
   if (type==1){	   
     if(rs_comp!=null){
       %>
-        <table id="table" class="table table-hover table-mc-light-blue">
+        <table id="table1" class="table table-hover table-mc-light-blue" name="table1">
       <thead>
         <tr>
           <th>simplicity start from</th>
@@ -104,20 +105,23 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
           <th>Comment</th>
         </tr>
         <%
+        int id=0;
         while(rs_comp.next()){
+        	id++;
           Double sim_rate_from = rs_comp.getDouble("sim_rate_from");
           Double sim_rate_to = rs_comp.getDouble("sim_rate_to");
           Double reu_rate_from = rs_comp.getDouble("reu_rate_from");
           Double reu_rate_to = rs_comp.getDouble("reu_rate_to");
           String rule = rs_comp.getString("comment");
+          int ID = rs_comp.getInt("ID");
         %>
         <tbody>       
           <tr>
-          <td data-title="ID" contenteditable='true'> <%=sim_rate_from%></td>
-          <td data-title="Name" contenteditable='true'><%=sim_rate_to%></td>
-          <td data-title="Status" contenteditable='true'><%=reu_rate_from%></td>
-          <td data-title="Status2" contenteditable='true'><%=reu_rate_to%></td>
-          <td data-title="Comment" contenteditable='true'><%=rule%></td>
+          <td data-title="ID" contenteditable='true'><input type="text" name="sim_rate_from" placeholder=<%=sim_rate_from%>> <%=sim_rate_from%></td>         
+          <td data-title="Name" contenteditable='true'><input type="text" name="sim_rate_to" placeholder=<%=sim_rate_to%>><%=sim_rate_to%></td>
+          <td data-title="Status" contenteditable='true'><input type="text" name="reu_rate_from" placeholder=<%=reu_rate_from%>><%=reu_rate_from%></td>
+          <td data-title="Status2" contenteditable='true'><input type="text" name="reu_rate_to" placeholder=<%=reu_rate_to%>><%=reu_rate_to%></td>
+          <td data-title="Comment" contenteditable='true'><input type="text" name="comment" placeholder=<%=rule%>><%=rule%></td>
         </tr>       
         </tbody>
         <%
@@ -131,7 +135,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 	  
 	    if(rs_coup!=null){
 	      %>
-	        <table id="table" class="table table-hover table-mc-light-blue">
+	        <table id="table" class="table table-hover table-mc-light-blue" name="table1">
 	      <thead>
 	        <tr>
 	          <th>coupling start from</th>
@@ -146,9 +150,9 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 	        %>
 	        <tbody>        
 	          <tr>
-	          <td data-title="ID" contenteditable='true'> <%=coupling_rate_from%></td>
-	          <td data-title="Name" contenteditable='true'><%=coupling_rate_to%></td>
-	          <td data-title="Status" contenteditable='true'><%=rule%></td>
+	          <td data-title="ID" contenteditable='true'><input type="text" name="coupling_rate_from" placeholder=<%=coupling_rate_from%>required autocomplete="off"> <%=coupling_rate_from%></td>
+	          <td data-title="Name" contenteditable='true'><input type="text" name="coupling_rate_to" placeholder=<%=coupling_rate_to%>required autocomplete="off"><%=coupling_rate_to%></td>
+	          <td data-title="Status" contenteditable='true'><input type="text" name="rule" placeholder=<%=rule%>required autocomplete="off"><%=rule%></td>
 	        </tr>        
 	        </tbody>
 	        <%
@@ -177,9 +181,9 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 	        %>
 	        <tbody>	        
 	          <tr>
-	          <td data-title="ID" contenteditable='true'> <%=cohesion_rate_from%></td>
-	          <td data-title="Name" contenteditable='true'><%=cohesion_rate_to%></td>
-	          <td data-title="Status" contenteditable='true'><%=rule%></td>
+	          <td data-title="ID" contenteditable='true'><input type="text" name="cohesion_rate_from" placeholder=<%=cohesion_rate_from%> required autocomplete="off"> <%=cohesion_rate_from%></td>
+	          <td data-title="Name" contenteditable='true'><input type="text" name="cohesion_rate_to" placeholder=<%=cohesion_rate_to%> required autocomplete="off"><%=cohesion_rate_to%></td>
+	          <td data-title="Status" contenteditable='true'><input type="text" name="rule" placeholder=<%=rule%> required autocomplete="off"><%=rule%></td>
 	        </tr>        
 	        </tbody>
 	        <%
@@ -218,10 +222,10 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
  			        <tbody>
  			        
  			          <tr>
- 			          <td data-title="ID" contenteditable='true'> <%=securityType%></td>
- 			          <td data-title="from" contenteditable='true'> <%=rate_from%></td>
- 			          <td data-title="Name" contenteditable='true'><%=rate_to%></td>
- 			          <td data-title="Status" contenteditable='true'><%=rule%></td>
+ 			          <td data-title="ID" ><%=securityType%></td>
+ 			          <td data-title="from" contenteditable='true'><input type="text" name="rate_from" placeholder=<%=rate_from%> required autocomplete="off"> <%=rate_from%></td>
+ 			          <td data-title="Name" contenteditable='true'><input type="text" name="rate_to" placeholder=<%=rate_to%> required autocomplete="off"><%=rate_to%></td>
+ 			          <td data-title="Status" contenteditable='true'><input type="text" name="rule" placeholder=<%=rule%> required autocomplete="off"><%=rule%></td>
  			        </tr>        
  			        </tbody>
  			        <%
@@ -235,7 +239,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 	
 	</div>
 	<ul class="actions">
-	<li><input value="Save" class="special big" type="submit"></li>
+	<li><input value="Save" class="special big" type="submit" ></li>
 	</ul>
 	</form>
 	</section>
@@ -249,7 +253,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
 								<li>Design: Jrying Yang</li>
-								<li>Contact: <a href="http://templated.co">jrying1212@g.ncu.edu.tw</a></li>
+								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
 						<div class="4u$ 12u$(medium)">

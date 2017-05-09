@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import Bean.commentBean;
+import Bean.resultBean;
 import Model.connectDBManager;
 
 public class commentDAO {
@@ -191,7 +192,7 @@ public class commentDAO {
          double resuability = bean.getResuability();   
  	    
          String searchQuery =
-               "select * from complexity_rule";
+               "select * from complexity_rule order by ID ";
  	    
       // "System.out.println" prints in the console; Normally used to trace the process
       System.out.println("simplicity " + simplicity);          
@@ -265,7 +266,7 @@ public class commentDAO {
          double cohesion = bean.getCohesion();     
  	    
          String searchQuery =
-               "select * from cohesion_rule";
+               "select * from cohesion_rule order by ID ";
  	    
       // "System.out.println" prints in the console; Normally used to trace the process
       System.out.println("cohesion " + cohesion);                
@@ -344,7 +345,7 @@ public class commentDAO {
          double coupling = bean.getCoupling();     
  	    
          String searchQuery =
-               "select * from coupling_rule";
+               "select * from coupling_rule order by ID ";
  	    
       // "System.out.println" prints in the console; Normally used to trace the process
       System.out.println("cohesion " + coupling);                
@@ -422,7 +423,7 @@ public class commentDAO {
          double HC = bean.getHC();
  	    
          String searchQuery =
-               "select * from security_rule";
+               "select * from security_rule order by ID ";
  	    
       // "System.out.println" prints in the console; Normally used to trace the process
       System.out.println("AHF " + AHF);                
@@ -575,5 +576,156 @@ public class commentDAO {
         	 System.out.println("Log In failed: An Exception has occurred! " + ex);
          }  	    
          return rs;
-     }	
+     }
+     
+     public static commentBean UpdateComplexity(commentBean bean) {
+ 		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+         double sim_rate_from = bean.getSimp_start();
+         double sim_rate_to = bean.getSimp_end();
+         double reu_rate_from = bean.getReu_start();
+         double reu_rate_to = bean.getReu_end();
+         String  comment = bean.getComplexityComment();
+         int id = bean.getComplexityID();
+         
+ 	    
+         String updateQuery =
+        		 "update complexity_rule set sim_rate_from ='"
+                 + sim_rate_from + "' , sim_rate_to='"
+                 + sim_rate_to + "' ,reu_rate_from='"
+                 + reu_rate_from+ "' ,reu_rate_to='"
+                 + reu_rate_to+ "' ,comment='"
+                 + comment+ "'"
+                 + "where ID = "+id;
+ 	    
+
+      System.out.println("Query: "+updateQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         int rs_update = stmt.executeUpdate(updateQuery);	        
+ 	      
+      } 
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      }  	      
+
+      return bean;
+ 	
+      }
+     
+     public static commentBean UpdateCoupling(commentBean bean) {
+  		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+         double coup_start = bean.getCoup_start();
+         double coup_end = bean.getCoup_end();
+         String  comment = bean.getCouplingComment();
+         int id = bean.getCouplingID();
+          	    
+         String updateQuery =
+        		 "update coupling_rule set rate_from ='"
+                 + coup_start + "' , rate_to='"
+                 + coup_end + "' ,comment='"                 
+                 + comment+ "'"
+                 + "where ID = "+id;
+ 	    
+      System.out.println("Query: "+updateQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         int rs_update = stmt.executeUpdate(updateQuery);	         	      
+      } 
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      }  	      
+      return bean;	
+      }
+     
+     public static commentBean UpdateCohesion(commentBean bean) {
+  		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+         double rate_from = bean.getCohe_start();
+         double rate_to = bean.getCohe_end();
+         String  comment = bean.getCohesionComment();
+         int id = bean.getCohesionID();
+         
+ 	    
+         String updateQuery =
+        		 "update cohesion_rule set rate_from ='"
+                 + rate_from + "' , rate_to='"
+                 + rate_to + "' ,comment='"                 
+                 + comment+ "'"
+                 + "where ID = "+id;
+ 	    
+
+      System.out.println("Query: "+updateQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         int rs_update = stmt.executeUpdate(updateQuery);	        	      
+      } 
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      }  	      
+      return bean; 	
+      }
+     
+     public static commentBean UpdateSecurity(commentBean bean) {
+  		
+         //preparing some objects for connection 
+         Statement stmt = null;    
+ 	
+         double rate_from = bean.getSec_start();
+         double rate_to = bean.getSec_end();
+         String  comment = bean.getSecurityComment();
+         int id = bean.getSecurityID();
+         int type = bean.getType();
+         	    
+         String updateQuery =
+        		 "update security_rule set type ='"
+                 + type + "' , rate_from='"
+                 + rate_from + "' ,rate_to='"
+                 + rate_to+ "' ,comment='"
+                 + comment+ "'"
+                 + "where ID = "+id;
+         
+      System.out.println("Query: "+updateQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         int rs_update = stmt.executeUpdate(updateQuery);	         	      
+      } 
+
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      }  	      
+      return bean;	
+      }
+     
+
 }
