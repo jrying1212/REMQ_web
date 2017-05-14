@@ -24,30 +24,21 @@ if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
 
-resultBean bean = (resultBean)request.getAttribute("result"); 
-String packageName="", id="";
-int classNum=0;
-double simplicity=0, reusability=0, coupling=0, cohesion=0, security=0;
-if (bean!=null){
-	 packageName = bean.getPackageName();
-	 classNum = bean.getClassNum();
-	 simplicity = bean.getSimplicity();
-	 reusability = bean.getResuability();
-	 coupling = bean.getCoupling();
-	 cohesion = bean.getCohesion();
-	 security = bean.getSecurity();
-	 id = bean.getID();
-}
-request.setCharacterEncoding("utf-8");
-commentBean cbean = (commentBean)request.getAttribute("comment"); 
-String complexityComment="", cohesionComment="", couplingComment="", securityComment="";
-if (cbean!=null){
-	 complexityComment = cbean.getComplexityComment();
-	 cohesionComment = cbean.getCohesionComment();
-	 couplingComment = cbean.getCouplingComment();
-	 securityComment = cbean.getSecurityComment();
-	System.out.println(couplingComment);
-}
+String  packageName = (String)request.getAttribute("packageName"); 
+int  classNum = (int)request.getAttribute("classNum"); 
+double  simplicity = (double)request.getAttribute("simplicity"); 
+double  reusability = (double)request.getAttribute("reusability"); 
+double  cohesion = (double)request.getAttribute("cohesion"); 
+double  coupling = (double)request.getAttribute("coupling"); 
+double  AHF = (double)request.getAttribute("AHF"); 
+double  HC = (double)request.getAttribute("HC"); 
+double  security = (double)request.getAttribute("security"); 
+String  time = (String)request.getAttribute("time"); 
+String  id = (String)request.getAttribute("id");
+String  complexityComment = (String)request.getAttribute("complexityComment"); 
+String  cohesionComment = (String)request.getAttribute("cohesionComment"); 
+String  couplingComment = (String)request.getAttribute("couplingComment"); 
+String  securityComment = (String)request.getAttribute("securityComment"); 
 
 
 %>
@@ -88,7 +79,7 @@ if (cbean!=null){
 				<div class="container">
 					<header class="major">
 						<h2>Result</h2>
-						<p>Package name : <%=packageName%><br>Class number :<%=classNum %></p>
+						<p>Package name : <%=packageName%><br>Class number :<%=classNum %><br>Date :<%=time %></p>
 					</header>
 					<div class="row 100%">
 						<div class="3u 6u(medium)">

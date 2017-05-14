@@ -73,7 +73,7 @@ String id = request.getParameter("param1");
 							<br>
 							<div class="12u$">
 								<ul class="actions">
-									<li><%request.setCharacterEncoding("UTF-8");%><input value="Send" class="special big" type="submit"></li>
+									<li><input value="Send" class="special big" type="submit"></li>
 								</ul>
 							</div>
 						</div>

@@ -113,7 +113,7 @@ public class resultDAO {
          Statement stmt = null;      
  	    
          String searchQuery =
-               "select ID,PackageName,ClassNum,Time from historical_data order by time desc";
+               "select ID,PackageName,ClassNum,Time from historical_data order by ID desc";
 
       System.out.println("Query: "+searchQuery);
  	    

@@ -5,9 +5,8 @@ import java.text.DecimalFormat;
 public class cohesion {
 	
 	double result;
-	showInfo sh = new showInfo();
 	
-	public double countCohesion(){
+	public double countCohesion(showInfo sh){
 
 		double class_result=0;
 		int count=0;

@@ -1,7 +1,5 @@
 package Model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,17 +18,19 @@ public class showInfo {
 	List<List<Integer>> AllMethod_LOC = new ArrayList<List<Integer>>();
 	ArrayList<Integer> att_called = new ArrayList<Integer>();
 	Map<String, Integer> method_reuse = new HashMap<String, Integer>();
-
+	String packageName;
 	int total_attNum=0;
 	int total_methodNum=0;
 	int class_num =0;
 	int private_AttNum=0;
 	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
-
+	String info="";
+	
+	
 	public showInfo(){
 
 		try {
-			JSONParser();
+			JSONParser(info);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,35 +38,26 @@ public class showInfo {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}	
 
-	public String getInfo() throws IOException{
-		FileReader fr = new FileReader("C://uploads/data.txt");
-		BufferedReader br = new BufferedReader(fr);
-		String str ="";
-		while (br.ready()) { 
-			str += br.readLine();
-		}
-		fr.close();
+	public void JSONParser(String info) throws IOException, JSONException{
+		System.out.println("hihuuh  "+info);
 		
-		return str;
-	}
-	
-
-	public void JSONParser() throws IOException, JSONException{
+		JSONArray arr_class = new JSONArray(info); 
 		
-		String str = getInfo();
-		JSONArray arr_class = new JSONArray(str); 
-
+		JSONObject jsonObjFirst  = arr_class.getJSONArray(0).getJSONObject(0);
+		setPackageName(jsonObjFirst.getString("className"));
+		System.out.println("thisi s  hi "+jsonObjFirst.getString("className"));
 		setClassNum(arr_class.length());
 		for(int i=0; i<arr_class.length();i++){
 			
 				List<Integer> method_LOC = new ArrayList<Integer>();
-				JSONObject jsonObj  = arr_class.getJSONArray(i).getJSONObject(0);
+				JSONObject jsonObj  = arr_class.getJSONArray(i).getJSONObject(0);				
+				
 				System.out.println(jsonObj.getString("className"));
 				setClassName(jsonObj.getString("className"));
 				setClassLOC(jsonObj.getInt("classLOC"));
-				System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
+//				System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
 				JSONArray met = jsonObj.optJSONArray("Method List");
 				if (met.getJSONObject(0).getString("method_name").equals("null")){
 					setMethodNum(0);
@@ -97,7 +88,7 @@ public class showInfo {
 							
 				int count_private=0;
 				int count_coupling=0;
-				System.out.println(att.length());
+//				System.out.println(att.length());
 				for (int j=0; j<att.length();j++){
 //					System.out.println(att.getJSONObject(j).getString("att_type"));
 					
@@ -111,38 +102,36 @@ public class showInfo {
 					if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")){
 						count_coupling++;
 						
-						System.out.println("coupling: "+att.getJSONObject(j).getString("att_type"));
+//						System.out.println("coupling: "+att.getJSONObject(j).getString("att_type"));
 					}
 					
 					int called = att.getJSONObject(j).getInt("att_called");
 					setAttCalled(att.getJSONObject(j).getInt("att_called"));
-					System.out.println("called: "+called);
-
+//					System.out.println("called: "+called);
 				}
 											
 				setPrivateAttNum(count_private);
 				setCouplingNum(count_coupling);
-				System.out.println("pc:"+count_private);
-				System.out.println("coup:"+count_coupling);
-				
+//				System.out.println("pc:"+count_private);
+//				System.out.println("coup:"+count_coupling);				
 				JSONObject jsonObj_internal  = arr_class.getJSONArray(i).getJSONObject(1);
 				JSONObject jsonObj_external  = arr_class.getJSONArray(i).getJSONObject(2);
 				
 				JSONArray met_int = jsonObj_internal.optJSONArray("met_internalInfo");
-				 System.out.println("leng "+met_int.length());
+///				 System.out.println("leng "+met_int.length());
 				for (int j=0; j<met_int.length();j++){
 					int count = met_int.getJSONObject(j).getInt("methodInternalCalled");
-			        System.out.println(met_int.getJSONObject(j).get("methodInternalCalled"));	
-					System.out.println("CN"+jsonObj.getString("className"));
-					setMethodCalled(jsonObj.getString("className"),count);
-						
+//			        System.out.println(met_int.getJSONObject(j).get("methodInternalCalled"));	
+//					System.out.println("CN"+jsonObj.getString("className"));
+					setMethodCalled(jsonObj.getString("className"),count);						
 					}
+				
 				JSONArray met_ext = jsonObj_external.optJSONArray("met_externalInfo");
 				if (met_ext!=null){
 					for (int j=0; j<met_ext.length();j++){
 						String ext_class = met_ext.getJSONObject(j).getString("className");
-				        System.out.println(met_ext.getJSONObject(j).getString("className"));	
-						System.out.println("CN"+jsonObj.getString("className"));
+//				        System.out.println(met_ext.getJSONObject(j).getString("className"));	
+//						System.out.println("CN"+jsonObj.getString("className"));
 						setMethodCalled(ext_class, 1);
 					}
 				}
@@ -157,7 +146,14 @@ public class showInfo {
 	public  int getClassNum(){
 		return class_num;
 	}
+		
+	public void setPackageName(String name){
+		packageName = name.substring(0,name.lastIndexOf("."));
+	}
 	
+	public String getPackageName(){
+		return packageName;
+	}
 	public ArrayList<String> setClassName(String name){
 		name =name.substring(name.lastIndexOf(".") + 1);
 		class_name.add(name);
@@ -239,6 +235,7 @@ public class showInfo {
 	}
 	
 	public void setMethodCalled(String className, int num){
+		className =className.substring(className.lastIndexOf(".") + 1);
 		if (method_reuse.containsKey(className)){
 			method_reuse.put(className, method_reuse.get(className)+num);
 		}

@@ -4,9 +4,8 @@ import java.text.DecimalFormat;
 
 public class complexity {
 	double simplicity,reusability;
-	showInfo sh = new showInfo();
-	
-	public double countSimplicity(){
+		
+	public double countSimplicity(showInfo sh){
 		
 		double method_loc; 
 		double class_loc;		
@@ -25,7 +24,7 @@ public class complexity {
 		return simplicity;
 	}
 	
-	public double countReusability(){
+	public double countReusability(showInfo sh){
 		int classNum = sh.getClassNum();
 		double metNum, metCalled, reuse = 0;
 		String className;

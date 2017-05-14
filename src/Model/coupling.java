@@ -3,10 +3,9 @@ package Model;
 import java.text.DecimalFormat;
 
 public class coupling {
+
 	
-	showInfo sh = new showInfo();
-	
-	public double countWTCoup(){
+	public double countWTCoup(showInfo sh){
 		double att_coupling,att_num,class_coupling = 0;
 		for (int i=0;i<sh.getCouplingNum().size();i++){
 			att_coupling = sh.getCouplingNum().get(i);

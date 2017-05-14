@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@page import="java.io.*"%>
+<%@page import="java.util.*" %>
+<%@page import="Bean.feedbackBean" %>
+<%@page import="DAO.feedbackDAO" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.text.DateFormat" %>
+<%@page import="Model.showInfo" %>
+<%@page import="Model.security" %>
+<%@page import="Model.coupling" %>
+<%@page import="Model.cohesion" %>
+<%@page import="Model.complexity" %>
+<%@ page import="Bean.resultBean"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.*"%>  
+    <%@ page import="Model.connectDBManager"%>
+    <%@ page import="DAO.resultDAO"%>
     <%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -15,12 +31,62 @@
 		</noscript>
 		
 <html>
+
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Count Result Page</title>
 </head>
 <body>
+<%
 
+String content = request.getParameter("content");
+
+if (content!=null){
+	String a = content;
+	out.println(content);
+
+	showInfo sh = new showInfo();
+	sh.JSONParser(content);
+	complexity comp = new complexity();
+	security se = new security();
+	coupling cp = new coupling();
+	cohesion ch = new cohesion();
+	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date date = new Date();
+
+	String packageName="",time="";
+	int classNum=0;
+	double simplicity =0, reusability=0, cohesion=0, coupling=0, AHF=0, HC=0, security=0;
+	if (sh!=null){
+		 packageName = sh.getPackageName();
+		 classNum = sh.getClassNum();
+		 simplicity = comp.countSimplicity(sh);
+		 reusability = comp.countReusability(sh);
+		 cohesion = ch.countCohesion(sh);
+		 coupling = cp.countWTCoup(sh);
+		 AHF = se.countAHF(sh);
+		 HC = se.countHC(sh);
+		 security = se.countSecurity(sh);
+		 time = dateFormat.format(date);
+	}
+
+	resultBean result = new resultBean();
+	result.setPackageName(packageName);
+	result.setClassNum(classNum);
+	result.setSimplicity(simplicity);
+	result.setResuability(reusability);
+	result.setCohesion(cohesion);
+	result.setCoupling(coupling);
+	result.setAHF(AHF);
+	result.setHC(HC);
+	result.setSecurity(security);
+	result.setTime(time);
+	result = resultDAO.insertData(result);
+}
+
+
+%>
 <!-- Header -->
 			<header id="header">			  
 				<h1><img src="images/logo.png"></h1>
@@ -46,13 +112,14 @@
 			</header>
 			<!-- Banner -->
 			<section id="banner">
+			
 				<h2>Hi. This is REMQ.</h2>
 				<p>Press the button to analyze the quality of your project.</p>
-				<ul class="actions">
-					<li>
-						<a href="countResultServlet" class="button big">Check Result</a>
-					</li>
-				</ul>
+				<form action="countResultServlet" method="post">
+								
+						<li><input value="Get Result" class="special big" type="submit" ></li>					
+				
+			</form>
 			</section>
 			
 			<!-- Footer -->

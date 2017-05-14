@@ -24,62 +24,21 @@ if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
 
-showInfo bean = (showInfo)request.getAttribute("basic"); 
-complexity comp_bean = (complexity)request.getAttribute("complexity");
-security se_bean = (security)request.getAttribute("security");
-coupling cp_bean = (coupling)request.getAttribute("coupling");
-cohesion ch_bean = (cohesion)request.getAttribute("cohesion");
-
-
-DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-Date date = new Date();
-
-
-String packageName="",time="";
-int classNum=0;
-double simplicity =0, reusability=0, cohesion=0, coupling=0, AHF=0, HC=0, security=0;
-if (bean!=null){
-	 packageName = "case2";
-	 classNum = bean.getClassNum();
-	 simplicity = comp_bean.countSimplicity();
-	 reusability = comp_bean.countReusability();
-	 cohesion = ch_bean.countCohesion();
-	 coupling = cp_bean.countWTCoup();
-	 AHF = se_bean.countAHF();
-	 HC = se_bean.countHC();
-	 security = se_bean.countSecurity();
-	 time = dateFormat.format(date);
-}
-
-resultBean result = new resultBean();
-result.setPackageName(packageName);
-result.setClassNum(classNum);
-result.setSimplicity(simplicity);
-result.setResuability(reusability);
-result.setCohesion(cohesion);
-result.setCoupling(coupling);
-result.setAHF(AHF);
-result.setHC(HC);
-result.setSecurity(security);
-result.setTime(time);
-result = resultDAO.insertData(result);
-
-commentBean comment = new commentBean();
-
-comment = commentDAO.selectlastData(comment);
-comment = commentDAO.getComplexityComment(comment);
-comment = commentDAO.getCohesionComment(comment);
-comment = commentDAO.getCouplingComment(comment);
-comment = commentDAO.getSecurityComment(comment);
-
-String complexityComment = comment.getComplexityComment();
-String cohesionComment = comment.getCohesionComment();
-String couplingComment = comment.getCouplingComment();
-String securityComment = comment.getSecurityComment();
-
-ResultSet rs = null;
-rs = resultDAO.selectLastID();
-boolean more = rs.next();
+String  packageName = (String)request.getAttribute("packageName"); 
+int  classNum = (int)request.getAttribute("classNum"); 
+double  simplicity = (double)request.getAttribute("simplicity"); 
+double  reusability = (double)request.getAttribute("reusability"); 
+double  cohesion = (double)request.getAttribute("cohesion"); 
+double  coupling = (double)request.getAttribute("coupling"); 
+double  AHF = (double)request.getAttribute("AHF"); 
+double  HC = (double)request.getAttribute("HC"); 
+double  security = (double)request.getAttribute("security"); 
+String  time = (String)request.getAttribute("time"); 
+int id = (int)request.getAttribute("id");
+String  complexityComment = (String)request.getAttribute("complexityComment"); 
+String  cohesionComment = (String)request.getAttribute("cohesionComment"); 
+String  couplingComment = (String)request.getAttribute("couplingComment"); 
+String  securityComment = (String)request.getAttribute("securityComment"); 
 
 %>
 
@@ -129,38 +88,54 @@ boolean more = rs.next();
 						<h2>Result</h2>
 						<p>Package name : <%=packageName%><br>Class number :<%=classNum %><br>Date :<%=time %></p>
 					</header>
-					<div class="row 100%">
-						<div class="3u 6u(medium)">
+					<div >
+						<div class="row 100%" >
 							<section class="box">
 								<img src="images/complexity.png">
 								<br><br><br>
 								<h3>Complexity</h3>
 								<p>Simplicity: <%=simplicity %>.<br>Reusability : <%=reusability%></p>
 							</section>
+							<header class="major">
+								<h2>Complexity</h2>
+								<p><%=complexityComment %></p>
+							</header>
 						</div>
-						<div class="3u 6u(medium)">
+						<div class="row 100%">
 							<section class="box">
 								<img src="images/coupling.png">
 								<br><br><br>
 								<h3>Coupling</h3>
 								<p><%=coupling %></p>
 							</section>
+							<header class="major">
+								<h2>Coupling</h2>
+								<p><%=couplingComment %></p>
+							</header>
 						</div>
-						<div class="3u 6u(medium)">
+						<div class="row 100%">
 							<section class="box">
 								<img src="images/cohesion.png">
 								<br><br><br>
 								<h3>Cohesion</h3>
-								<p><%=cohesion%></p>
+								<p><%=cohesion %></p>
 							</section>
+							<header class="major">
+								<h2>Cohesion</h2>
+								<p><%=cohesionComment%></p>
+							</header>
 						</div>
-						<div class="3u 6u(medium)">
+						<div class="row 100%">
 							<section class="box">
 								<img src="images/security.png">
 								<br><br><br>
 								<h3>Security</h3>
 								<p><%=security%></p>
 							</section>
+							<header class="major">
+								<h2>Security</h2>
+								<p><%=securityComment %></p>
+							</header>
 						</div>
 					</div>
 				</div>
@@ -184,7 +159,7 @@ boolean more = rs.next();
 						<p></p>
 						<ul class="actions">
 							<li>
-								<a href="feedback.jsp?param1=<%=rs.getInt("ID") %>" class="button big">Feedback</a>
+								<a href="feedback.jsp?param1=<%=id %>" class="button big">Feedback</a>
 							</li>
 						</ul>
 					</footer>

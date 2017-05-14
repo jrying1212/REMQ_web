@@ -4,9 +4,8 @@ import java.text.DecimalFormat;
 
 public class security {
 	double security;
-	showInfo sh = new showInfo();
 	
-	public double countAHF(){
+	public double countAHF(showInfo sh){
 		double total_att = sh.getAttNum();
 		double private_att = sh.getPrivateAttNum();		
 		double AHF = private_att/total_att;
@@ -17,13 +16,13 @@ public class security {
 		return AHF;
 	}
 	
-	public double countHC(){
+	public double countHC(showInfo sh){
 		double HC =1;
 		return HC;
 	}
 	
-	public double countSecurity(){
-		security = (countAHF()+countHC())/2;
+	public double countSecurity(showInfo sh){
+		security = (countAHF(sh)+countHC(sh))/2;
 		DecimalFormat df = new DecimalFormat("##.00");
 		security =Double.parseDouble(df.format(security));
 		return security;
