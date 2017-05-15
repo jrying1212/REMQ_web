@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-            <%@page import="java.sql.*" %>
-    <%@ page import="DAO.commentDAO"%> 
-    <%request.setCharacterEncoding("UTF-8");%>
-    <%
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="java.sql.*" %>
+<%@ page import="DAO.commentDAO"%> 
+<%
 session=request.getSession(false);
 if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
-
+request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/table_style.css">
@@ -29,11 +28,10 @@ if(session.getAttribute("login")==null){
 						<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 		</noscript>
-
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <title>Show All Result</title>
   <!-- Header -->
 			<header id="header">

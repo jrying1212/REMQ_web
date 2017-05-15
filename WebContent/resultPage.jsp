@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ page import="Model.showInfo" %> 
     <%@ page import="Model.complexity" %> 
     <%@ page import="Model.security" %> 
@@ -14,7 +14,6 @@
     <%@ page import="java.text.SimpleDateFormat"%>
     <%@page import="java.sql.*"%>  
     <%@ page import="Model.connectDBManager"%>
-<%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +22,7 @@ session=request.getSession(false);
 if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
-
+request.setCharacterEncoding("UTF-8");
 String  packageName = (String)request.getAttribute("packageName"); 
 int  classNum = (int)request.getAttribute("classNum"); 
 double  simplicity = (double)request.getAttribute("simplicity"); 
@@ -42,7 +41,7 @@ String  securityComment = (String)request.getAttribute("securityComment");
 
 %>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		</noscript>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
@@ -162,6 +161,10 @@ String  securityComment = (String)request.getAttribute("securityComment");
 								<a href="feedback.jsp?param1=<%=id %>" class="button big">Feedback</a>
 							</li>
 						</ul>
+						<form action="feedback.jsp" method="post">
+						<input type="hidden" name="proj_id" value="<%=id %>"/>
+						<li><input value="Feedback" class="special big" type="submit" ></li>					
+						</form>
 					</footer>
 				</div>
 			</section>

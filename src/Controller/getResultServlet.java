@@ -25,7 +25,6 @@ public class getResultServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -50,8 +49,7 @@ public class getResultServlet extends HttpServlet {
 		security = result.getSecurity();
 		AHF = result.getAHF();
 		HC = result.getHC();
-		time = result.getTime();
-		
+		time = result.getTime();		
 		
 		commentBean comment = new commentBean();
 		comment.setID(id);
@@ -61,11 +59,10 @@ public class getResultServlet extends HttpServlet {
 		comment = commentDAO.getCouplingComment(comment);
 		comment = commentDAO.getSecurityComment(comment);
 		
-		 complexityComment = comment.getComplexityComment();
-		 cohesionComment = comment.getCohesionComment();
-		 couplingComment = comment.getCouplingComment();
-		 securityComment = comment.getSecurityComment();
-
+		complexityComment = comment.getComplexityComment();
+		cohesionComment = comment.getCohesionComment();
+		couplingComment = comment.getCouplingComment();
+		securityComment = comment.getSecurityComment();
 		        
 	    HttpSession session = request.getSession(true);	    
 	    

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    <%@page import="java.io.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="java.io.*"%>
 <%@page import="java.util.*" %>
 <%@page import="Bean.feedbackBean" %>
 <%@page import="DAO.feedbackDAO" %>
@@ -14,9 +14,8 @@
 <%@ page import="Bean.resultBean"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.*"%>  
-    <%@ page import="Model.connectDBManager"%>
-    <%@ page import="DAO.resultDAO"%>
-    <%request.setCharacterEncoding("UTF-8");%>
+<%@ page import="Model.connectDBManager"%>
+<%@ page import="DAO.resultDAO"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 		</noscript>
@@ -31,15 +30,12 @@
 		</noscript>
 		
 <html>
-
-
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Count Result Page</title>
 </head>
 <body>
 <%
-
 String content = request.getParameter("content");
 
 if (content!=null){
@@ -85,7 +81,6 @@ if (content!=null){
 	result = resultDAO.insertData(result);
 }
 
-
 %>
 <!-- Header -->
 			<header id="header">			  
@@ -116,9 +111,7 @@ if (content!=null){
 				<h2>Hi. This is REMQ.</h2>
 				<p>Press the button to analyze the quality of your project.</p>
 				<form action="countResultServlet" method="post">
-								
-						<li><input value="Get Result" class="special big" type="submit" ></li>					
-				
+				<li><input value="Get Result" class="special big" type="submit" ></li>									
 			</form>
 			</section>
 			

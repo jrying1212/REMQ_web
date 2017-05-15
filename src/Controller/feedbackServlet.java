@@ -40,42 +40,7 @@ public class feedbackServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String id = request.getParameter("proj_id");
-		response.getWriter().append("Served at: ").append(id);
-		request.setCharacterEncoding("utf-8"); 
-		String content = request.getParameter("feedback");
-		feedbackBean feedback = new feedbackBean();
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String time = dateFormat.format(date);
-		
-		feedback.setProjID(id);
-		feedback.setContent(content);	
-		feedback.setTime(time);
-		feedback = feedbackDAO.insertData(feedback);
-		
-				
-		resultBean result = new resultBean();
-		result.setID(id);
-		result = resultDAO.selectData(result);
-		
-		commentBean comment = new commentBean();
-		comment.setID(id);
-		comment = commentDAO.selectData(comment);
-		comment = commentDAO.getComplexityComment(comment);
-		comment = commentDAO.getCohesionComment(comment);
-		comment = commentDAO.getCouplingComment(comment);
-		comment = commentDAO.getSecurityComment(comment);
 
-		        
-	    HttpSession session = request.getSession(true);	    
-	    
-	    request.setAttribute("result", result);
-	    request.setAttribute("comment", comment);
-	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
-		view.forward(request, response); 
 //		request.setAttribute("id", id);
 //	  	RequestDispatcher view = request.getRequestDispatcher("/homePage.jsp");
 	}
@@ -85,13 +50,14 @@ public class feedbackServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String id = request.getParameter("proj_id");
 		response.getWriter().append("Served at: ").append(id);
-		request.setCharacterEncoding("utf-8"); 
+		request.setCharacterEncoding("UTF-8"); 
 		String content = request.getParameter("feedback");
 		feedbackBean feedback = new feedbackBean();
-		System.out.println(content);
+		System.out.println("feedback "+content);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String time = dateFormat.format(date);
@@ -101,10 +67,23 @@ public class feedbackServlet extends HttpServlet {
 		feedback.setTime(time);
 		feedback = feedbackDAO.insertData(feedback);
 		
-				
+		String packageName = null, c_time = null, complexityComment, cohesionComment, couplingComment, securityComment;
+		int classNum = 0;
+		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
+		
 		resultBean result = new resultBean();
 		result.setID(id);
 		result = resultDAO.selectData(result);
+		packageName = result.getPackageName();
+		classNum = result.getClassNum();
+		simplicity = result.getSimplicity();
+		reusability = result.getResuability();
+		coupling = result.getCoupling();
+		cohesion = result.getCohesion();
+		security = result.getSecurity();
+		AHF = result.getAHF();
+		HC = result.getHC();
+		c_time = result.getTime();
 		
 		commentBean comment = new commentBean();
 		comment.setID(id);
@@ -114,15 +93,30 @@ public class feedbackServlet extends HttpServlet {
 		comment = commentDAO.getCouplingComment(comment);
 		comment = commentDAO.getSecurityComment(comment);
 
-		        
+		complexityComment = comment.getComplexityComment();
+		cohesionComment = comment.getCohesionComment();
+		couplingComment = comment.getCouplingComment();
+		securityComment = comment.getSecurityComment();
+		System.out.println(securityComment);        
 	    HttpSession session = request.getSession(true);	    
-	    
-	    request.setAttribute("result", result);
-	    request.setAttribute("comment", comment);
+	    request.setCharacterEncoding("UTF-8");
+	    request.setAttribute("packageName", packageName);
+	    request.setAttribute("classNum", classNum);
+	    request.setAttribute("simplicity", simplicity);
+	    request.setAttribute("reusability", reusability);
+	    request.setAttribute("cohesion", cohesion);
+	    request.setAttribute("coupling", coupling);
+	    request.setAttribute("AHF", AHF);
+	    request.setAttribute("HC", HC);
+	    request.setAttribute("security", security);
+	    request.setAttribute("time", c_time);
+	    request.setAttribute("id", id);
+	    request.setAttribute("complexityComment", complexityComment);
+	    request.setAttribute("cohesionComment", cohesionComment);
+	    request.setAttribute("couplingComment", couplingComment);
+	    request.setAttribute("securityComment", securityComment);
 	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
 		view.forward(request, response); 
-		
-		
+				
 	}
-
 }

@@ -48,8 +48,8 @@ public class countResultServlet extends HttpServlet {
 		ResultSet rs = null;
 		rs = resultDAO.selectLastID();
 		
-		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityComment;
-		int classNum = 0, id=0;
+		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityComment, id = null;
+		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
 		try {
 			boolean more = rs.next();
@@ -63,7 +63,7 @@ public class countResultServlet extends HttpServlet {
 			HC = rs.getDouble("HC");
 			security = rs.getDouble("Security");
 			time = rs.getString("Time");
-			id = rs.getInt("ID");
+			id = rs.getString("ID");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -97,7 +97,7 @@ public class countResultServlet extends HttpServlet {
 	    request.setAttribute("cohesionComment", cohesionComment);
 	    request.setAttribute("couplingComment", couplingComment);
 	    request.setAttribute("securityComment", securityComment);
-	  	RequestDispatcher view = request.getRequestDispatcher("/resultPage.jsp");
+	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
 		view.forward(request, response); 		       					
 	}
 }

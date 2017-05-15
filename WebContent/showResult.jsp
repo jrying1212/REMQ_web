@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="Bean.resultBean"%>     
 <%@ page import="Bean.commentBean"%> 
 <%@ page import="DAO.resultDAO"%>   
 <%@page import="java.sql.*"%>  
-<%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 		</noscript>
@@ -18,12 +17,11 @@
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 		</noscript>
 <%
-request.setCharacterEncoding("utf-8"); 
 session=request.getSession(false);
 if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
-
+request.setCharacterEncoding("UTF-8");
 String  packageName = (String)request.getAttribute("packageName"); 
 int  classNum = (int)request.getAttribute("classNum"); 
 double  simplicity = (double)request.getAttribute("simplicity"); 
@@ -35,17 +33,20 @@ double  HC = (double)request.getAttribute("HC");
 double  security = (double)request.getAttribute("security"); 
 String  time = (String)request.getAttribute("time"); 
 String  id = (String)request.getAttribute("id");
+request.setCharacterEncoding("UTF-8");
 String  complexityComment = (String)request.getAttribute("complexityComment"); 
-String  cohesionComment = (String)request.getAttribute("cohesionComment"); 
-String  couplingComment = (String)request.getAttribute("couplingComment"); 
+request.setCharacterEncoding("UTF-8");
+String  cohesionComment = (String)request.getAttribute("cohesionComment");
+request.setCharacterEncoding("UTF-8");
+String  couplingComment = (String)request.getAttribute("couplingComment");
+request.setCharacterEncoding("UTF-8");
 String  securityComment = (String)request.getAttribute("securityComment"); 
-
-
+out.println(securityComment);
 %>
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Show Result</title>
 </head>
 <body class>
@@ -117,7 +118,10 @@ String  securityComment = (String)request.getAttribute("securityComment");
 					</div>
 				</div>
 			</section>
+<%request.setCharacterEncoding("UTF-8");
+response.setContentType("text/html;charset=UTF-8");
 
+%>
 		<!-- Two -->
 			<section id="two" class="wrapper style2 special">
 				<div class="container">
@@ -133,12 +137,11 @@ String  securityComment = (String)request.getAttribute("securityComment");
 					</header>
 					
 					<footer>
-						<p></p>
-						<ul class="actions">
-							<li>
-								<a href="feedback.jsp?param1=<%=id%>" class="button big">Feedback</a>
-							</li>
-						</ul>
+						<p></p>						
+						<form action="feedback.jsp" method="post">
+						<input type="hidden" name="proj_id" value="<%=id %>"/>
+						<li><input value="Feedback" class="special big" type="submit" ></li>					
+						</form>
 					</footer>
 				</div>
 			</section>
@@ -174,7 +177,5 @@ String  securityComment = (String)request.getAttribute("securityComment");
 					</div>
 				</div>
 			</footer>
-	</body>
-
-		
+	</body>		
 </html>

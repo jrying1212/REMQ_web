@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="utf-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import="java.sql.*"%>  
 <%@ page import="Model.connectDBManager"%>
-<%request.setCharacterEncoding("UTF-8");%>
 <% 
 session=request.getSession(false);
 if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
-
-String id = request.getParameter("param1");
+request.setCharacterEncoding("UTF-8");
+String id = request.getParameter("proj_id");
 %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		</noscript>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>

@@ -47,9 +47,9 @@ public class updateRuleServlet extends HttpServlet {
 //		commentBean comment = new commentBean();
 //		comment.setID(id);
 //		comment = commentDAO.UpdateComplexity(bean);
-//		
+		request.setCharacterEncoding("UTF-8");
 		if (type==1){
-
+			request.setCharacterEncoding("UTF-8");
 			String[] sim_rate_from = request.getParameterValues("sim_rate_from");
 			String[] sim_rate_to = request.getParameterValues("sim_rate_to");
 			String[] reu_rate_from = request.getParameterValues("reu_rate_from");
@@ -118,6 +118,8 @@ public class updateRuleServlet extends HttpServlet {
 				comment = commentDAO.UpdateComplexity(comment);
 			}	
 		}
+		
+		 response.sendRedirect("showRule.jsp");
 	}
 
 }
