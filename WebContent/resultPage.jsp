@@ -33,11 +33,12 @@ double  AHF = (double)request.getAttribute("AHF");
 double  HC = (double)request.getAttribute("HC"); 
 double  security = (double)request.getAttribute("security"); 
 String  time = (String)request.getAttribute("time"); 
-int id = (int)request.getAttribute("id");
+String id = (String)request.getAttribute("id");
 String  complexityComment = (String)request.getAttribute("complexityComment"); 
 String  cohesionComment = (String)request.getAttribute("cohesionComment"); 
 String  couplingComment = (String)request.getAttribute("couplingComment"); 
-String  securityComment = (String)request.getAttribute("securityComment"); 
+String  securityAHFComment = (String)request.getAttribute("securityAHFComment"); 
+String  securityHCComment = (String)request.getAttribute("securityHCComment"); 
 
 %>
 
@@ -87,17 +88,24 @@ String  securityComment = (String)request.getAttribute("securityComment");
 						<h2>Result</h2>
 						<p>Package name : <%=packageName%><br>Class number :<%=classNum %><br>Date :<%=time %></p>
 					</header>
-					<div >
+					
+				</div>
+			</section>
+
+	<!-- Two -->
+			<section id="two" class="wrapper style2 special">
+				<div class="container" >
 						<div class="row 100%" >
 							<section class="box">
 								<img src="images/complexity.png">
 								<br><br><br>
-								<h3>Complexity</h3>
-								<p>Simplicity: <%=simplicity %>.<br>Reusability : <%=reusability%></p>
+								<h2>Complexity</h2>
+								<h4>Simplicity: <%=simplicity %></h4>
+								<h4>Reusability : <%=reusability%></h4>
 							</section>
 							<header class="major">
 								<h2>Complexity</h2>
-								<p><%=complexityComment %></p>
+								<p style="width: 800px; word-break: break-all;"><%=complexityComment %></p>
 							</header>
 						</div>
 						<div class="row 100%">
@@ -105,11 +113,11 @@ String  securityComment = (String)request.getAttribute("securityComment");
 								<img src="images/coupling.png">
 								<br><br><br>
 								<h3>Coupling</h3>
-								<p><%=coupling %></p>
+								<h4><%=coupling %></h4>
 							</section>
 							<header class="major">
 								<h2>Coupling</h2>
-								<p><%=couplingComment %></p>
+								<p style="width: 800px; word-break: break-all;"><%=couplingComment %></p>
 							</header>
 						</div>
 						<div class="row 100%">
@@ -117,11 +125,11 @@ String  securityComment = (String)request.getAttribute("securityComment");
 								<img src="images/cohesion.png">
 								<br><br><br>
 								<h3>Cohesion</h3>
-								<p><%=cohesion %></p>
+								<h4><%=cohesion %></h4>
 							</section>
 							<header class="major">
 								<h2>Cohesion</h2>
-								<p><%=cohesionComment%></p>
+								<p style="width: 800px; word-break: break-all;"><%=cohesionComment%></p>
 							</header>
 						</div>
 						<div class="row 100%">
@@ -129,43 +137,21 @@ String  securityComment = (String)request.getAttribute("securityComment");
 								<img src="images/security.png">
 								<br><br><br>
 								<h3>Security</h3>
-								<p><%=security%></p>
+								<h4><%=security%></h4>
 							</section>
 							<header class="major">
 								<h2>Security</h2>
-								<p><%=securityComment %></p>
+								<p style="width: 800px; word-break: break-all;"><%=securityAHFComment %></p>
+								<p style="width: 800px; word-break: break-all;"><%=securityHCComment %></p>
 							</header>
 						</div>
 					</div>
-				</div>
-			</section>
-
-	<!-- Two -->
-			<section id="two" class="wrapper style2 special">
-				<div class="container">
-					<header class="major">
-						<h2>Complexity</h2>
-						<p><%=complexityComment %></p>
-						<h2>Coupling</h2>
-						<p><%=couplingComment %></p>
-						<h2>Cohesion</h2>
-						<p><%=cohesionComment%></p>
-						<h2>Security</h2>
-						<p><%=securityComment %></p>
-					</header>
-					
 					<footer>
-						<p></p>
-						<ul class="actions">
-							<li>
-								<a href="feedback.jsp?param1=<%=id %>" class="button big">Feedback</a>
-							</li>
-						</ul>
 						<form action="feedback.jsp" method="post">
 						<input type="hidden" name="proj_id" value="<%=id %>"/>
 						<li><input value="Feedback" class="special big" type="submit" ></li>					
 						</form>
-					</footer>
+					</footer>								
 				</div>
 			</section>
 

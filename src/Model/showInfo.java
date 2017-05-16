@@ -22,6 +22,8 @@ public class showInfo {
 	int total_attNum=0;
 	int total_methodNum=0;
 	int class_num =0;
+	int sec_hc =0;
+	int sec_num=0;
 	int private_AttNum=0;
 	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
 	String info="";
@@ -57,6 +59,8 @@ public class showInfo {
 				System.out.println(jsonObj.getString("className"));
 				setClassName(jsonObj.getString("className"));
 				setClassLOC(jsonObj.getInt("classLOC"));
+				setSecNum(jsonObj.getInt("classSecNum"));
+				setSecHC(jsonObj.getInt("classSecHC"));
 //				System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
 				JSONArray met = jsonObj.optJSONArray("Method List");
 				if (met.getJSONObject(0).getString("method_name").equals("null")){
@@ -194,6 +198,22 @@ public class showInfo {
 	
 	public int getMethodNum(){
 		return total_methodNum;
+	}
+	
+	public void setSecNum(int num){
+		sec_num = num;
+	}
+	
+	public int getSecNum(){
+		return sec_num;
+	}
+	
+	public void setSecHC(int num){
+		sec_hc = num;
+	}
+	
+	public int getSecHC(){
+		return sec_hc;
 	}
 	
 	public void setPrivateAttNum(int num){

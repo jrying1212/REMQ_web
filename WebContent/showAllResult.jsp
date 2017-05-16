@@ -29,15 +29,12 @@ if(session.getAttribute("login")==null){
 	response.sendRedirect("homePage.jsp");		
 }
 
-
 userBean bean = (userBean)request.getAttribute("userInfo"); 
-
 
 ResultSet rs = null;
 rs = resultDAO.selectALLData();
 %>
-
-  
+ 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Show All Result</title>
   <!-- Header -->

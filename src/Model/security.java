@@ -17,15 +17,24 @@ public class security {
 	}
 	
 	public double countHC(showInfo sh){
-		double HC =1;
+				
+		double num = sh.getSecNum();
+		double HC_num =sh.getSecHC();
+		double HC;
+		if (num!=0){
+		HC = 1-(HC_num/num);
+		}
+		else {
+			HC = 1;
+		}
 		return HC;
 	}
 	
 	public double countSecurity(showInfo sh){
-		security = (countAHF(sh)+countHC(sh))/2;
-		DecimalFormat df = new DecimalFormat("##.00");
-		security =Double.parseDouble(df.format(security));
-		return security;
+//		security = (countAHF(sh)+countHC(sh))/2;
+//		DecimalFormat df = new DecimalFormat("##.00");
+//		security =Double.parseDouble(df.format(security));
+		return 1;
 	}
 
 }

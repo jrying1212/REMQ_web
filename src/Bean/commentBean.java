@@ -17,7 +17,6 @@ public class commentBean {
 	private String couplingComment;
 	private String AHFComment;
 	private String HCComment;
-	private String securityComment;
 	private double simp_start;
 	private double simp_end;
 	private double reu_start;
@@ -146,9 +145,12 @@ public class commentBean {
 		this.HCComment = HCComment;
 	}
 	
-	public String getSecurityComment (){
-		securityComment = AHFComment+HCComment;
-		return securityComment;
+	public String getAHFComment(){		
+		return AHFComment;
+	}
+	
+	public String getHCComment(){		
+		return HCComment;
 	}
 	
 	public void setSimp_start(Double simp_start){

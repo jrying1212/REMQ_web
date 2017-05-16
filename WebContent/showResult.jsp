@@ -33,15 +33,15 @@ double  HC = (double)request.getAttribute("HC");
 double  security = (double)request.getAttribute("security"); 
 String  time = (String)request.getAttribute("time"); 
 String  id = (String)request.getAttribute("id");
-request.setCharacterEncoding("UTF-8");
 String  complexityComment = (String)request.getAttribute("complexityComment"); 
 request.setCharacterEncoding("UTF-8");
 String  cohesionComment = (String)request.getAttribute("cohesionComment");
 request.setCharacterEncoding("UTF-8");
 String  couplingComment = (String)request.getAttribute("couplingComment");
 request.setCharacterEncoding("UTF-8");
-String  securityComment = (String)request.getAttribute("securityComment"); 
-out.println(securityComment);
+String  securityAHFComment = (String)request.getAttribute("securityAHFComment"); 
+String  securityHCComment = (String)request.getAttribute("securityHCComment"); 
+
 %>
 
 <html>
@@ -51,7 +51,7 @@ out.println(securityComment);
 </head>
 <body class>
 
-		<!-- Header -->
+<!-- Header -->
 			<header id="header">			  
 				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
@@ -75,86 +75,89 @@ out.println(securityComment);
 				</nav>				
 			</header>
 
-		<!-- One -->
+	<!-- One -->
 			<section id="one" class="wrapper style1 special">
 				<div class="container">
 					<header class="major">
 						<h2>Result</h2>
 						<p>Package name : <%=packageName%><br>Class number :<%=classNum %><br>Date :<%=time %></p>
 					</header>
-					<div class="row 100%">
-						<div class="3u 6u(medium)">
+					
+				</div>
+			</section>
+
+	<!-- Two -->
+			<section id="two" class="wrapper style2 special">
+				<div class="container" >
+						<div class="row 100%" >
 							<section class="box">
 								<img src="images/complexity.png">
 								<br><br><br>
-								<h3>Complexity</h3>
-								<p>Simplicity: <%=simplicity %>.<br>Reusability : <%=reusability%></p>
+								<h2>Complexity</h2>
+								<h4>Simplicity: <%=simplicity %></h4>
+								<h4>Reusability : <%=reusability%></h4>
 							</section>
+							<header class="major">
+								<h2>Complexity</h2>
+								<p style="width: 800px; word-break: break-all;"><%=complexityComment %></p>
+							</header>
 						</div>
-						<div class="3u 6u(medium)">
+						<div class="row 100%">
 							<section class="box">
 								<img src="images/coupling.png">
 								<br><br><br>
 								<h3>Coupling</h3>
-								<p><%=coupling %></p>
+								<h4><%=coupling %></h4>
 							</section>
+							<header class="major">
+								<h2>Coupling</h2>
+								<p style="width: 800px; word-break: break-all;"><%=couplingComment %></p>
+							</header>
 						</div>
-						<div class="3u 6u(medium)">
+						<div class="row 100%">
 							<section class="box">
 								<img src="images/cohesion.png">
 								<br><br><br>
 								<h3>Cohesion</h3>
-								<p><%=cohesion%></p>
+								<h4><%=cohesion %></h4>
 							</section>
+							<header class="major">
+								<h2>Cohesion</h2>
+								<p style="width: 800px; word-break: break-all;"><%=cohesionComment%></p>
+							</header>
 						</div>
-						<div class="3u 6u(medium)">
+						<div class="row 100%">
 							<section class="box">
 								<img src="images/security.png">
 								<br><br><br>
 								<h3>Security</h3>
-								<p><%=security%></p>
+								<h4><%=security%></h4>
 							</section>
+							<header class="major">
+								<h2>Security</h2>
+								<p style="width: 800px; word-break: break-all;"><%=securityAHFComment %></p>
+								<p style="width: 800px; word-break: break-all;"><%=securityHCComment %></p>
+							</header>
 						</div>
 					</div>
-				</div>
-			</section>
-<%request.setCharacterEncoding("UTF-8");
-response.setContentType("text/html;charset=UTF-8");
-
-%>
-		<!-- Two -->
-			<section id="two" class="wrapper style2 special">
-				<div class="container">
-					<header class="major">
-						<h2>Complexity</h2>
-						<p><%=complexityComment %></p>
-						<h2>Coupling</h2>
-						<p><%=couplingComment %></p>
-						<h2>Cohesion</h2>
-						<p><%=cohesionComment%></p>
-						<h2>Security</h2>
-						<p><%=securityComment %></p>
-					</header>
-					
 					<footer>
-						<p></p>						
 						<form action="feedback.jsp" method="post">
 						<input type="hidden" name="proj_id" value="<%=id %>"/>
 						<li><input value="Feedback" class="special big" type="submit" ></li>					
 						</form>
-					</footer>
+					</footer>								
 				</div>
 			</section>
 
-
-		<!-- Footer -->
+<!-- Footer -->
 			<footer id="footer">
-				<div class="container">					
+				<div class="container">
+					
 					<div class="row">
 						<div class="8u 12u$(medium)">
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
-								<li>Design: Jrying Yang</a></li>
+								<li>Design: Jrying Yang</li>
 								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>
@@ -170,7 +173,7 @@ response.setContentType("text/html;charset=UTF-8");
 									<a class="icon rounded fa-google-plus"><span class="label">Google+</span></a>
 								</li>
 								<li>
-									<a class="icon rounded fa-lock"><span class="label">LinkedIn</span></a>
+									<a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a>
 								</li>
 							</ul>
 						</div>

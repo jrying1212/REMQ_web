@@ -1,5 +1,6 @@
 package DAO;
 
+import Bean.feedbackBean;
 import Bean.userBean;
 import Model.connectDBManager;
 import java.sql.*;
@@ -91,8 +92,41 @@ public class userDAO {
         }
      }
 
-return bean;
+     	return bean;
 	
-     }	
+     }
+     
+     public static userBean insertData(userBean bean) {
+    		
+         Statement stmt = null;           
+         String user = bean.getAccount();    
+         String pwd = bean.getPassword();         
+         String insertQuery =
+               "insert into member(account,password) values ('"
+                        + user
+                        + "' ,'"
+                        + pwd
+                        + "')";
+ 	    
+
+      System.out.println("Your user name is " + user);          
+      System.out.println("Your password is " + pwd);
+      System.out.println("Query: "+insertQuery);
+ 	    
+      try 
+      {
+         //connect to DB 
+         currentCon = connectDBManager.getConnection();
+         stmt=currentCon.createStatement();
+         int insert_rs = stmt.executeUpdate(insertQuery);
+      }	               
+      catch (Exception ex) 
+      {
+         System.out.println("Log In failed: An Exception has occurred! " + ex);
+      } 
+ 	     
+      return bean;
+ 	
+      }	
 
 }

@@ -63,7 +63,6 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
  	<header class="major">
 	<h2>Complexity</h2>
 	</header>
-	<form action="editRuleServlet" method="post">
 	<input type="hidden" name="type" value="1"/>
   <%
     if(rs_comp!=null){
@@ -71,27 +70,28 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
         <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
         <tr>
-          <th>simplicity start from</th>
-          <th>simplicity end to</th>
-          <th>reusability start from</th>
-          <th>reusability end to</th>
+          <th>Simplicity</th>         
+          <th>Reusability</th>          
           <th>Comment</th>
         </tr>
         <%
         while(rs_comp.next()){
-          Double sim_rate_from = rs_comp.getDouble("sim_rate_from");
-          
+          Double sim_rate_from = rs_comp.getDouble("sim_rate_from");          
           Double sim_rate_to = rs_comp.getDouble("sim_rate_to");
           Double reu_rate_from = rs_comp.getDouble("reu_rate_from");
           Double reu_rate_to = rs_comp.getDouble("reu_rate_to");
           String rule = rs_comp.getString("comment");
+          
+          String sim = sim_rate_from + " ~ " + sim_rate_to;
+          String reu = reu_rate_from + " ~ " + reu_rate_to;
+          if(reu_rate_to >1){
+        	  reu = " Greater than "+reu_rate_from;
+          }          
         %>
         <tbody>       
           <tr>
-          <td data-title="ID"  > <%=sim_rate_from%></td>        
-          <td data-title="Name" ><%=sim_rate_to%></td>
-          <td data-title="Status" ><%=reu_rate_from%></td>
-          <td data-title="Status" ><%=reu_rate_to%></td>
+          <td data-title="ID" ><%=sim%></td>        
+          <td data-title="Status" ><%=reu%></td>
           <td data-title="Status" ><%=rule%></td>
         </tr>       
         </tbody>
@@ -104,10 +104,6 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
   %>
 
 	</div>
-	<ul class="actions">
-	<li><input value="Edit" class="special big" type="submit"></li>
-	</ul>
-	</form>
 	</section>
 	
 	
@@ -117,16 +113,16 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
  	<header class="major">
 	<h2>Coupling</h2>
 	</header>
-	<form action="editRuleServlet" method="post">
+<!--	<form action="editRuleServlet" method="post">
 	<input type="hidden" name="type" value="2"/>
+-->
   <%
     if(rs_coup!=null){
       %>
         <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
         <tr>
-          <th>coupling start from</th>
-          <th>coupling end to</th>
+          <th>Coupling</th>
           <th>Comment</th>
         </tr>
         <%
@@ -134,11 +130,17 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
           Double coupling_rate_from = rs_coup.getDouble("rate_from");
           Double coupling_rate_to = rs_coup.getDouble("rate_to");
           String rule = rs_coup.getString("comment");
+          String coup;
+          if (coupling_rate_from.equals(coupling_rate_to)){
+        	  coup = "Equal to " + coupling_rate_from;
+          }
+          else{
+          	coup = coupling_rate_from + " ~ " + coupling_rate_to ;
+          }
         %>
         <tbody>        
           <tr>
-          <td data-title="ID"> <%=coupling_rate_from%></td>
-          <td data-title="Name"><%=coupling_rate_to%></td>
+          <td data-title="ID"> <%=coup%></td>
           <td data-title="Status"><%=rule%></td>
         </tr>        
         </tbody>
@@ -150,10 +152,12 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
     }
   %>
 	</div>
+	<!-- 
 	<ul class="actions">
 	<li><input value="Edit" class="special big" type="submit"></li>
 	</ul>
 	</form>
+	 -->
 	</section>
 
 
@@ -162,8 +166,6 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
  	<header class="major">
 	<h2>Cohesion</h2>
 	</header>
-	<form action="editRuleServlet" method="post">
-	<input type="hidden" name="type" value="3"/>
   <%
     if(rs_coh!=null){
       %>
@@ -171,22 +173,25 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
         <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
         <tr>
-          <th>cohesion start from</th>
-          <th>cohesion end to</th>
+          <th>Cohesion</th>
           <th>Comment</th>
         </tr>
         <%
         while(rs_coh.next()){
           Double cohesion_rate_from = rs_coh.getDouble("rate_from");
           Double cohesion_rate_to = rs_coh.getDouble("rate_to");
-
           String rule = rs_coh.getString("comment");
+          String coh;
+          if (cohesion_rate_from.equals(cohesion_rate_to)){
+        	  coh = "Equal to " + cohesion_rate_from;
+          }
+          else{
+          	coh = cohesion_rate_from + " ~ " + cohesion_rate_to ;
+          }
         %>
-        <tbody>
-        
+        <tbody>       
           <tr>
-          <td data-title="ID"> <%=cohesion_rate_from%></td>
-          <td data-title="Name"><%=cohesion_rate_to%></td>
+          <td data-title="ID"> <%=coh%></td>
           <td data-title="Status"><%=rule%></td>
         </tr>        
         </tbody>
@@ -198,9 +203,6 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
     }
   %>
 	</div>
-	<ul class="actions">
-	<li><input value="Edit" class="special big" type="submit"></li>
-	</ul>
 	</form>
 	</section>
 
@@ -210,8 +212,6 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
  	<header class="major">
 	<h2>Security</h2>
 	</header>
-	<form action="editRuleServlet" method="post">
-	<input type="hidden" name="type" value="4"/>
   <%
     if(rs_sec!=null){
       %>
@@ -219,9 +219,8 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
         <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
         <tr>
-          <th>type</th>
-          <th>cohesion start from</th>
-          <th>cohesion end to</th>
+          <th>Type</th>
+          <th>Security</th>
           <th>Comment</th>
         </tr>
         <%
@@ -235,16 +234,21 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
         		securityType = "Hard Coding";
         	}
           	Double rate_from = rs_sec.getDouble("rate_from");
-          	Double rate_to = rs_sec.getDouble("rate_to");
-	
+          	Double rate_to = rs_sec.getDouble("rate_to");	
           	String rule = rs_sec.getString("comment");
+          	String sec;
+          	if (rate_from.equals(rate_to)){
+           		sec = "Equal to " + rate_from;
+            }
+            else{
+            	sec = rate_from + " ~ " + rate_to ;
+            }
         %>
         <tbody>
         
           <tr>
           <td data-title="ID"> <%=securityType%></td>
-          <td data-title="ID"> <%=rate_from%></td>
-          <td data-title="Name"><%=rate_to%></td>
+          <td data-title="ID"> <%=sec%></td>
           <td data-title="Status"><%=rule%></td>
         </tr>        
         </tbody>
@@ -256,10 +260,6 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
     }
   %>
 	</div>
-	<ul class="actions">
-	<li><input value="Edit" class="special big" type="submit"></li>
-	</ul>
-	</form>
 	</section>
 	
 <!-- Footer -->

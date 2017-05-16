@@ -12,7 +12,8 @@
 
 	body {
 		background: #fff;
-	}
+		}
+	
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 			-moz-animation: none !important;
@@ -75,17 +76,17 @@
 	}
 
 	h3 {
-		font-size: 1.35em;
+		font-size: 1.5em;
 		line-height: 1.5em;
 	}
 
 	h4 {
-		font-size: 1.1em;
+		font-size: 1.3em;
 		line-height: 1.5em;
 	}
 
 	h5 {
-		font-size: 0.9em;
+		font-size: 0.3em;
 		line-height: 1.5em;
 	}
 
@@ -166,7 +167,7 @@
 	}
 
 	header p {
-		color: #858585;
+		color: #464646;
 		position: relative;
 		margin: 0 0 1.5em 0;
 	}
@@ -732,11 +733,12 @@
 
 		table td {
 			padding: 0.75em 0.75em;
+			font-size: 1.2em;
 		}
 
 		table th {
 			color: #474747;
-			font-size: 0.9em;
+			font-size: 1.3em;
 			font-weight: 700;
 			padding: 0 0.75em 0.75em 0.75em;
 			text-align: left;
@@ -1078,7 +1080,7 @@
 			}
 
 				.wrapper.style1 .box h2, .wrapper.style1 .box h3, .wrapper.style1 .box h4, .wrapper.style1 .box h5, .wrapper.style1 .box h6 {
-					color: #858585;
+					color: #535353;
 				}
 
 		.wrapper.style2 .profiles {

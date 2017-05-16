@@ -48,7 +48,7 @@ public class countResultServlet extends HttpServlet {
 		ResultSet rs = null;
 		rs = resultDAO.selectLastID();
 		
-		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityComment, id = null;
+		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment, id = null;
 		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
 		try {
@@ -80,7 +80,8 @@ public class countResultServlet extends HttpServlet {
 		complexityComment = comment.getComplexityComment();
 		cohesionComment = comment.getCohesionComment();
 		couplingComment = comment.getCouplingComment();
-		securityComment = comment.getSecurityComment();
+		securityAHFComment = comment.getAHFComment();
+		securityHCComment = comment.getHCComment();
   	    
 	    request.setAttribute("packageName", packageName);
 	    request.setAttribute("classNum", classNum);
@@ -96,7 +97,8 @@ public class countResultServlet extends HttpServlet {
 	    request.setAttribute("complexityComment", complexityComment);
 	    request.setAttribute("cohesionComment", cohesionComment);
 	    request.setAttribute("couplingComment", couplingComment);
-	    request.setAttribute("securityComment", securityComment);
+	    request.setAttribute("securityAHFComment", securityAHFComment);
+	    request.setAttribute("securityHCComment", securityHCComment);
 	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
 		view.forward(request, response); 		       					
 	}

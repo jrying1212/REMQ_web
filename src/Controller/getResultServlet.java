@@ -33,7 +33,7 @@ public class getResultServlet extends HttpServlet {
 		
 		String id = request.getParameter("param1");
 		
-		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityComment;
+		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment;
 		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
 		resultBean result = new resultBean();
@@ -62,7 +62,8 @@ public class getResultServlet extends HttpServlet {
 		complexityComment = comment.getComplexityComment();
 		cohesionComment = comment.getCohesionComment();
 		couplingComment = comment.getCouplingComment();
-		securityComment = comment.getSecurityComment();
+		securityAHFComment = comment.getAHFComment();
+		securityHCComment = comment.getHCComment();
 		        
 	    HttpSession session = request.getSession(true);	    
 	    
@@ -80,7 +81,8 @@ public class getResultServlet extends HttpServlet {
 	    request.setAttribute("complexityComment", complexityComment);
 	    request.setAttribute("cohesionComment", cohesionComment);
 	    request.setAttribute("couplingComment", couplingComment);
-	    request.setAttribute("securityComment", securityComment);
+	    request.setAttribute("securityAHFComment", securityAHFComment);
+	    request.setAttribute("securityHCComment", securityHCComment);
 	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
 		view.forward(request, response); 		       					
 		

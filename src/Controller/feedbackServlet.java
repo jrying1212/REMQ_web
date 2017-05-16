@@ -43,6 +43,7 @@ public class feedbackServlet extends HttpServlet {
 
 //		request.setAttribute("id", id);
 //	  	RequestDispatcher view = request.getRequestDispatcher("/homePage.jsp");
+		
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class feedbackServlet extends HttpServlet {
 		feedback.setTime(time);
 		feedback = feedbackDAO.insertData(feedback);
 		
-		String packageName = null, c_time = null, complexityComment, cohesionComment, couplingComment, securityComment;
+		String packageName = null, c_time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment;
 		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
 		
@@ -96,8 +97,9 @@ public class feedbackServlet extends HttpServlet {
 		complexityComment = comment.getComplexityComment();
 		cohesionComment = comment.getCohesionComment();
 		couplingComment = comment.getCouplingComment();
-		securityComment = comment.getSecurityComment();
-		System.out.println(securityComment);        
+		securityAHFComment = comment.getAHFComment();
+		securityHCComment = comment.getHCComment();
+       
 	    HttpSession session = request.getSession(true);	    
 	    request.setCharacterEncoding("UTF-8");
 	    request.setAttribute("packageName", packageName);
@@ -114,8 +116,9 @@ public class feedbackServlet extends HttpServlet {
 	    request.setAttribute("complexityComment", complexityComment);
 	    request.setAttribute("cohesionComment", cohesionComment);
 	    request.setAttribute("couplingComment", couplingComment);
-	    request.setAttribute("securityComment", securityComment);
-	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
+	    request.setAttribute("securityAHFComment", securityAHFComment);
+	    request.setAttribute("securityHCComment", securityHCComment);
+	  	RequestDispatcher view = request.getRequestDispatcher("/showAllResult.jsp");
 		view.forward(request, response); 
 				
 	}

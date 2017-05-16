@@ -698,7 +698,7 @@ public class commentDAO {
  	
          double rate_from = bean.getSec_start();
          double rate_to = bean.getSec_end();
-         String  comment = bean.getSecurityComment();
+         String  comment = bean.getHCComment();
          int id = bean.getSecurityID();
          int type = bean.getType();
          	    

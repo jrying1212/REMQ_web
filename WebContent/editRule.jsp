@@ -137,7 +137,7 @@ ResultSet rs_sec = commentDAO.selectSecurityRuleData();
 	      <thead>
 	        <tr>
 	          <th>coupling start from</th>
-	          <th>coupling end to</th>
+
 	          <th>Comment</th>
 	        </tr>
 	        <%
