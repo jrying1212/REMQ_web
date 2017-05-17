@@ -17,8 +17,14 @@ public class coupling {
 			System.out.println(att_coupling+" "+att_num+" "+class_coupling);
 		
 		}
+		double WTcoup=0;
 		int class_num = sh.getClassNum();
-		double WTcoup = class_coupling/(Math.pow(class_num, 2)-class_num);
+		if (class_num!=1){
+		WTcoup = class_coupling/(Math.pow(class_num, 2)-class_num);
+		}
+		else{
+			WTcoup =0;
+		}
 		DecimalFormat df = new DecimalFormat("##.00");
 		WTcoup =Double.parseDouble(df.format(WTcoup));
 		System.out.println(WTcoup);

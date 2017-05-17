@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import Bean.commentBean;
 import Bean.resultBean;
 import Model.connectDBManager;
@@ -14,91 +16,69 @@ public class commentDAO {
      static ResultSet rs = null;       
 	
      public static commentBean selectData(commentBean bean) {
+    	 PreparedStatement preparedStatement = null;
 	
-        //preparing some objects for connection 
-        Statement stmt = null;    
-	
-        String packageName = bean.getPackageName();    
-        String id = bean.getID();   
+    	 String packageName = bean.getPackageName();    
+    	 String id = bean.getID();   
 	    
-        String searchQuery =
-              "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from historical_data where ID='"                       
-                       + id
-                       + "'";
-	    
-     // "System.out.println" prints in the console; Normally used to trace the process
-     System.out.println("Your user name is " + packageName);          
-     System.out.println("Your password is " + id);
-     System.out.println("Query: "+searchQuery);
-	    
-     try 
-     {
-        //connect to DB 
-        currentCon = connectDBManager.getConnection();
-        stmt=currentCon.createStatement();
-        rs = stmt.executeQuery(searchQuery);	        
-        boolean more = rs.next();
-	       
-        // if user does not exist set the isValid variable to false
-        if (!more) 
-        {
-           System.out.println("Sorry, you are not a registered user! Please sign up first");
-        } 
-	        
-        //if user exists set the isValid variable to true
-        else if (more) 
-        {           
-           Double Simplicity = rs.getDouble("Simplicity");
-           Double Reusability = rs.getDouble("Reusability");
-           Double Cohesion = rs.getDouble("Cohesion");
-           Double Coupling = rs.getDouble("Coupling");
-           Double AHF = rs.getDouble("AHF");
-           Double HC = rs.getDouble("HC");
-           Double Security = rs.getDouble("Security");
+    	 String searchQuery =
+              "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from historical_data where ID=?";
+    	 try{
+    		 currentCon = connectDBManager.getConnection();        
+    		 preparedStatement = (PreparedStatement) currentCon.prepareStatement(searchQuery);
+    		 preparedStatement.setString(1, id);
+    		 rs = preparedStatement.executeQuery(searchQuery);	        
+    		 boolean more = rs.next();
+    		 if (!more){
+    			 System.out.println("Sorry, you are not a registered user! Please sign up first");
+    		 } 
+    		 else if (more){           
+    			 Double Simplicity = rs.getDouble("Simplicity");
+    			 Double Reusability = rs.getDouble("Reusability");
+    			 Double Cohesion = rs.getDouble("Cohesion");
+    			 Double Coupling = rs.getDouble("Coupling");
+    			 Double AHF = rs.getDouble("AHF");
+    			 Double HC = rs.getDouble("HC");
+    			 Double Security = rs.getDouble("Security");
            
-           bean.setPackageName(packageName);
-           bean.setSimplicity(Simplicity);
-           bean.setResuability(Reusability);
-           bean.setCohesion(Cohesion);
-           bean.setCoupling(Coupling);
-           bean.setAHF(AHF);
-           bean.setHC(HC);
-           bean.setSecurity(Security);          
-        }
-     } 
+    			 bean.setPackageName(packageName);
+    			 bean.setSimplicity(Simplicity);
+    			 bean.setResuability(Reusability);
+    			 bean.setCohesion(Cohesion);
+    			 bean.setCoupling(Coupling);
+    			 bean.setAHF(AHF);
+    			 bean.setHC(HC);
+    			 bean.setSecurity(Security);          
+    		 }
+    	 } 
 
-     catch (Exception ex) 
-     {
-        System.out.println("Log In failed: An Exception has occurred! " + ex);
-     } 
-	    
-     //some exception handling
-     finally 
-     {
-        if (rs != null)	{
-           try {
-              rs.close();
-           } catch (Exception e) {}
-              rs = null;
-           }
-	
-        if (stmt != null) {
-           try {
-              stmt.close();
-           } catch (Exception e) {}
-              stmt = null;
-           }
-	
-        if (currentCon != null) {
-           try {
-              currentCon.close();
-           } catch (Exception e) {
-           }
-
-           currentCon = null;
-        }
-     }
-     return bean;	
+    	 catch (Exception ex){
+    		 System.out.println("Log In failed: An Exception has occurred! " + ex);
+    	 } 
+    	 finally{
+    		 if (rs != null){
+    			 try {
+    				 rs.close();
+    			 } catch (Exception e) {}
+    			 rs = null;
+    		 }	
+    		 if (preparedStatement != null) {
+    			 try {
+    				 preparedStatement.close();
+    			 } 
+    			 catch (Exception e) {}
+    			 preparedStatement = null;
+    		 }	
+    		 if (currentCon != null) {
+    			 try {
+    				 currentCon.close();
+    			 } 
+    			 catch (Exception e) {
+    			 }
+    			 currentCon = null;
+    		 }
+    	 }
+    	 return bean;	
      }
      
      public static commentBean selectlastData(commentBean bean) {
@@ -186,8 +166,8 @@ public class commentDAO {
      public static commentBean getComplexityComment(commentBean bean) {
     		
          //preparing some objects for connection 
-         Statement stmt = null;    
- 	
+         
+         PreparedStatement preparedStatement = null;
          double simplicity = bean.getSimplicity();    
          double resuability = bean.getResuability();   
  	    
@@ -203,8 +183,9 @@ public class commentDAO {
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         rs = stmt.executeQuery(searchQuery);	        
+         
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(searchQuery);
+         rs = preparedStatement.executeQuery();	        
  	        
          //if user exists set the isValid variable to true
         while(rs.next()) 
@@ -238,11 +219,11 @@ public class commentDAO {
                rs = null;
             }
  	
-         if (stmt != null) {
+         if (preparedStatement != null) {
             try {
-               stmt.close();
+            	preparedStatement.close();
             } catch (Exception e) {}
-               stmt = null;
+            preparedStatement = null;
             }
  	
          if (currentCon != null) {
@@ -261,7 +242,7 @@ public class commentDAO {
      public static commentBean getCohesionComment(commentBean bean) {
  		
          //preparing some objects for connection 
-         Statement stmt = null;    
+    	 PreparedStatement preparedStatement = null;   
  	
          double cohesion = bean.getCohesion();     
  	    
@@ -276,8 +257,8 @@ public class commentDAO {
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         rs = stmt.executeQuery(searchQuery);	        
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(searchQuery);
+         rs = preparedStatement.executeQuery();		        
  	        
          //if user exists set the isValid variable to true
         while(rs.next()) 
@@ -317,11 +298,11 @@ public class commentDAO {
                rs = null;
             }
  	
-         if (stmt != null) {
+         if (preparedStatement != null) {
             try {
-               stmt.close();
+            	preparedStatement.close();
             } catch (Exception e) {}
-               stmt = null;
+            preparedStatement = null;
             }
  	
          if (currentCon != null) {
@@ -340,7 +321,7 @@ public class commentDAO {
      public static commentBean getCouplingComment(commentBean bean) {
   		
          //preparing some objects for connection 
-         Statement stmt = null;    
+    	 PreparedStatement preparedStatement = null;    
  	
          double coupling = bean.getCoupling();     
  	    
@@ -355,8 +336,8 @@ public class commentDAO {
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         rs = stmt.executeQuery(searchQuery);	        
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(searchQuery);
+         rs = preparedStatement.executeQuery();	  
  	        
          //if user exists set the isValid variable to true
         while(rs.next()) 
@@ -395,11 +376,11 @@ public class commentDAO {
                rs = null;
             }
  	
-         if (stmt != null) {
+         if (preparedStatement != null) {
             try {
-               stmt.close();
+            	preparedStatement.close();
             } catch (Exception e) {}
-               stmt = null;
+            preparedStatement = null;
             }
  	
          if (currentCon != null) {
@@ -417,7 +398,7 @@ public class commentDAO {
      public static commentBean getSecurityComment(commentBean bean) {
   		
          //preparing some objects for connection 
-         Statement stmt = null;    
+    	 PreparedStatement preparedStatement = null;  
  	
          double AHF = bean.getAHF();
          double HC = bean.getHC();
@@ -433,8 +414,8 @@ public class commentDAO {
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         rs = stmt.executeQuery(searchQuery);	        
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(searchQuery);
+         rs = preparedStatement.executeQuery();	        
  	        
          //if user exists set the isValid variable to true
         while(rs.next()) 
@@ -490,11 +471,11 @@ public class commentDAO {
                rs = null;
             }
  	
-         if (stmt != null) {
+         if (preparedStatement != null) {
             try {
-               stmt.close();
+            	preparedStatement.close();
             } catch (Exception e) {}
-               stmt = null;
+            preparedStatement = null;
             }
  	
          if (currentCon != null) {
@@ -511,13 +492,13 @@ public class commentDAO {
      
      public static ResultSet selectComplexityRuleData() {
  		
-         Statement stmt = null;    	    
+    	 PreparedStatement preparedStatement = null;    	    
          String selectQuery = "select * from complexity_rule "; 	     	    
          try 
          {
         	 currentCon = connectDBManager.getConnection();
-        	 stmt=currentCon.createStatement();
-        	 rs = stmt.executeQuery(selectQuery);;
+        	 preparedStatement=(PreparedStatement) currentCon.prepareStatement(selectQuery);
+             rs = preparedStatement.executeQuery();	
          } 	                
          catch (Exception ex) 
          {
@@ -528,13 +509,13 @@ public class commentDAO {
      
      public static ResultSet selectCouplingRuleData() {
  		
-         Statement stmt = null;     		    
+    	 PreparedStatement preparedStatement = null;     		    
          String selectQuery = "select * from coupling_rule "; 	    
          try 
          {
         	 currentCon = connectDBManager.getConnection();
-        	 stmt=currentCon.createStatement();
-        	 rs = stmt.executeQuery(selectQuery);;
+        	 preparedStatement=(PreparedStatement) currentCon.prepareStatement(selectQuery);
+             rs = preparedStatement.executeQuery();	
          } 	                
          catch (Exception ex) 
          {
@@ -545,13 +526,13 @@ public class commentDAO {
      
      public static ResultSet selectCohesionRuleData() {
  		
-         Statement stmt = null;        
+    	 PreparedStatement preparedStatement = null;       
          String selectQuery = "select * from cohesion_rule ";	    
          try 
          {
         	 currentCon = connectDBManager.getConnection();
-        	 stmt=currentCon.createStatement();
-        	 rs = stmt.executeQuery(selectQuery);;
+        	 preparedStatement=(PreparedStatement) currentCon.prepareStatement(selectQuery);
+             rs = preparedStatement.executeQuery();	
          }
          catch (Exception ex) 
          {
@@ -563,13 +544,13 @@ public class commentDAO {
      public static ResultSet selectSecurityRuleData() {
  		
 
-         Statement stmt = null;     	 	   
+    	 PreparedStatement preparedStatement = null;      	 	   
          String selectQuery = "select * from security_rule order by type ";	    
          try 
          {
         	 currentCon = connectDBManager.getConnection();
-        	 stmt=currentCon.createStatement();
-        	 rs = stmt.executeQuery(selectQuery);;
+        	 preparedStatement=(PreparedStatement) currentCon.prepareStatement(selectQuery);
+             rs = preparedStatement.executeQuery();	
          }
          catch (Exception ex) 
          {
@@ -581,7 +562,7 @@ public class commentDAO {
      public static commentBean UpdateComplexity(commentBean bean) {
  		
          //preparing some objects for connection 
-         Statement stmt = null;    
+    	 PreparedStatement preparedStatement = null;   
  	
          double sim_rate_from = bean.getSimp_start();
          double sim_rate_to = bean.getSimp_end();
@@ -592,14 +573,8 @@ public class commentDAO {
          
  	    
          String updateQuery =
-        		 "update complexity_rule set sim_rate_from ='"
-                 + sim_rate_from + "' , sim_rate_to='"
-                 + sim_rate_to + "' ,reu_rate_from='"
-                 + reu_rate_from+ "' ,reu_rate_to='"
-                 + reu_rate_to+ "' ,comment='"
-                 + comment+ "'"
-                 + "where ID = "+id;
- 	    
+        		 "update complexity_rule set sim_rate_from =?, sim_rate_to=?,reu_rate_from=?,"
+        		 + "reu_rate_to=?,comment=? where ID = ?"; 	   
 
       System.out.println("Query: "+updateQuery);
  	    
@@ -607,8 +582,14 @@ public class commentDAO {
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         int rs_update = stmt.executeUpdate(updateQuery);	        
+         preparedStatement.setDouble(1, sim_rate_from);
+         preparedStatement.setDouble(2, sim_rate_to);
+         preparedStatement.setDouble(3, reu_rate_from);
+         preparedStatement.setDouble(4, reu_rate_to);
+         preparedStatement.setString(5, comment);
+         preparedStatement.setInt(6, id);
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(updateQuery);
+         int rs_update = preparedStatement.executeUpdate();	        
  	      
       } 
 
@@ -624,7 +605,7 @@ public class commentDAO {
      public static commentBean UpdateCoupling(commentBean bean) {
   		
          //preparing some objects for connection 
-         Statement stmt = null;    
+    	 PreparedStatement preparedStatement = null;     
  	
          double coup_start = bean.getCoup_start();
          double coup_end = bean.getCoup_end();
@@ -632,22 +613,17 @@ public class commentDAO {
          int id = bean.getCouplingID();
           	    
          String updateQuery =
-        		 "update coupling_rule set rate_from ='"
-                 + coup_start + "' , rate_to='"
-                 + coup_end + "' ,comment='"                 
-                 + comment+ "'"
-                 + "where ID = "+id;
- 	    
-      System.out.println("Query: "+updateQuery);
- 	    
-      try 
-      {
-         //connect to DB 
+        		 "update coupling_rule set rate_from =?, rate_to=?,comment=? where ID =?";
+ 	          
+      try{
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         int rs_update = stmt.executeUpdate(updateQuery);	         	      
+         preparedStatement.setDouble(1, coup_start);
+         preparedStatement.setDouble(2, coup_end);
+         preparedStatement.setString(3, comment);
+         preparedStatement.setInt(4, id);
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(updateQuery);
+         int rs_update = preparedStatement.executeUpdate();
       } 
-
       catch (Exception ex) 
       {
          System.out.println("Log In failed: An Exception has occurred! " + ex);
@@ -656,32 +632,26 @@ public class commentDAO {
       }
      
      public static commentBean UpdateCohesion(commentBean bean) {
-  		
-         //preparing some objects for connection 
-         Statement stmt = null;    
+  		 
+    	 PreparedStatement preparedStatement = null;   
  	
          double rate_from = bean.getCohe_start();
          double rate_to = bean.getCohe_end();
          String  comment = bean.getCohesionComment();
-         int id = bean.getCohesionID();
-         
+         int id = bean.getCohesionID();         
  	    
          String updateQuery =
-        		 "update cohesion_rule set rate_from ='"
-                 + rate_from + "' , rate_to='"
-                 + rate_to + "' ,comment='"                 
-                 + comment+ "'"
-                 + "where ID = "+id;
- 	    
-
-      System.out.println("Query: "+updateQuery);
- 	    
+        		 "update cohesion_rule set rate_from =?, rate_to=?,comment=? where ID =?";
+ 	     	    
       try 
       {
-         //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         int rs_update = stmt.executeUpdate(updateQuery);	        	      
+         preparedStatement.setDouble(1, rate_from);
+         preparedStatement.setDouble(2, rate_to);
+         preparedStatement.setString(3, comment);
+         preparedStatement.setInt(4, id);
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(updateQuery);
+         int rs_update = preparedStatement.executeUpdate();  	      
       } 
 
       catch (Exception ex) 
@@ -693,9 +663,7 @@ public class commentDAO {
      
      public static commentBean UpdateSecurity(commentBean bean) {
   		
-         //preparing some objects for connection 
-         Statement stmt = null;    
- 	
+    	 PreparedStatement preparedStatement = null;    	
          double rate_from = bean.getSec_start();
          double rate_to = bean.getSec_end();
          String  comment = bean.getHCComment();
@@ -703,29 +671,25 @@ public class commentDAO {
          int type = bean.getType();
          	    
          String updateQuery =
-        		 "update security_rule set type ='"
-                 + type + "' , rate_from='"
-                 + rate_from + "' ,rate_to='"
-                 + rate_to+ "' ,comment='"
-                 + comment+ "'"
-                 + "where ID = "+id;
-         
-      System.out.println("Query: "+updateQuery);
- 	    
+        		 "update security_rule set type =?, rate_from=?,rate_to=?,comment=? where ID = ?";
+         	    
       try 
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         int rs_update = stmt.executeUpdate(updateQuery);	         	      
+         preparedStatement.setInt(1, type);
+         preparedStatement.setDouble(2, rate_from);
+         preparedStatement.setDouble(3, rate_to);
+         preparedStatement.setString(4, comment);
+         preparedStatement.setInt(5, id);
+         
+         preparedStatement=(PreparedStatement) currentCon.prepareStatement(updateQuery);
+         int rs_update = preparedStatement.executeUpdate();	         	      
       } 
-
       catch (Exception ex) 
       {
          System.out.println("Log In failed: An Exception has occurred! " + ex);
       }  	      
       return bean;	
-      }
-     
-
+      }     
 }

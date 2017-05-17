@@ -3,7 +3,8 @@
 <%@ page import="Bean.resultBean"%>     
 <%@ page import="Bean.commentBean"%> 
 <%@ page import="DAO.resultDAO"%>   
-<%@page import="java.sql.*"%>  
+<%@page import="java.sql.*"%>   
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 		</noscript>
@@ -34,11 +35,8 @@ double  security = (double)request.getAttribute("security");
 String  time = (String)request.getAttribute("time"); 
 String  id = (String)request.getAttribute("id");
 String  complexityComment = (String)request.getAttribute("complexityComment"); 
-request.setCharacterEncoding("UTF-8");
 String  cohesionComment = (String)request.getAttribute("cohesionComment");
-request.setCharacterEncoding("UTF-8");
 String  couplingComment = (String)request.getAttribute("couplingComment");
-request.setCharacterEncoding("UTF-8");
 String  securityAHFComment = (String)request.getAttribute("securityAHFComment"); 
 String  securityHCComment = (String)request.getAttribute("securityHCComment"); 
 
@@ -82,6 +80,9 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 						<h2>Result</h2>
 						<p>Package name : <%=packageName%><br>Class number :<%=classNum %><br>Date :<%=time %></p>
 					</header>
+						<section>
+				<img src="drawServlet?param1=<%=id%>">
+				</section>
 					
 				</div>
 			</section>
@@ -179,6 +180,7 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 						</div>
 					</div>
 				</div>
+>
 			</footer>
 	</body>		
 </html>

@@ -63,22 +63,26 @@ rs = feedbackDAO.selectAllData();
       <thead>
         <tr>
           <th>ID</th>
-          <th>Project ID</th>
+          <th>PackageName</th>
+          <th>Item</th>
           <th>Content</th>          
           <th>Date</th>
         </tr>
         <%
         while(rs.next()){
           String ID = rs.getString("ID");
+          String item = rs.getString("item");
           String Content = rs.getString("content");
-          String ProjectID = rs.getString("PackageName");
+          String PackageName = rs.getString("PackageName");
+          String ProjectID = rs.getString("projID");
           String date = rs.getString("date");
         %>
         <tbody>
         
           <tr>
-          <td data-title="ID"><a href="getResultServlet?param1=<%=ID%>"> <%=ID%> </a></td>          
-          <td data-title="Status"><%=ProjectID%></td>
+          <td data-title="ID"><a href="getResultServlet?param1=<%=ProjectID%>"> <%=ID%> </a></td>          
+          <td data-title="Status"><%=PackageName%></td>
+          <td data-title="Status"><%=item%></td>
           <td data-title="Name"><%=Content%></td>
           <td data-title="Name"><%=date%></td>
         </tr>

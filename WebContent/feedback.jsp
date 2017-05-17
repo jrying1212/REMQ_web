@@ -65,9 +65,17 @@ String id = request.getParameter("proj_id");
 					<form action="feedbackServlet" method="post">
 					    <input type="hidden" name="proj_id" value="<%=id %>"/>
 						<div >
-							
+							<div class="4u$">						
+							<select name="item">
+							<option value="Complexity">Complexity</option>
+							<option value="Coupling">Coupling</option>
+							<option value="Cohesion">Cohesion</option>
+							<option value="Security">Security</option>
+							<option value="Other">Other</select>
+							</div>
+							<br>
 							<div class="12u$">
-								<textarea name="feedback" id="message" placeholder="Please enter your feedback." rows="6" required autocomplete="off"></textarea>
+							<textarea name="feedback" id="message" placeholder="Please enter your feedback." rows="6" required autocomplete="off"></textarea>
 							</div>
 							<br>
 							<div class="12u$">

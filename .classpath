@@ -14,5 +14,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/QZ_CHUNG/Desktop/mysql-connector-java-5.1.41/mysql-connector-java-5.1.41-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/QZ_CHUNG/Documents/REMQ_Web/REMQ/WebContent/WEB-INF/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="C:/Users/QZ_CHUNG/Documents/REMQ_Web/REMQ/WebContent/WEB-INF/lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -3,6 +3,7 @@ package Bean;
 public class feedbackBean {
 	
 	private String projID;
+	private String select;
 	private String content;
 	private String time;
 	
@@ -12,6 +13,14 @@ public class feedbackBean {
 	
 	public String getProjID(){
 		return projID;
+	}
+	
+	public void setSelect(String select){
+		this.select = select;
+	}
+	
+	public String getSelect(){
+		return select;
 	}
 	
 	public void setContent(String content){

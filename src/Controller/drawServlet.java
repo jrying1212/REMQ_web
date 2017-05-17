@@ -1,38 +1,45 @@
 package Controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.SpiderWebPlot;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.RectangleEdge;
 
 import Bean.commentBean;
 import Bean.resultBean;
 import DAO.commentDAO;
 import DAO.resultDAO;
-@WebServlet("/getResultServlet")
-public class getResultServlet extends HttpServlet {
+
+/**
+ * Servlet implementation class drawServlet
+ */
+@WebServlet("/drawServlet")
+public class drawServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getResultServlet() {
+    public drawServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		String id = request.getParameter("param1");
+String id = request.getParameter("param1");
 		
 		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment;
 		int classNum = 0;
@@ -65,29 +72,25 @@ public class getResultServlet extends HttpServlet {
 		couplingComment = comment.getCouplingComment();
 		securityAHFComment = comment.getAHFComment();
 		securityHCComment = comment.getHCComment();
-		        
-	    HttpSession session = request.getSession(true);	    
-	    
-	    request.setAttribute("packageName", packageName);
-	    request.setAttribute("classNum", classNum);
-	    request.setAttribute("simplicity", simplicity);
-	    request.setAttribute("reusability", reusability);
-	    request.setAttribute("cohesion", cohesion);
-	    request.setAttribute("coupling", coupling);
-	    request.setAttribute("AHF", AHF);
-	    request.setAttribute("HC", HC);
-	    request.setAttribute("security", security);
-	    request.setAttribute("time", time);
-	    request.setAttribute("id", id);
-	    request.setAttribute("complexityComment", complexityComment);
-	    request.setAttribute("cohesionComment", cohesionComment);
-	    request.setAttribute("couplingComment", couplingComment);
-	    request.setAttribute("securityAHFComment", securityAHFComment);
-	    request.setAttribute("securityHCComment", securityHCComment);
-	    	    
-	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
-		view.forward(request, response); 		       					
 		
+		response.setContentType("text/html");  
+        DefaultCategoryDataset chartDate = new DefaultCategoryDataset();          
+        String group1 = packageName;
+        
+        chartDate.addValue(simplicity, group1, "Simplicity(Complexity)");
+        chartDate.addValue(reusability, group1, "Reusability(Complexity)");
+        chartDate.addValue(cohesion, group1, "Cohesion");
+        chartDate.addValue(coupling, group1, "Coupling");
+        chartDate.addValue(AHF, group1, "Encapsulation(Security)");
+        chartDate.addValue(HC, group1, "Hard-coded(Security)");
+        DefaultCategoryDataset data = chartDate; 
+        SpiderWebPlot spiderwebplot = new SpiderWebPlot(data);
+        JFreeChart jfreechart = new JFreeChart("Result", TextTitle.DEFAULT_FONT,spiderwebplot, false);
+        LegendTitle legendtitle = new LegendTitle(spiderwebplot);
+        legendtitle.setPosition(RectangleEdge.BOTTOM);
+        jfreechart.addSubtitle(legendtitle);
+        ChartUtilities.writeChartAsJPEG(response.getOutputStream(), 1.0f, jfreechart, 500, 300, null);
+  
 	}
 
 	/**
@@ -96,7 +99,6 @@ public class getResultServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 	}
 
 }

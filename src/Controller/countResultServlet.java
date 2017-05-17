@@ -10,6 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.SpiderWebPlot;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.RectangleEdge;
+
 import Bean.commentBean;
 import Bean.resultBean;
 import DAO.commentDAO;
@@ -100,6 +109,7 @@ public class countResultServlet extends HttpServlet {
 	    request.setAttribute("securityAHFComment", securityAHFComment);
 	    request.setAttribute("securityHCComment", securityHCComment);
 	  	RequestDispatcher view = request.getRequestDispatcher("/showResult.jsp");
-		view.forward(request, response); 		       					
+		view.forward(request, response); 				
+
 	}
 }

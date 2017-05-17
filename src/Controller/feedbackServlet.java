@@ -54,6 +54,8 @@ public class feedbackServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String id = request.getParameter("proj_id");
+		String item = request.getParameter("item");
+		System.out.println("item "+item);
 		response.getWriter().append("Served at: ").append(id);
 		request.setCharacterEncoding("UTF-8"); 
 		String content = request.getParameter("feedback");
@@ -66,6 +68,7 @@ public class feedbackServlet extends HttpServlet {
 		feedback.setProjID(id);
 		feedback.setContent(content);	
 		feedback.setTime(time);
+		feedback.setSelect(item);
 		feedback = feedbackDAO.insertData(feedback);
 		
 		String packageName = null, c_time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment;
