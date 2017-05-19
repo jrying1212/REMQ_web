@@ -55,29 +55,31 @@ public class countResultServlet extends HttpServlet {
 
 		resultBean result = new resultBean();
 		ResultSet rs = null;
-		rs = resultDAO.selectLastID();
+		result = resultDAO.selectLastID(result);
 		
-		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment, id = null;
+		String packageName = null, time = null, AHFData=null, HCData=null, CohNever=null, CohSeldom=null, 
+				CoupAll=null, CoupHigh=null,
+				complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment, id = null;
 		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
-		try {
-			boolean more = rs.next();
-			packageName = rs.getString("PackageName");
-			classNum = rs.getInt("ClassNum");
-			simplicity = rs.getDouble("Simplicity");
-			reusability = rs.getDouble("Reusability");
-			cohesion = rs.getDouble("Cohesion");
-			coupling = rs.getDouble("Coupling");
-			AHF = rs.getDouble("AHF");
-			HC = rs.getDouble("HC");
-			security = rs.getDouble("Security");
-			time = rs.getString("Time");
-			id = rs.getString("ID");
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//			boolean more = rs.next();
+					packageName = result.getPackageName();
+					classNum = result.getClassNum();
+					simplicity = result.getSimplicity();
+					reusability = result.getResuability();
+					cohesion = result.getCohesion();
+					coupling = result.getCoupling();
+					AHF = result.getAHF();
+					HC = result.getHC();
+					security = result.getSecurity();
+					time = result.getTime();
+					id = result.getID();
+					AHFData = result.getAHFComment();
+					HCData = result.getHardCodedComment();
+					CohNever = result.getCohNeverUsed();
+					CohSeldom = result.getCohSeldomUsed();
+					CoupAll = result.getCouplingAll();
+					CoupHigh = result.getCouplingHigh();
 				
 		commentBean comment = new commentBean();
 		comment = commentDAO.selectlastData(comment);
@@ -85,6 +87,7 @@ public class countResultServlet extends HttpServlet {
 		comment = commentDAO.getCohesionComment(comment);
 		comment = commentDAO.getCouplingComment(comment);
 		comment = commentDAO.getSecurityComment(comment);
+		
 		
 		complexityComment = comment.getComplexityComment();
 		cohesionComment = comment.getCohesionComment();
@@ -102,6 +105,12 @@ public class countResultServlet extends HttpServlet {
 	    request.setAttribute("HC", HC);
 	    request.setAttribute("security", security);
 	    request.setAttribute("time", time);
+	    request.setAttribute("AHFData", AHFData);
+	    request.setAttribute("HCData", HCData);
+	    request.setAttribute("CohNever", CohNever);
+	    request.setAttribute("CohSeldom", CohSeldom);
+	    request.setAttribute("CoupAll", CoupAll);
+	    request.setAttribute("CoupHigh", CoupHigh);
 	    request.setAttribute("id", id);
 	    request.setAttribute("complexityComment", complexityComment);
 	    request.setAttribute("cohesionComment", cohesionComment);

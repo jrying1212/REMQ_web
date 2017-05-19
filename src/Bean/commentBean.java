@@ -32,6 +32,8 @@ public class commentBean {
 	private int cohesionID;
 	private int couplingID;
 	private int securityID;
+	private String AHFDeatilComment;
+	private String HardCodedDetailComment;
 	
 	public void setPackageName(String packageName){
 		this.packageName = packageName;
@@ -271,6 +273,22 @@ public class commentBean {
 	
 	public int getSecurityID(){
 		return securityID;
+	}
+	
+	public void setAHFDetailComment(String AHFDeatilComment){
+		this.AHFDeatilComment = AHFComment;
+	}
+	
+	public String getAHFDetailComment(){
+		return AHFDeatilComment;
+	}
+	
+	public void setHardCodedDetailComment(String HardCodedDetailComment){
+		this.HardCodedDetailComment = HardCodedDetailComment;
+	}
+	
+	public String getHardCodedDetailComment(){
+		return HardCodedDetailComment;
 	}
 
 	

@@ -33,6 +33,12 @@ double  AHF = (double)request.getAttribute("AHF");
 double  HC = (double)request.getAttribute("HC"); 
 double  security = (double)request.getAttribute("security"); 
 String  time = (String)request.getAttribute("time"); 
+String 	AHFData = (String)request.getAttribute("AHFData");
+String 	HCData = (String)request.getAttribute("HCData");
+String  CohNever = (String)request.getAttribute("CohNever");
+String  CohSeldom = (String)request.getAttribute("CohSeldom");
+String  CoupAll = (String)request.getAttribute("CoupAll");
+String  CoupHigh = (String)request.getAttribute("CoupHigh");
 String  id = (String)request.getAttribute("id");
 String  complexityComment = (String)request.getAttribute("complexityComment"); 
 String  cohesionComment = (String)request.getAttribute("cohesionComment");
@@ -113,6 +119,8 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 							<header class="major">
 								<h2>Coupling</h2>
 								<p style="width: 800px; word-break: break-all;"><%=couplingComment %></p>
+								<p style="width: 800px; word-break: break-all;">類別與其他類別皆有耦合關係，建議刪除不必要存在者:<%=CoupAll %></p>
+								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要者以降低:<%=CoupHigh %></p>
 							</header>
 						</div>
 						<div class="row 100%">
@@ -125,6 +133,8 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 							<header class="major">
 								<h2>Cohesion</h2>
 								<p style="width: 800px; word-break: break-all;"><%=cohesionComment%></p>
+								<p style="width: 800px; word-break: break-all;">類別中屬性與方法無關係，建議可刪除者:<%=CohNever%></p>
+								<p style="width: 800px; word-break: break-all;">類別中屬性與方法關係較弱者: <%=CohSeldom%></p>
 							</header>
 						</div>
 						<div class="row 100%">
@@ -138,6 +148,8 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<h2>Security</h2>
 								<p style="width: 800px; word-break: break-all;"><%=securityAHFComment %></p>
 								<p style="width: 800px; word-break: break-all;"><%=securityHCComment %></p>
+								<p style="width: 800px; word-break: break-all;">宣告為public的屬性: <%=AHFData %></p>
+								<p style="width: 800px; word-break: break-all;">存在寫死的隱私資料類別: <%=HCData %></p>
 							</header>
 						</div>
 					</div>

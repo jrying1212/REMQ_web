@@ -1,10 +1,10 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
-import com.mysql.jdbc.PreparedStatement;
+
 
 import Bean.commentBean;
 import Bean.resultBean;
@@ -25,7 +25,7 @@ public class commentDAO {
               "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from historical_data where ID=?";
     	 try{
     		 currentCon = connectDBManager.getConnection();        
-    		 preparedStatement = (PreparedStatement) currentCon.prepareStatement(searchQuery);
+    		 preparedStatement = currentCon.prepareStatement(searchQuery);
     		 preparedStatement.setString(1, id);
     		 rs = preparedStatement.executeQuery(searchQuery);	        
     		 boolean more = rs.next();
@@ -84,7 +84,7 @@ public class commentDAO {
      public static commentBean selectlastData(commentBean bean) {
     		
          //preparing some objects for connection 
-         Statement stmt = null;    
+    	 PreparedStatement preparedStatement = null;
  	
          
          String searchQuery =
@@ -98,8 +98,8 @@ public class commentDAO {
       {
          //connect to DB 
          currentCon = connectDBManager.getConnection();
-         stmt=currentCon.createStatement();
-         rs = stmt.executeQuery(searchQuery);	        
+         preparedStatement = currentCon.prepareStatement(searchQuery);
+		 rs = preparedStatement.executeQuery(searchQuery);	         
          boolean more = rs.next();
  	       
          // if user does not exist set the isValid variable to false
@@ -144,11 +144,11 @@ public class commentDAO {
                rs = null;
             }
  	
-         if (stmt != null) {
+         if (preparedStatement != null) {
             try {
-               stmt.close();
+            	preparedStatement.close();
             } catch (Exception e) {}
-               stmt = null;
+            preparedStatement = null;
             }
  	
          if (currentCon != null) {
@@ -692,4 +692,30 @@ public class commentDAO {
       }  	      
       return bean;	
       }     
+     
+     public static commentBean insertSecurityDetailComment(commentBean bean) {
+
+    	 PreparedStatement preparedStatement = null;    
+    	 String id = bean.getID();  
+         String AHFDetail = bean.getAHFDetailComment();
+         String HCDetail = bean.getHardCodedDetailComment();
+         
+         String insertQuery =
+        		 "insert into security_detail_comment(proj_id, AHFComment, HCComment) values (?,?,?)";
+ 	  
+         try{       
+        	 currentCon = connectDBManager.getConnection();
+        	 preparedStatement = currentCon.prepareStatement(insertQuery); 
+        	 preparedStatement.setString(1, id);  
+        	 preparedStatement.setString(2, AHFDetail);  
+        	 preparedStatement.setString(3, HCDetail);  
+
+        	 int rs_insert = preparedStatement.executeUpdate();         	      
+         } 
+         catch (Exception ex){
+        	 System.out.println("Log In failed: An Exception has occurred! " + ex);
+         }  	      
+         return bean;
+     }
+
 }

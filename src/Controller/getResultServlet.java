@@ -34,7 +34,9 @@ public class getResultServlet extends HttpServlet {
 		
 		String id = request.getParameter("param1");
 		
-		String packageName = null, time = null, complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment;
+		String packageName = null, time = null, AHFData=null, HCData=null, CohNever=null, CohSeldom=null,
+				CoupAll=null, CoupHigh=null,
+				complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment;
 		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
 		resultBean result = new resultBean();
@@ -51,6 +53,12 @@ public class getResultServlet extends HttpServlet {
 		AHF = result.getAHF();
 		HC = result.getHC();
 		time = result.getTime();		
+		AHFData = result.getAHFComment();
+		HCData = result.getHardCodedComment();
+		CohNever = result.getCohNeverUsed();
+		CohSeldom = result.getCohSeldomUsed();
+		CoupAll = result.getCouplingAll();
+		CoupHigh = result.getCouplingHigh();
 		
 		commentBean comment = new commentBean();
 		comment.setID(id);
@@ -78,6 +86,12 @@ public class getResultServlet extends HttpServlet {
 	    request.setAttribute("HC", HC);
 	    request.setAttribute("security", security);
 	    request.setAttribute("time", time);
+	    request.setAttribute("AHFData", AHFData);
+	    request.setAttribute("HCData", HCData);
+	    request.setAttribute("CohNever", CohNever);
+	    request.setAttribute("CohSeldom", CohSeldom);
+	    request.setAttribute("CoupAll", CoupAll);
+	    request.setAttribute("CoupHigh", CoupHigh);
 	    request.setAttribute("id", id);
 	    request.setAttribute("complexityComment", complexityComment);
 	    request.setAttribute("cohesionComment", cohesionComment);

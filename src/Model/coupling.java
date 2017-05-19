@@ -19,7 +19,7 @@ public class coupling {
 		}
 		double WTcoup=0;
 		int class_num = sh.getClassNum();
-		if (class_num!=1){
+		if (class_num>1){
 		WTcoup = class_coupling/(Math.pow(class_num, 2)-class_num);
 		}
 		else{
@@ -29,6 +29,16 @@ public class coupling {
 		WTcoup =Double.parseDouble(df.format(WTcoup));
 		System.out.println(WTcoup);
 		return WTcoup;
+	}
+	
+	public String getAllCoupling(showInfo sh){
+		String allCoupling = sh.getAllCouplingName();
+		return allCoupling;
+	}
+	
+	public String getHighCoupling(showInfo sh){
+		String highCoupling = sh.getHighCouplingName();
+		return highCoupling;
 	}
 
 }

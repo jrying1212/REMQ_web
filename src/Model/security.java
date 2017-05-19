@@ -8,8 +8,13 @@ public class security {
 	public double countAHF(showInfo sh){
 		double total_att = sh.getAttNum();
 		double private_att = sh.getPrivateAttNum();		
-		double AHF = private_att/total_att;
-
+		double AHF=0 ;
+		if (total_att!=0){
+		AHF = private_att/total_att;
+		}
+		else{
+			AHF=0;
+		}
 		System.out.println(AHF);
 		DecimalFormat df = new DecimalFormat("##.00");
 		AHF =Double.parseDouble(df.format(AHF));
@@ -28,6 +33,16 @@ public class security {
 			HC = 1;
 		}
 		return HC;
+	}
+	
+	public String getPulicAttName(showInfo sh){
+		String publicAttName = sh.getPublicTypeAtt();
+		return publicAttName;
+	}
+	
+	public String getHardCodedClass(showInfo sh){
+		String hardCodedClass = sh.getHardCodedClassName();
+		return hardCodedClass;
 	}
 	
 	public double countSecurity(showInfo sh){

@@ -13,6 +13,12 @@ public class resultBean {
 	private double HC;
 	private double security;
 	private String time;
+	private String AHFComment;
+	private String HardCodedComment;
+	private String cohNeverUsed;
+	private String cohSeldomUsed;
+	private String couplingAll;
+	private String couplingHigh;
 	
 	public void setPackageName(String packageName){
 		this.packageName = packageName;
@@ -101,6 +107,51 @@ public class resultBean {
 	public String getTime(){
 		return time;
 	}
+	
+	public void setAHFComment(String AHFComment){
+		this.AHFComment = AHFComment;
+	}
+	
+	public String getAHFComment(){
+		return AHFComment;
+	}
+	
+	public void setHardCodedComment(String HardCodedComment){
+		this.HardCodedComment = HardCodedComment;
+	}
+	
+	public String getHardCodedComment(){
+		return HardCodedComment;
+	}
 
+	public void setCohNeverUsed(String cohNeverUsed){
+		this.cohNeverUsed = cohNeverUsed;
+	}
+	
+	public String getCohNeverUsed(){
+		return cohNeverUsed;
+	}
+	
+	public void setCohSeldomUsed(String cohSeldomUsed){
+		this.cohSeldomUsed = cohSeldomUsed;
+	}
+	
+	public String getCohSeldomUsed(){
+		return cohSeldomUsed;
+	}
 
+	public void setCouplingAll(String couplingAll){
+		this.couplingAll = couplingAll;
+	}
+	
+	public String getCouplingAll(){
+		return couplingAll;
+	}
+	public void setCouplingHigh(String couplingHigh){
+		this.couplingHigh = couplingHigh;
+	}
+	
+	public String getCouplingHigh(){
+		return couplingHigh;
+	}
 }

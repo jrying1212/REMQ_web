@@ -34,5 +34,15 @@ public class cohesion {
 		result =Double.parseDouble(df.format(result));
 		return result;
 	}
+	
+	public String getAttNeverCalled(showInfo sh){
+		String attNeverCalled = sh.getAttNeverCalled();
+		return attNeverCalled;
+	}
+	
+	public String getAttSeldomCalled(showInfo sh){
+		String attSeldomCalled = sh.getAttSeldomCalled();
+		return attSeldomCalled;
+	}
 
 }

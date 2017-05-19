@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.io.*"%>
 <%@page import="java.util.*" %>
-<%@page import="Bean.feedbackBean" %>
-<%@page import="DAO.feedbackDAO" %>
 <%@page import="java.util.Date" %>
 <%@page import="java.text.DateFormat" %>
 <%@page import="Model.showInfo" %>
@@ -12,6 +10,8 @@
 <%@page import="Model.cohesion" %>
 <%@page import="Model.complexity" %>
 <%@ page import="Bean.resultBean"%>
+<%@ page import="Bean.commentBean"%>
+<%@page import="DAO.commentDAO" %>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.*"%>  
 <%@ page import="Model.connectDBManager"%>
@@ -51,7 +51,8 @@ if (content!=null){
 	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	Date date = new Date();
 
-	String packageName="",time="";
+	String packageName="", time="", publicAttName="", hardCodedName="", cohNever="", cohSeldom="", 
+			coupAll="", coupHigh="";
 	int classNum=0;
 	double simplicity =0, reusability=0, cohesion=0, coupling=0, AHF=0, HC=0, security=0;
 	if (sh!=null){
@@ -64,6 +65,12 @@ if (content!=null){
 		 AHF = se.countAHF(sh);
 		 HC = se.countHC(sh);
 		 security = se.countSecurity(sh);
+		 publicAttName = se.getPulicAttName(sh);
+		 hardCodedName = se.getHardCodedClass(sh);
+		 cohNever = ch.getAttNeverCalled(sh);
+		 cohSeldom = ch.getAttSeldomCalled(sh);
+		 coupAll = cp.getAllCoupling(sh);
+		 coupHigh = cp.getHighCoupling(sh);
 		 time = dateFormat.format(date);
 	}
 
@@ -78,7 +85,14 @@ if (content!=null){
 	result.setHC(HC);
 	result.setSecurity(security);
 	result.setTime(time);
+	result.setAHFComment(publicAttName);
+	result.setHardCodedComment(hardCodedName);
+	result.setCohNeverUsed(cohNever);
+	result.setCohSeldomUsed(cohSeldom);
+	result.setCouplingAll(coupAll);
+	result.setCouplingHigh(coupHigh);
 	result = resultDAO.insertData(result);
+	
 }
 
 %>

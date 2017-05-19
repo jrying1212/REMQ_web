@@ -18,6 +18,8 @@ public class showInfo {
 	List<List<Integer>> AllMethod_LOC = new ArrayList<List<Integer>>();
 	ArrayList<Integer> att_called = new ArrayList<Integer>();
 	Map<String, Integer> method_reuse = new HashMap<String, Integer>();
+//	List<List<String>> publicTypeAttName = new ArrayList<List<String>>();
+	
 	String packageName;
 	int total_attNum=0;
 	int total_methodNum=0;
@@ -27,6 +29,12 @@ public class showInfo {
 	int private_AttNum=0;
 	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
 	String info="";
+	String publicTypeAttName="";
+	String hardCodedClassName="";
+	String attNeverCalled="";
+	String attSeldomCalled="";
+	String allCouplingName="";
+	String highCouplingName="";
 	
 	
 	public showInfo(){
@@ -55,12 +63,17 @@ public class showInfo {
 			
 				List<Integer> method_LOC = new ArrayList<Integer>();
 				JSONObject jsonObj  = arr_class.getJSONArray(i).getJSONObject(0);				
-				
+				String className = jsonObj.getString("className").substring(jsonObj.getString("className").lastIndexOf(".")+1);
 				System.out.println(jsonObj.getString("className"));
 				setClassName(jsonObj.getString("className"));
 				setClassLOC(jsonObj.getInt("classLOC"));
 				setSecNum(jsonObj.getInt("classSecNum"));
-				setSecHC(jsonObj.getInt("classSecHC"));
+				int HC = jsonObj.getInt("classSecHC");
+
+				setSecHC(HC);
+				if (HC>0){
+					setHardCodedClassName(className);					
+				}
 //				System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
 				JSONArray met = jsonObj.optJSONArray("Method List");
 				if (met.getJSONObject(0).getString("method_name").equals("null")){
@@ -93,27 +106,51 @@ public class showInfo {
 				int count_private=0;
 				int count_coupling=0;
 //				System.out.println(att.length());
+				setPublicTypeAtt(className+" : ");
+				setAttNeverCalled(className+" : ");
+				setAttSeldomCalled(className+" : ");
+				String couplingType="";
 				for (int j=0; j<att.length();j++){
 //					System.out.println(att.getJSONObject(j).getString("att_type"));
 					
 					String accessifier = att.getJSONObject(j).getString("att_accessfier");
+					String AttName = att.getJSONObject(j).getString("att_name");
 					if (accessifier.equals("private")){
 						count_private++;
 					}
+					else if(accessifier.equals("public")){
+						setPublicTypeAtt(AttName+" ");					
+					}
 					
-					String type = att.getJSONObject(j).getString("att_type");
-					
-					if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")){
-						count_coupling++;
-						
-//						System.out.println("coupling: "+att.getJSONObject(j).getString("att_type"));
+					String type = att.getJSONObject(j).getString("att_type");					
+					if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")&&!type.equals("boolean")){
+						count_coupling++;						
+						couplingType+=className+" : "+type+" ";
+
+					}
+					couplingType+="\n";
+					if(count_coupling >=getClassNum()-1){
+						setAllCouplingName(couplingType);
+					}
+					else if (count_coupling*0.75 >=getClassNum()-1){
+						setHighCouplingName(couplingType);
 					}
 					
 					int called = att.getJSONObject(j).getInt("att_called");
-					setAttCalled(att.getJSONObject(j).getInt("att_called"));
+					setAttCalled(called);
+					if (called==0){
+						setAttNeverCalled(AttName+" ");
+					}
+					else if (called < met.length()/2){
+						setAttSeldomCalled(AttName+" ");
+					}
+					
 //					System.out.println("called: "+called);
 				}
-											
+				setPublicTypeAtt("\n");
+				setAttNeverCalled("\n");
+				setAttSeldomCalled("\n");
+				System.out.println(publicTypeAttName);
 				setPrivateAttNum(count_private);
 				setCouplingNum(count_coupling);
 //				System.out.println("pc:"+count_private);
@@ -128,7 +165,7 @@ public class showInfo {
 //			        System.out.println(met_int.getJSONObject(j).get("methodInternalCalled"));	
 //					System.out.println("CN"+jsonObj.getString("className"));
 					setMethodCalled(jsonObj.getString("className"),count);						
-					}
+				}
 				
 				JSONArray met_ext = jsonObj_external.optJSONArray("met_externalInfo");
 				if (met_ext!=null){
@@ -266,5 +303,53 @@ public class showInfo {
 
 	public Map<String, Integer> getMethodCalled(){
 		return method_reuse;
+	}
+	
+	public void setPublicTypeAtt(String name){
+		publicTypeAttName += name;
+	}
+	
+	public String getPublicTypeAtt(){
+		return publicTypeAttName;
+	}
+	
+	public void setHardCodedClassName(String name){
+		hardCodedClassName += name;
+	}
+	
+	public String getHardCodedClassName(){
+		return hardCodedClassName;
+	}
+	
+	public void setAttNeverCalled(String name){
+		attNeverCalled += name;
+	}
+	
+	public String getAttNeverCalled(){
+		return attNeverCalled;
+	}
+	
+	public void setAttSeldomCalled(String name){
+		attSeldomCalled += name;
+	}
+	
+	public String getAttSeldomCalled(){
+		return attSeldomCalled;
+	}
+	
+	public void setAllCouplingName(String name){
+		allCouplingName += name;
+	}
+	
+	public String getAllCouplingName(){
+		return allCouplingName;
+	}
+	
+	public void setHighCouplingName(String name){
+		highCouplingName += name;
+	}
+	
+	public String getHighCouplingName(){
+		return highCouplingName;
 	}
 }
