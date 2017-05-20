@@ -43,7 +43,7 @@ public class countResultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
+	
 	}
 
 	/**
@@ -55,31 +55,41 @@ public class countResultServlet extends HttpServlet {
 
 		resultBean result = new resultBean();
 		ResultSet rs = null;
-		result = resultDAO.selectLastID(result);
+		rs = resultDAO.selectLastID();
 		
-		String packageName = null, time = null, AHFData=null, HCData=null, CohNever=null, CohSeldom=null, 
-				CoupAll=null, CoupHigh=null,
+		String packageName = null, time = null, AHFData=null, HCData=null, CohNever=null, CohSeldom=null,CoupAll=null, 
+				CoupHigh=null, CompMethodHigh=null, CompClassHigh=null, ReuseLow=null,
 				complexityComment, cohesionComment, couplingComment, securityAHFComment, securityHCComment, id = null;
 		int classNum = 0;
 		double simplicity = 0, reusability = 0, cohesion = 0, coupling = 0, AHF = 0, HC = 0, security = 0;
-		//			boolean more = rs.next();
-					packageName = result.getPackageName();
-					classNum = result.getClassNum();
-					simplicity = result.getSimplicity();
-					reusability = result.getResuability();
-					cohesion = result.getCohesion();
-					coupling = result.getCoupling();
-					AHF = result.getAHF();
-					HC = result.getHC();
-					security = result.getSecurity();
-					time = result.getTime();
-					id = result.getID();
-					AHFData = result.getAHFComment();
-					HCData = result.getHardCodedComment();
-					CohNever = result.getCohNeverUsed();
-					CohSeldom = result.getCohSeldomUsed();
-					CoupAll = result.getCouplingAll();
-					CoupHigh = result.getCouplingHigh();
+		try {
+//			boolean more = rs.next();
+			if (rs.next()){
+			packageName = rs.getString("PackageName");
+			classNum = rs.getInt("ClassNum");
+			simplicity = rs.getDouble("Simplicity");
+			reusability = rs.getDouble("Reusability");
+			cohesion = rs.getDouble("Cohesion");
+			coupling = rs.getDouble("Coupling");
+			AHF = rs.getDouble("AHF");
+			HC = rs.getDouble("HC");
+			security = rs.getDouble("Security");
+			time = rs.getString("Time");
+			id = rs.getString("ID");
+			AHFData = rs.getString("AHFComment");
+			HCData = rs.getString("HCComment");
+			CohNever = rs.getString("Coh_never");
+			CohSeldom = rs.getString("Coh_seldom");
+			CoupAll = rs.getString("Coup_all");
+			CoupHigh = rs.getString("Coup_high");
+			CompMethodHigh = rs.getString("Comp_metHigh");
+			CompClassHigh = rs.getString("Comp_classHigh");
+			ReuseLow = rs.getString("Reuse_low");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		commentBean comment = new commentBean();
 		comment = commentDAO.selectlastData(comment);
@@ -111,6 +121,9 @@ public class countResultServlet extends HttpServlet {
 	    request.setAttribute("CohSeldom", CohSeldom);
 	    request.setAttribute("CoupAll", CoupAll);
 	    request.setAttribute("CoupHigh", CoupHigh);
+	    request.setAttribute("CompMethodHigh", CompMethodHigh);
+	    request.setAttribute("CompClassHigh", CompClassHigh);
+	    request.setAttribute("ReuseLow", ReuseLow);
 	    request.setAttribute("id", id);
 	    request.setAttribute("complexityComment", complexityComment);
 	    request.setAttribute("cohesionComment", cohesionComment);

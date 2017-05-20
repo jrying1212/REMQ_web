@@ -25,7 +25,7 @@ public class coupling {
 		else{
 			WTcoup =0;
 		}
-		DecimalFormat df = new DecimalFormat("##.00");
+		DecimalFormat df = new DecimalFormat("##.000");
 		WTcoup =Double.parseDouble(df.format(WTcoup));
 		System.out.println(WTcoup);
 		return WTcoup;

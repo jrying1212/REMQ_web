@@ -16,7 +16,7 @@ public class security {
 			AHF=0;
 		}
 		System.out.println(AHF);
-		DecimalFormat df = new DecimalFormat("##.00");
+		DecimalFormat df = new DecimalFormat("##.000");
 		AHF =Double.parseDouble(df.format(AHF));
 		return AHF;
 	}
@@ -46,10 +46,10 @@ public class security {
 	}
 	
 	public double countSecurity(showInfo sh){
-//		security = (countAHF(sh)+countHC(sh))/2;
-//		DecimalFormat df = new DecimalFormat("##.00");
-//		security =Double.parseDouble(df.format(security));
-		return 1;
+		security = (countAHF(sh)+countHC(sh))/2;
+		DecimalFormat df = new DecimalFormat("##.000");
+		security =Double.parseDouble(df.format(security));
+		return security;
 	}
 
 }

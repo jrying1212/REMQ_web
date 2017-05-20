@@ -42,6 +42,9 @@ public class resultDAO {
 	    		 String cohSeldom = rs.getString("Coh_seldom");
 	    		 String coupAll = rs.getString("Coup_all");
 	    		 String coupHigh = rs.getString("Coup_high");
+	    		 String compMethodHigh = rs.getString("Comp_metHigh");
+	    		 String compClassHigh = rs.getString("Comp_classHigh");
+	    		 String Reuse_low = rs.getString("Reuse_low");
                   
 	    		 bean.setPackageName(packageName);
 	    		 bean.setClassNum(ClassNum);
@@ -59,6 +62,9 @@ public class resultDAO {
 	    		 bean.setCohSeldomUsed(cohSeldom);
 	    		 bean.setCouplingAll(coupAll);
 	    		 bean.setCouplingHigh(coupHigh);
+	    		 bean.setCompHighMethod(compMethodHigh);
+	    		 bean.setCompHighClass(compClassHigh);
+	    		 bean.setReuseLowClass(Reuse_low);
         }
      } 
 
@@ -115,56 +121,22 @@ public class resultDAO {
          return rs; 	
      }	
      
-     public static resultBean selectLastID(resultBean bean) {
+     public static ResultSet selectLastID() {
  		
     	 PreparedStatement preparedStatement = null;     
          String searchQuery = "select * from historical_data order by ID desc limit 1";	    
          try{
         	 currentCon = connectDBManager.getConnection();
         	 preparedStatement = currentCon.prepareStatement(searchQuery);  
-        	 rs = preparedStatement.executeQuery();	    
-        	 
-        	 String id = rs.getString("ID");
-        	 String packageName = rs.getString("PackageName");
-    		 int ClassNum = rs.getInt("ClassNum");
-    		 Double Simplicity = rs.getDouble("Simplicity");
-    		 Double Reusability = rs.getDouble("Reusability");
-    		 Double Cohesion = rs.getDouble("Cohesion");
-    		 Double Coupling = rs.getDouble("Coupling");
-    		 Double AHF = rs.getDouble("AHF");
-    		 Double HC = rs.getDouble("HC");
-    		 Double Security = rs.getDouble("Security");
-    		 String Time = rs.getString("Time");
-    		 String AHFData = rs.getString("AHFComment");
-    		 String HCData = rs.getString("HCComment");
-    		 String cohNever = rs.getString("Coh_never");
-    		 String cohSeldom = rs.getString("Coh_seldom");
-    		 String coupAll = rs.getString("Coup_all");
-    		 String coupHigh = rs.getString("Coup_high");
-             
-    		 bean.setID(id);
-    		 bean.setPackageName(packageName);
-    		 bean.setClassNum(ClassNum);
-    		 bean.setSimplicity(Simplicity);
-    		 bean.setResuability(Reusability);
-    		 bean.setCohesion(Cohesion);
-    		 bean.setCoupling(Coupling);
-    		 bean.setAHF(AHF);
-    		 bean.setHC(HC);
-    		 bean.setSecurity(Security);
-    		 bean.setTime(Time);
-    		 bean.setAHFComment(AHFData);
-    		 bean.setHardCodedComment(HCData);
-    		 bean.setCohNeverUsed(cohNever);
-    		 bean.setCohSeldomUsed(cohSeldom);
-    		 bean.setCouplingAll(coupAll);
-    		 bean.setCouplingHigh(coupHigh);
-         } 	                
+        	 rs = preparedStatement.executeQuery();	
+         }
+ 	               
          catch (Exception ex) 
          {
-        	 System.out.println("select: An Exception has occurred! " + ex);
-         }       
-         return bean; 	
+        	 System.out.println("TTTT: An Exception has occurred! " + ex);
+         }  	
+      
+         return rs; 	
       }	
            
      public static resultBean insertData(resultBean bean) {
@@ -186,10 +158,14 @@ public class resultDAO {
          String Coh_seldom = bean.getCohSeldomUsed();
          String Coup_all= bean.getCouplingAll();
          String CoupHigh = bean.getCouplingHigh();
+         String CompMethodHigh = bean.getCompHighMethod();
+         String CompClassHigh = bean.getCompHighClass();
+         String ReuseLow = bean.getReuseLowClass();
          String insertQuery =
         		 "insert into historical_data(PackageName, ClassNum, Simplicity, Reusability, "
         		 + "Cohesion, Coupling, AHF, HC, Security, Time, AHFComment, HCComment, "
-        		 + "Coh_never, Coh_seldom, Coup_all, Coup_high) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        		 + "Coh_never, Coh_seldom, Coup_all, Coup_high, Comp_metHigh, Comp_classHigh, Reuse_low) "
+        		 + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
  	  
          try{       
         	 currentCon = connectDBManager.getConnection();
@@ -210,6 +186,9 @@ public class resultDAO {
         	 preparedStatement.setString(14, Coh_seldom);
         	 preparedStatement.setString(15, Coup_all);
         	 preparedStatement.setString(16, CoupHigh);
+        	 preparedStatement.setString(17, CompMethodHigh);
+        	 preparedStatement.setString(18, CompClassHigh);
+        	 preparedStatement.setString(19, ReuseLow);
         	 rs_insert = preparedStatement.executeUpdate();         	      
          } 
          catch (Exception ex){

@@ -19,6 +19,9 @@ public class resultBean {
 	private String cohSeldomUsed;
 	private String couplingAll;
 	private String couplingHigh;
+	private String compHighMethod;
+	private String compHighClass;
+	private String reuseLowClass;
 	
 	public void setPackageName(String packageName){
 		this.packageName = packageName;
@@ -147,11 +150,36 @@ public class resultBean {
 	public String getCouplingAll(){
 		return couplingAll;
 	}
+	
 	public void setCouplingHigh(String couplingHigh){
 		this.couplingHigh = couplingHigh;
 	}
 	
 	public String getCouplingHigh(){
 		return couplingHigh;
+	}
+	
+	public void setCompHighMethod(String compHighMethod){
+		this.compHighMethod = compHighMethod;
+	}
+	
+	public String getCompHighMethod(){
+		return compHighMethod;
+	}
+	
+	public void setCompHighClass(String compHighClass){
+		this.compHighClass = compHighClass;
+	}
+	
+	public String getCompHighClass(){
+		return compHighClass;
+	}
+	
+	public void setReuseLowClass(String reuseLowClass){
+		this.reuseLowClass = reuseLowClass;
+	}
+	
+	public String getReuseLowClass(){
+		return reuseLowClass;
 	}
 }

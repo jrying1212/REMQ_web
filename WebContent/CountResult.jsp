@@ -52,7 +52,7 @@ if (content!=null){
 	Date date = new Date();
 
 	String packageName="", time="", publicAttName="", hardCodedName="", cohNever="", cohSeldom="", 
-			coupAll="", coupHigh="";
+			coupAll="", coupHigh="", compMethodHigh="",compClassHigh="",reuseLow="";
 	int classNum=0;
 	double simplicity =0, reusability=0, cohesion=0, coupling=0, AHF=0, HC=0, security=0;
 	if (sh!=null){
@@ -71,8 +71,12 @@ if (content!=null){
 		 cohSeldom = ch.getAttSeldomCalled(sh);
 		 coupAll = cp.getAllCoupling(sh);
 		 coupHigh = cp.getHighCoupling(sh);
+		 compMethodHigh = comp.getCompHighMethod();
+		 compClassHigh = comp.getCompHighClass();
+		 reuseLow = comp.getReuseLowClass();
 		 time = dateFormat.format(date);
 	}
+
 
 	resultBean result = new resultBean();
 	result.setPackageName(packageName);
@@ -89,8 +93,12 @@ if (content!=null){
 	result.setHardCodedComment(hardCodedName);
 	result.setCohNeverUsed(cohNever);
 	result.setCohSeldomUsed(cohSeldom);
+	
 	result.setCouplingAll(coupAll);
 	result.setCouplingHigh(coupHigh);
+	result.setCompHighClass(compMethodHigh);
+	result.setCompHighClass(compClassHigh);
+	result.setReuseLowClass(reuseLow);
 	result = resultDAO.insertData(result);
 	
 }

@@ -329,7 +329,7 @@ public class commentDAO {
                "select * from coupling_rule order by ID ";
  	    
       // "System.out.println" prints in the console; Normally used to trace the process
-      System.out.println("cohesion " + coupling);                
+      System.out.println("coupling " + coupling);                
       System.out.println("Query: "+searchQuery);
  	    
       try 

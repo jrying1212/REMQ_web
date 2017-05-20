@@ -29,13 +29,13 @@ public class showInfo {
 	int private_AttNum=0;
 	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
 	String info="";
-	String publicTypeAttName="";
-	String hardCodedClassName="";
-	String attNeverCalled="";
-	String attSeldomCalled="";
-	String allCouplingName="";
-	String highCouplingName="";
-	
+	String publicTypeAttName=null;
+	String hardCodedClassName=null;
+	String attNeverCalled=null;
+	String attSeldomCalled=null;
+	String allCouplingName=null;
+	String highCouplingName=null;
+	String couplingType=null;
 	
 	public showInfo(){
 
@@ -106,10 +106,7 @@ public class showInfo {
 				int count_private=0;
 				int count_coupling=0;
 //				System.out.println(att.length());
-				setPublicTypeAtt(className+" : ");
-				setAttNeverCalled(className+" : ");
-				setAttSeldomCalled(className+" : ");
-				String couplingType="";
+				
 				for (int j=0; j<att.length();j++){
 //					System.out.println(att.getJSONObject(j).getString("att_type"));
 					
@@ -119,16 +116,20 @@ public class showInfo {
 						count_private++;
 					}
 					else if(accessifier.equals("public")){
-						setPublicTypeAtt(AttName+" ");					
+						setPublicTypeAtt(className, AttName);					
 					}
 					
 					String type = att.getJSONObject(j).getString("att_type");					
-					if(!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")&&!type.equals("boolean")){
-						count_coupling++;						
-						couplingType+=className+" : "+type+" ";
+					if(!type.equals("null")&&!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")&&!type.equals("boolean")){
+						count_coupling++;				
+						if (couplingType!=null){
+							couplingType+=className+" : "+type+" , ";
+						}
+						else{
+							couplingType = className+" : "+type+" , ";
+						}
 
 					}
-					couplingType+="\n";
 					if(count_coupling >=getClassNum()-1){
 						setAllCouplingName(couplingType);
 					}
@@ -138,18 +139,15 @@ public class showInfo {
 					
 					int called = att.getJSONObject(j).getInt("att_called");
 					setAttCalled(called);
-					if (called==0){
-						setAttNeverCalled(AttName+" ");
+					if (called==0 && !AttName.equals("null")){
+						setAttNeverCalled(className, AttName);
 					}
-					else if (called < met.length()/2){
-						setAttSeldomCalled(AttName+" ");
+					else if (called < met.length()/2 && !AttName.equals("null")){
+						setAttSeldomCalled(className, AttName);
 					}
 					
 //					System.out.println("called: "+called);
-				}
-				setPublicTypeAtt("\n");
-				setAttNeverCalled("\n");
-				setAttSeldomCalled("\n");
+				}				
 				System.out.println(publicTypeAttName);
 				setPrivateAttNum(count_private);
 				setCouplingNum(count_coupling);
@@ -305,8 +303,14 @@ public class showInfo {
 		return method_reuse;
 	}
 	
-	public void setPublicTypeAtt(String name){
-		publicTypeAttName += name;
+	public void setPublicTypeAtt(String className, String attName){
+		
+		if (publicTypeAttName!=null){
+			publicTypeAttName += className+" : "+attName+" , ";
+		}
+		else{
+			publicTypeAttName = className+" : "+attName+" , ";
+		}
 	}
 	
 	public String getPublicTypeAtt(){
@@ -314,23 +318,38 @@ public class showInfo {
 	}
 	
 	public void setHardCodedClassName(String name){
-		hardCodedClassName += name;
+		if (hardCodedClassName!=null){
+			hardCodedClassName += name;
+		}
+		else{
+			hardCodedClassName = name;
+		}
 	}
 	
 	public String getHardCodedClassName(){
 		return hardCodedClassName;
 	}
 	
-	public void setAttNeverCalled(String name){
-		attNeverCalled += name;
+	public void setAttNeverCalled(String className, String attName){
+		if (attNeverCalled!=null){
+			attNeverCalled += className+" : "+attName+" , ";
+		}
+		else{
+			attNeverCalled = className+" : "+attName+" , ";
+		}
 	}
 	
 	public String getAttNeverCalled(){
 		return attNeverCalled;
 	}
 	
-	public void setAttSeldomCalled(String name){
-		attSeldomCalled += name;
+	public void setAttSeldomCalled(String className, String attName){
+		if (attSeldomCalled!=null){
+			attSeldomCalled += className+" : "+attName+" , ";
+		}
+		else{
+			attSeldomCalled += className+" : "+attName+" , ";
+		}
 	}
 	
 	public String getAttSeldomCalled(){
@@ -338,7 +357,12 @@ public class showInfo {
 	}
 	
 	public void setAllCouplingName(String name){
-		allCouplingName += name;
+		if (allCouplingName!=null){
+			allCouplingName += name;
+		}
+		else{
+			allCouplingName=name;
+		}
 	}
 	
 	public String getAllCouplingName(){
@@ -346,7 +370,12 @@ public class showInfo {
 	}
 	
 	public void setHighCouplingName(String name){
-		highCouplingName += name;
+		if (highCouplingName!=null){
+			highCouplingName += name;
+		}
+		else{
+			highCouplingName = name;
+		}
 	}
 	
 	public String getHighCouplingName(){

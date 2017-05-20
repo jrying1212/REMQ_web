@@ -30,7 +30,7 @@ public class cohesion {
 		}
 		result = class_result/sh.getClassNum();
 		System.out.println("result"+result);
-		DecimalFormat df = new DecimalFormat("##.00");
+		DecimalFormat df = new DecimalFormat("##.000");
 		result =Double.parseDouble(df.format(result));
 		return result;
 	}

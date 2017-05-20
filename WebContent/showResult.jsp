@@ -39,6 +39,9 @@ String  CohNever = (String)request.getAttribute("CohNever");
 String  CohSeldom = (String)request.getAttribute("CohSeldom");
 String  CoupAll = (String)request.getAttribute("CoupAll");
 String  CoupHigh = (String)request.getAttribute("CoupHigh");
+String  CompMethodHigh = (String)request.getAttribute("CompMethodHigh");
+String  CompClassHigh = (String)request.getAttribute("CompClassHigh");
+String  Reuse_low = (String)request.getAttribute("ReuseLow");
 String  id = (String)request.getAttribute("id");
 String  complexityComment = (String)request.getAttribute("complexityComment"); 
 String  cohesionComment = (String)request.getAttribute("cohesionComment");
@@ -103,10 +106,23 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<h2>Complexity</h2>
 								<h4>Simplicity: <%=simplicity %></h4>
 								<h4>Reusability : <%=reusability%></h4>
+																
 							</section>
 							<header class="major">
 								<h2>Complexity</h2>
 								<p style="width: 800px; word-break: break-all;"><%=complexityComment %></p>
+								<%if(CompClassHigh!=null){
+								%>	
+								<p style="width: 800px; word-break: break-all;">類別的方法複雜度偏高:<%=CompClassHigh %></p>
+								<%} %>
+								<%if(CompMethodHigh!=null){
+								%>
+								<p style="width: 800px; word-break: break-all;">類別內存在程式碼行數偏高的方法:<%=CompMethodHigh %></p>
+								<%} %>
+								<%if(Reuse_low!=null){
+								%>
+								<p style="width: 800px; word-break: break-all;">類別內存在未被使用方法:<%=Reuse_low %></p>	
+								<%} %>				
 							</header>
 						</div>
 						<div class="row 100%">
@@ -119,8 +135,14 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 							<header class="major">
 								<h2>Coupling</h2>
 								<p style="width: 800px; word-break: break-all;"><%=couplingComment %></p>
+								<%if(CoupAll!=null){
+								%>
 								<p style="width: 800px; word-break: break-all;">類別與其他類別皆有耦合關係，建議刪除不必要存在者:<%=CoupAll %></p>
+								<%} %>
+								<%if(CoupHigh!=null){
+								%>
 								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要者以降低:<%=CoupHigh %></p>
+								<%} %>	
 							</header>
 						</div>
 						<div class="row 100%">
@@ -133,8 +155,14 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 							<header class="major">
 								<h2>Cohesion</h2>
 								<p style="width: 800px; word-break: break-all;"><%=cohesionComment%></p>
+								<%if(CohNever!=null){
+								%>
 								<p style="width: 800px; word-break: break-all;">類別中屬性與方法無關係，建議可刪除者:<%=CohNever%></p>
+								<%} %>
+								<%if(CohSeldom!=null){
+								%>
 								<p style="width: 800px; word-break: break-all;">類別中屬性與方法關係較弱者: <%=CohSeldom%></p>
+								<%} %>
 							</header>
 						</div>
 						<div class="row 100%">
@@ -148,8 +176,14 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<h2>Security</h2>
 								<p style="width: 800px; word-break: break-all;"><%=securityAHFComment %></p>
 								<p style="width: 800px; word-break: break-all;"><%=securityHCComment %></p>
+								<%if(AHFData!=null){
+								%>	
 								<p style="width: 800px; word-break: break-all;">宣告為public的屬性: <%=AHFData %></p>
+								<%} %>
+								<%if(HCData!=null){
+								%>								
 								<p style="width: 800px; word-break: break-all;">存在寫死的隱私資料類別: <%=HCData %></p>
+								<%} %>
 							</header>
 						</div>
 					</div>
