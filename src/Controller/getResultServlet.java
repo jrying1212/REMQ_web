@@ -76,7 +76,7 @@ public class getResultServlet extends HttpServlet {
 		couplingComment = comment.getCouplingComment();
 		securityAHFComment = comment.getAHFComment();
 		securityHCComment = comment.getHCComment();
-		        
+		System.out.println(securityAHFComment) ;
 	    HttpSession session = request.getSession(true);	    
 	    
 	    request.setAttribute("packageName", packageName);

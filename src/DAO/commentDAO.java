@@ -17,17 +17,18 @@ public class commentDAO {
 	
      public static commentBean selectData(commentBean bean) {
     	 PreparedStatement preparedStatement = null;
-	
-    	 String packageName = bean.getPackageName();    
-    	 String id = bean.getID();   
-	    
+	 
+    	   
+    	 String id = bean.getID();  
     	 String searchQuery =
-              "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from historical_data where ID=?";
+              "select Simplicity,Reusability,Cohesion,Coupling,AHF,HC,Security from remq.historical_data where ID=?";
+    	  
+
     	 try{
     		 currentCon = connectDBManager.getConnection();        
     		 preparedStatement = currentCon.prepareStatement(searchQuery);
     		 preparedStatement.setString(1, id);
-    		 rs = preparedStatement.executeQuery(searchQuery);	        
+    		 rs = preparedStatement.executeQuery();	        
     		 boolean more = rs.next();
     		 if (!more){
     			 System.out.println("Sorry, you are not a registered user! Please sign up first");
@@ -40,8 +41,7 @@ public class commentDAO {
     			 Double AHF = rs.getDouble("AHF");
     			 Double HC = rs.getDouble("HC");
     			 Double Security = rs.getDouble("Security");
-           
-    			 bean.setPackageName(packageName);
+               			 
     			 bean.setSimplicity(Simplicity);
     			 bean.setResuability(Reusability);
     			 bean.setCohesion(Cohesion);
@@ -421,27 +421,30 @@ public class commentDAO {
         while(rs.next()) 
          {           
         	int type = rs.getInt("type");
-            Double rate_from = rs.getDouble("rate_from");
-            Double rate_to = rs.getDouble("rate_to");
+            double rate_from = rs.getDouble("rate_from");
+            double rate_to = rs.getDouble("rate_to");
             String comment = rs.getString("comment");
 
             if (type ==0){
-            	 if (!rate_from.equals(rate_to)){
+            	 if (rate_from !=rate_to){
                      if (AHF>=rate_from && AHF <rate_to){                
-                    	 bean.setAHFComment(comment);          	
+                    	 bean.setAHFComment(comment);       
+                    	 
                      } 
                  }
                  
                  else{
                  	if (AHF == rate_from){
-                 		bean.setAHFComment(comment);; 
+                 		bean.setAHFComment(comment);
+                 		
                  	}
                  }
             }
             else {
-            	if (!rate_from.equals(rate_to)){
+            	if (rate_from!=rate_to){
                     if (HC>=rate_from && HC <rate_to){                
-                   	 bean.setHCComment(comment);           	
+                   	 bean.setHCComment(comment);     
+                   	 
                     } 
                 }
                 
@@ -449,6 +452,7 @@ public class commentDAO {
                     System.out.println("rate: "+rate_from +" "+ rate_to);
                 	if (HC == rate_from){
                 		bean.setHCComment(comment); 
+                		
                 	}
                 }
             }

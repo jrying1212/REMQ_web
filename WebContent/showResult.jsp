@@ -137,7 +137,7 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<p style="width: 800px; word-break: break-all;"><%=couplingComment %></p>
 								<%if(CoupAll!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別與其他類別皆有耦合關係，建議刪除不必要存在者:<%=CoupAll %></p>
+								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要存在者:<%=CoupAll %></p>
 								<%} %>
 								<%if(CoupHigh!=null){
 								%>
@@ -174,8 +174,8 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 							</section>
 							<header class="major">
 								<h2>Security</h2>
-								<p style="width: 800px; word-break: break-all;"><%=securityAHFComment %></p>
-								<p style="width: 800px; word-break: break-all;"><%=securityHCComment %></p>
+								<p style="width: 800px; word-break: break-all;">Encapsulation : <%=AHF%> , <%=securityAHFComment %></p>
+								<p style="width: 800px; word-break: break-all;">Hard-coded : <%=HC%> , <%=securityHCComment %></p>
 								<%if(AHFData!=null){
 								%>	
 								<p style="width: 800px; word-break: break-all;">宣告為public的屬性: <%=AHFData %></p>
@@ -204,7 +204,7 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 						<div class="8u 12u$(medium)">
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
-								<li>Design: Jrying Yang</li>
+								<li>Design: Chih-Ying Yang</li>
 								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>

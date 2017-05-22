@@ -96,7 +96,7 @@
 						<div class="8u 12u$(medium)">
 							<ul class="copyright">
 								<li>&copy; NCU ISQ 2017. All rights reserved.</li>
-								<li>Design: Jrying Yang</li>
+								<li>Design: Chih-Ying Yang</li>
 								<li>Contact: jrying1212@g.ncu.edu.tw</a></li>
 							</ul>
 						</div>						

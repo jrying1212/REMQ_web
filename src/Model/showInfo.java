@@ -121,6 +121,7 @@ public class showInfo {
 					
 					String type = att.getJSONObject(j).getString("att_type");					
 					if(!type.equals("null")&&!type.equals("int")&&!type.equals("String")&&!type.equals("float")&&!type.equals("double")&&!type.equals("boolean")){
+						
 						count_coupling++;				
 						if (couplingType!=null){
 							couplingType+=className+" : "+type+" , ";
@@ -130,10 +131,10 @@ public class showInfo {
 						}
 
 					}
-					if(count_coupling >=getClassNum()-1){
+					if(count_coupling >=getClassNum()-1 && getClassNum()>1){
 						setAllCouplingName(couplingType);
 					}
-					else if (count_coupling*0.75 >=getClassNum()-1){
+					else if (count_coupling*0.75 >=getClassNum()-1 && getClassNum()>1){
 						setHighCouplingName(couplingType);
 					}
 					
@@ -348,7 +349,7 @@ public class showInfo {
 			attSeldomCalled += className+" : "+attName+" , ";
 		}
 		else{
-			attSeldomCalled += className+" : "+attName+" , ";
+			attSeldomCalled = className+" : "+attName+" , ";
 		}
 	}
 	
