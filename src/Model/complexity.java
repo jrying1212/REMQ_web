@@ -21,7 +21,7 @@ public class complexity {
 				double m_simplicity = method_loc/class_loc;
 				c_simplicity*= m_simplicity; 
 				
-				if (c_simplicity>0.01){
+				if (c_simplicity<0.05){
 					setCompHighClass(class_name);
 					break;
 				}

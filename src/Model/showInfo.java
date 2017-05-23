@@ -18,6 +18,10 @@ public class showInfo {
 	List<List<Integer>> AllMethod_LOC = new ArrayList<List<Integer>>();
 	ArrayList<Integer> att_called = new ArrayList<Integer>();
 	Map<String, Integer> method_reuse = new HashMap<String, Integer>();
+	
+	Map<String, String> attNeverCalled = new HashMap<String, String>();
+	Map<String, String> attSeldomCalled = new HashMap<String, String>();
+	Map<String, String> publicTypeAttName = new HashMap<String, String>();
 //	List<List<String>> publicTypeAttName = new ArrayList<List<String>>();
 	
 	String packageName;
@@ -29,10 +33,8 @@ public class showInfo {
 	int private_AttNum=0;
 	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
 	String info="";
-	String publicTypeAttName=null;
+//	String publicTypeAttName=null;
 	String hardCodedClassName=null;
-	String attNeverCalled=null;
-	String attSeldomCalled=null;
 	String allCouplingName=null;
 	String highCouplingName=null;
 	String couplingType=null;
@@ -306,15 +308,15 @@ public class showInfo {
 	
 	public void setPublicTypeAtt(String className, String attName){
 		
-		if (publicTypeAttName!=null){
-			publicTypeAttName += className+" : "+attName+" , ";
+		if (publicTypeAttName.containsKey(className)){
+			publicTypeAttName.put(className, publicTypeAttName.get(className)+", "+attName);
 		}
 		else{
-			publicTypeAttName = className+" : "+attName+" , ";
+			publicTypeAttName.put(className, attName);
 		}
 	}
 	
-	public String getPublicTypeAtt(){
+	public Map<String, String> getPublicTypeAtt(){
 		return publicTypeAttName;
 	}
 	
@@ -332,28 +334,28 @@ public class showInfo {
 	}
 	
 	public void setAttNeverCalled(String className, String attName){
-		if (attNeverCalled!=null){
-			attNeverCalled += className+" : "+attName+" , ";
+		if (attNeverCalled.containsKey(className)){
+			attNeverCalled.put(className, attNeverCalled.get(className)+", "+attName);
 		}
 		else{
-			attNeverCalled = className+" : "+attName+" , ";
+			attNeverCalled.put(className, attName);
 		}
 	}
 	
-	public String getAttNeverCalled(){
+	public Map<String, String> getAttNeverCalled(){
 		return attNeverCalled;
 	}
 	
 	public void setAttSeldomCalled(String className, String attName){
-		if (attSeldomCalled!=null){
-			attSeldomCalled += className+" : "+attName+" , ";
+		if (attSeldomCalled.containsKey(className)){
+			attSeldomCalled.put(className, attSeldomCalled.get(className)+", "+attName);
 		}
 		else{
-			attSeldomCalled = className+" : "+attName+" , ";
+			attSeldomCalled.put(className, attName);
 		}
 	}
 	
-	public String getAttSeldomCalled(){
+	public Map<String, String> getAttSeldomCalled(){
 		return attSeldomCalled;
 	}
 	

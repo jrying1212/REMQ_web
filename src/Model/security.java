@@ -1,6 +1,7 @@
 package Model;
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 public class security {
 	double security;
@@ -36,8 +37,18 @@ public class security {
 	}
 	
 	public String getPulicAttName(showInfo sh){
-		String publicAttName = sh.getPublicTypeAtt();
-		return publicAttName;
+		Map<String, String> publicAttName = sh.getPublicTypeAtt();
+		String publicAttNameS = null;
+		for (Object key : publicAttName.keySet()) {
+            System.out.println(key + " : " + publicAttName.get(key));
+            if (publicAttNameS ==null){
+            	publicAttNameS = key + " : " +publicAttName.get(key)+"\n";
+            }
+            else{
+            	publicAttNameS += key + " : " +publicAttName.get(key)+"\n";
+            }
+		}
+		return publicAttNameS;
 	}
 	
 	public String getHardCodedClass(showInfo sh){

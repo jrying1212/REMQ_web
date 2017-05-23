@@ -263,12 +263,12 @@ public class commentDAO {
          //if user exists set the isValid variable to true
         while(rs.next()) 
          {           
-            Double rate_from = rs.getDouble("rate_from");
-            Double rate_to = rs.getDouble("rate_to");
+            double rate_from = rs.getDouble("rate_from");
+            double rate_to = rs.getDouble("rate_to");
             String comment = rs.getString("comment");
 
-            if (!rate_from.equals(rate_to)){
-                if (cohesion>=rate_from && cohesion <rate_to){
+            if (rate_from!=rate_to){
+                if ((cohesion>=rate_from && cohesion <rate_to) && cohesion!=0){
                 	
                 	bean.setCohesionComment(comment);           	
                 } 
@@ -342,12 +342,12 @@ public class commentDAO {
          //if user exists set the isValid variable to true
         while(rs.next()) 
          {           
-            Double rate_from = rs.getDouble("rate_from");
-            Double rate_to = rs.getDouble("rate_to");
+            double rate_from = rs.getDouble("rate_from");
+            double rate_to = rs.getDouble("rate_to");
             String comment = rs.getString("comment");
 
-            if (!rate_from.equals(rate_to)){
-                if (coupling>=rate_from && coupling <rate_to){                
+            if (rate_from!=rate_to){
+                if ((coupling>=rate_from && coupling <rate_to)&&coupling!=0){                
                 	bean.setCouplingComment(comment);           	
                 } 
             }
@@ -427,7 +427,7 @@ public class commentDAO {
 
             if (type ==0){
             	 if (rate_from !=rate_to){
-                     if (AHF>=rate_from && AHF <rate_to){                
+                     if ((AHF>=rate_from && AHF <rate_to)&&AHF!=0){                
                     	 bean.setAHFComment(comment);       
                     	 
                      } 
@@ -441,8 +441,8 @@ public class commentDAO {
                  }
             }
             else {
-            	if (rate_from!=rate_to){
-                    if (HC>=rate_from && HC <rate_to){                
+            	if (rate_from!=rate_to && HC!=0){
+                    if ((HC>=rate_from && HC <rate_to)&&HC!=0){                
                    	 bean.setHCComment(comment);     
                    	 
                     } 

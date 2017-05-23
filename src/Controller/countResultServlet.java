@@ -77,14 +77,38 @@ public class countResultServlet extends HttpServlet {
 			time = rs.getString("Time");
 			id = rs.getString("ID");
 			AHFData = rs.getString("AHFComment");
+			if (AHFData!=null && AHFData.contains("\n")){
+				AHFData = AHFData.replaceAll("\n", "<br>");
+			}
 			HCData = rs.getString("HCComment");
 			CohNever = rs.getString("Coh_never");
+			if (CohNever!=null && CohNever.contains("\n")){
+				CohNever = CohNever.replaceAll("\n", "<br>");
+			}
 			CohSeldom = rs.getString("Coh_seldom");
+			if (CohSeldom!=null && CohSeldom.contains("\n")){
+				CohSeldom = CohSeldom.replaceAll("\n", "<br>");
+			}
 			CoupAll = rs.getString("Coup_all");
+			if (CoupAll!=null && CoupAll.contains("\n")){
+				CoupAll = CoupAll.replaceAll("\n", "<br>");
+			}
 			CoupHigh = rs.getString("Coup_high");
+			if (CoupHigh!=null && CoupHigh.contains("\n")){
+				CoupHigh = CoupHigh.replaceAll("\n", "<br>");
+			}
 			CompMethodHigh = rs.getString("Comp_metHigh");
+			if (CompMethodHigh!=null && CompMethodHigh.contains("\n")){
+				CompMethodHigh = CompMethodHigh.replaceAll("\n", "<br>");
+			}
 			CompClassHigh = rs.getString("Comp_classHigh");
+			if (CompClassHigh!=null && CompClassHigh.contains("\n")){
+				CompClassHigh = CompClassHigh.replaceAll("\n", "<br>");
+			}
 			ReuseLow = rs.getString("Reuse_low");
+			if (ReuseLow!=null && ReuseLow.contains("\n")){
+				ReuseLow = ReuseLow.replaceAll("\n", "<br>");
+			}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

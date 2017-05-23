@@ -1,6 +1,7 @@
 package Model;
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 public class cohesion {
 	
@@ -36,13 +37,35 @@ public class cohesion {
 	}
 	
 	public String getAttNeverCalled(showInfo sh){
-		String attNeverCalled = sh.getAttNeverCalled();
-		return attNeverCalled;
+		Map<String, String> attNeverCalled = sh.getAttNeverCalled();
+		String attNeverCalledS = null;
+		for (Object key : attNeverCalled.keySet()) {
+            System.out.println(key + " : " + attNeverCalled.get(key));
+            if (attNeverCalledS ==null){
+            	attNeverCalledS = key + " : " +attNeverCalled.get(key)+"\n";
+            }
+            else{
+            	attNeverCalledS += key + " : " +attNeverCalled.get(key)+"\n";
+            }
+            
+        }
+		return attNeverCalledS;
 	}
 	
 	public String getAttSeldomCalled(showInfo sh){
-		String attSeldomCalled = sh.getAttSeldomCalled();
-		return attSeldomCalled;
+		Map<String, String> attSeldomCalled = sh.getAttSeldomCalled();
+		String attSeldomCalledS =null;
+		for (Object key : attSeldomCalled.keySet()) {
+            System.out.println(key + " : " + attSeldomCalled.get(key));
+            if (attSeldomCalledS==null){
+            	attSeldomCalledS = key + " : " +attSeldomCalled.get(key)+"\n";
+            }
+            else{
+            	attSeldomCalledS += key + " : " +attSeldomCalled.get(key)+"\n";
+            }
+            
+        }
+		return attSeldomCalledS;
 	}
 
 }

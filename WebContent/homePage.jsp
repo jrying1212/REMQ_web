@@ -20,7 +20,7 @@
 				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
 					<ul>
-						<li>Reverse Engineering Model Quality</li>
+						<li>Reverse Engineering Class Diagram Quality</li>
 					</ul>
 				</nav>
 			</header>				

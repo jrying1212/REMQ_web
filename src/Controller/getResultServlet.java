@@ -54,14 +54,41 @@ public class getResultServlet extends HttpServlet {
 		HC = result.getHC();
 		time = result.getTime();		
 		AHFData = result.getAHFComment();
+		if (AHFData!=null && AHFData.contains("\n")){
+			AHFData = AHFData.replaceAll("\n", "<br>");
+		}
 		HCData = result.getHardCodedComment();
+		
 		CohNever = result.getCohNeverUsed();
+		if (CohNever!=null && CohNever.contains("\n")){
+			CohNever = CohNever.replaceAll("\n", "<br>");
+		}
+		
 		CohSeldom = result.getCohSeldomUsed();
+		if (CohSeldom!=null && CohSeldom.contains("\n")){
+			CohSeldom = CohSeldom.replaceAll("\n", "<br>");
+		}
+		
 		CoupAll = result.getCouplingAll();
+		if (CoupAll!=null && CoupAll.contains("\n")){
+			CoupAll = CoupAll.replaceAll("\n", "<br>");
+		}
 		CoupHigh = result.getCouplingHigh();
+		if (CoupHigh!=null && CoupHigh.contains("\n")){
+			CoupHigh = CoupHigh.replaceAll("\n", "<br>");
+		}
 		CompMethodHigh = result.getCompHighMethod();
+		if (CompMethodHigh!=null && CompMethodHigh.contains("\n")){
+			CompMethodHigh = CompMethodHigh.replaceAll("\n", "<br>");
+		}
 		CompClassHigh = result.getCompHighClass();
+		if (CompClassHigh!=null && CompClassHigh.contains("\n")){
+			CompClassHigh = CompClassHigh.replaceAll("\n", "<br>");
+		}
 		ReuseLow = result.getReuseLowClass();
+		if (ReuseLow!=null && ReuseLow.contains("\n")){
+			ReuseLow = ReuseLow.replaceAll("\n", "<br>");
+		}
 		
 		commentBean comment = new commentBean();
 		comment.setID(id);

@@ -117,7 +117,7 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<%} %>
 								<%if(CompMethodHigh!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別內存在程式碼行數偏高的方法:<%=CompMethodHigh %></p>
+								<p style="width: 800px; word-break: break-all;">該類別中存在單一方法程式碼行數偏高:<%=CompMethodHigh %></p>
 								<%} %>
 								<%if(Reuse_low!=null){
 								%>
@@ -137,11 +137,11 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<p style="width: 800px; word-break: break-all;"><%=couplingComment %></p>
 								<%if(CoupAll!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要存在者:<%=CoupAll %></p>
+								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要存在者:<br><%=CoupAll %></p>
 								<%} %>
 								<%if(CoupHigh!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要者以降低:<%=CoupHigh %></p>
+								<p style="width: 800px; word-break: break-all;">類別與其他類別有高度耦合關係，建議刪除不必要者以降低:<br><%=CoupHigh %></p>
 								<%} %>	
 							</header>
 						</div>
@@ -157,11 +157,11 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<p style="width: 800px; word-break: break-all;"><%=cohesionComment%></p>
 								<%if(CohNever!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別中屬性與方法無關係，建議可刪除者:<%=CohNever%></p>
+								<p style="width: 800px; word-break: break-all;">類別中屬性與方法無關係，建議可刪除者:<br><%=CohNever%></p>
 								<%} %>
 								<%if(CohSeldom!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別中屬性與方法關係較弱者: <%=CohSeldom%></p>
+								<p style="width: 800px; word-break: break-all;">類別中屬性與方法關係較弱者: <br><%=CohSeldom%></p>
 								<%} %>
 							</header>
 						</div>

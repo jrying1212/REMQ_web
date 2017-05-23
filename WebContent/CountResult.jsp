@@ -130,7 +130,7 @@ if (content!=null){
 			<!-- Banner -->
 			<section id="banner">
 			
-				<h2>Hi. Welcome to use RCDQ.</h2>
+				<h2>Hi. Welcome to use RECDQ.</h2>
 				<p>Press the button to analyze the quality of your project.</p>
 				<form action="countResultServlet" method="post">
 				<li><input value="Get Result" class="special big" type="submit" ></li>									
