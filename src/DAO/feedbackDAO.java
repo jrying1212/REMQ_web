@@ -38,7 +38,7 @@ public class feedbackDAO {
          String selectQuery =
         		 "select historical_data.PackageName, feedback.projID,feedback.content,feedback.ID,feedback.date, feedback.item "
         		 + "from remq.feedback, remq.historical_data "
-        		 + "where feedback.projID=historical_data.ID";
+        		 + "where feedback.projID=historical_data.ID order by item";
          try 
          {
         	 currentCon = connectDBManager.getConnection();
