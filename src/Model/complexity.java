@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class complexity {
 	double simplicity,reusability;
-	String reuseLowClass;
 	String compHighClass;
 	HashMap<String, String> compHighMethod = new HashMap<String, String>(); 
+	HashMap<String, String> reuseLowClass = new HashMap<String, String>(); 
 	public double countSimplicity(showInfo sh){
 		
 		double method_loc; 
@@ -22,24 +22,18 @@ public class complexity {
 					String method = (String) key;
 					method_loc = sh.getMethodLOC().get(i).get(key);
 					double m_simplicity = method_loc/class_loc;
-					System.out.println("m_simplicity "+m_simplicity+" method_loc "+method_loc+" class_loc "+class_loc);
 					c_simplicity*= m_simplicity; 
-					System.out.println("c_simplicity "+c_simplicity);
 					if (m_simplicity>0.5){
 						setCompHighMethod(class_name, method);												
 					}
 //		            System.out.println(key + " : "+sh.getMethodLOC().get(i).get(key));
 				}		            							
 				if (c_simplicity<0.05){
-					setCompHighClass(class_name);
-					
-				}
-							
+					setCompHighClass(class_name);					
+				}							
 			simplicity+=c_simplicity;
-			System.out.println("simplicity "+simplicity+" c_simplicity "+c_simplicity);
 		}
 		simplicity/=sh.getClassNum();
-		System.out.println("simplicity "+simplicity+" classNum "+sh.getClassNum());
 		DecimalFormat df = new DecimalFormat("##.000");
 		simplicity =Double.parseDouble(df.format(simplicity));
 		return simplicity;
@@ -47,20 +41,46 @@ public class complexity {
 	
 	public double countReusability(showInfo sh){
 		int classNum = sh.getClassNum();
-		double metNum, metCalled, reuse = 0;
+		double metNum, metCalled=0, reuse = 0;
 		String className;
 		for (int i=0; i<classNum; i++){
 			metNum = sh.getClassMethodNum().get(i);
 			className = sh.getClassName().get(i);
-			metCalled = sh.getMethodCalled().get(className);
-			double class_reuse = metCalled/metNum;
-			reuse += class_reuse;
-			if (class_reuse<1){
-				setReuseLowClass(className);
+			double num=0;
+			for (Object key : sh.getMethodCalled().keySet()) {
+				String name = (String) key;
+				double value = sh.getMethodCalled().get(key);
+				String cName = name.substring(0,name.lastIndexOf("."));
+				String mName= name.substring(name.lastIndexOf(".") + 1);		
+				
+				if (cName.equals(className)){
+					num += value;
+					System.out.println(" num "+num+" value "+value);
+					if(value==0){
+						setReuseLowClass(cName, mName);
+						System.out.println(" cName "+cName+" mName "+mName);
+					}
+				}
+				
+				
 			}
+			
+			double class_reuse = num/metNum;
+			System.out.println(" num "+num+" metNum "+metNum);
+			reuse += class_reuse;
+			System.out.println(" reuse "+reuse+" class_reuse "+class_reuse);
+
+//	            System.out.println(key + " : "+sh.getMethodLOC().get(i).get(key));
+			}		            		
+
+			
+//			if (class_reuse<1){
+//				setReuseLowClass(className);
+//			}
 //			System.out.println(className+" "+metCalled+" reusability "+reuse);
-		}
+		
 		reusability = reuse/classNum;
+		System.out.println(" reuse "+reuse+" classNum "+classNum);
 		DecimalFormat df = new DecimalFormat("##.000");
 		reusability =Double.parseDouble(df.format(reusability));
 		
@@ -68,17 +88,27 @@ public class complexity {
 		return reusability;
 	}
 	
-	public void setReuseLowClass(String name){
-		if (reuseLowClass!=null){
-			reuseLowClass += name+" , "; 
+	public void setReuseLowClass(String className, String methodName){
+		if (reuseLowClass.containsKey(className)){
+			reuseLowClass.put(className, reuseLowClass.get(className)+", "+methodName); 
 		}
 		else{
-			reuseLowClass = name+" , "; 
+			reuseLowClass.put(className, methodName);
 		}		
 	}
 	
 	public String getReuseLowClass(){
-		return reuseLowClass;
+		String reuseLowClassS = null;
+		for (Object key : reuseLowClass.keySet()) {
+            System.out.println(key + " : " + reuseLowClass.get(key));
+            if (reuseLowClassS ==null){
+            	reuseLowClassS = key + " : " +reuseLowClass.get(key)+"\n";
+            }
+            else{
+            	reuseLowClassS += key + " : " +reuseLowClass.get(key)+"\n";
+            }          
+        }
+		return reuseLowClassS;
 	}
 	
 	public void setCompHighMethod(String className, String methodName){

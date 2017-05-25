@@ -164,18 +164,21 @@ public class showInfo {
 ///				 System.out.println("leng "+met_int.length());
 				for (int j=0; j<met_int.length();j++){
 					int count = met_int.getJSONObject(j).getInt("methodInternalCalled");
+					String methodName = met_int.getJSONObject(j).getString("methodName");
 //			        System.out.println(met_int.getJSONObject(j).get("methodInternalCalled"));	
 //					System.out.println("CN"+jsonObj.getString("className"));
-					setMethodCalled(jsonObj.getString("className"),count);						
+					setMethodCalled(jsonObj.getString("className"),methodName,count);						
 				}
 				
 				JSONArray met_ext = jsonObj_external.optJSONArray("met_externalInfo");
 				if (met_ext!=null){
 					for (int j=0; j<met_ext.length();j++){
 						String ext_class = met_ext.getJSONObject(j).getString("className");
+						String ext_method = met_ext.getJSONObject(j).getString("methodName");
 //				        System.out.println(met_ext.getJSONObject(j).getString("className"));	
 //						System.out.println("CN"+jsonObj.getString("className"));
-						setMethodCalled(ext_class, 1);
+						
+						setMethodCalled(ext_class,ext_method, 1);
 					}
 				}
 				System.out.println("get method called: "+method_reuse);
@@ -293,13 +296,14 @@ public class showInfo {
 		return att_called;
 	}
 	
-	public void setMethodCalled(String className, int num){
+	public void setMethodCalled(String className,String methoName, int num){
 		className =className.substring(className.lastIndexOf(".") + 1);
+		String name = className+"."+methoName;
 		if (method_reuse.containsKey(className)){
-			method_reuse.put(className, method_reuse.get(className)+num);
+			method_reuse.put(name, method_reuse.get(name)+num);
 		}
 		else{
-			method_reuse.put(className, num);
+			method_reuse.put(name, num);
 		}
 	}
 
