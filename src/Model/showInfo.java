@@ -15,7 +15,7 @@ public class showInfo {
 	ArrayList<Integer> att_num = new ArrayList<Integer>();
 	ArrayList<Integer> method_num = new ArrayList<Integer>();
 	ArrayList<Integer> class_LOC = new ArrayList<Integer>();
-	List<List<Integer>> AllMethod_LOC = new ArrayList<List<Integer>>();
+	List<HashMap<String, Integer>> AllMethod_LOC = new ArrayList<HashMap<String, Integer>>();
 	ArrayList<Integer> att_called = new ArrayList<Integer>();
 	Map<String, Integer> method_reuse = new HashMap<String, Integer>();
 	
@@ -32,8 +32,8 @@ public class showInfo {
 	int sec_num=0;
 	int private_AttNum=0;
 	ArrayList<Integer> att_coupling = new ArrayList<Integer>();
+	String methodName="";
 	String info="";
-//	String publicTypeAttName=null;
 	String hardCodedClassName=null;
 	String allCouplingName=null;
 	String highCouplingName=null;
@@ -63,7 +63,7 @@ public class showInfo {
 		setClassNum(arr_class.length());
 		for(int i=0; i<arr_class.length();i++){
 			
-				List<Integer> method_LOC = new ArrayList<Integer>();
+				HashMap<String, Integer> method_LOC = new HashMap<String, Integer>();
 				JSONObject jsonObj  = arr_class.getJSONArray(i).getJSONObject(0);				
 				String className = jsonObj.getString("className").substring(jsonObj.getString("className").lastIndexOf(".")+1);
 				System.out.println(jsonObj.getString("className"));
@@ -77,7 +77,7 @@ public class showInfo {
 					setHardCodedClassName(className);					
 				}
 //				System.out.println("Class_LOC: "+jsonObj.getInt("classLOC"));
-				JSONArray met = jsonObj.optJSONArray("Method List");
+				JSONArray met = jsonObj.optJSONArray("Method List");				
 				if (met.getJSONObject(0).getString("method_name").equals("null")){
 					setMethodNum(0);
 					setClassMethodNum(0);
@@ -88,13 +88,14 @@ public class showInfo {
 				}
 				for (int j=0; j<met.length();j++){
 //		        System.out.println(met.getJSONObject(j).getString("method_name"));	
-					method_LOC.add(met.getJSONObject(j).getInt("method_LOC"));
+					String method = met.getJSONObject(j).getString("method_name");
+					method_LOC.put(method, met.getJSONObject(j).getInt("method_LOC"));
 				}
 				setMethodLOC(method_LOC);
 
 				System.out.println("AA:"+getMethodLOC().get(i).size());
 //				method_LOC.clear();
-//				System.out.println("MET_LOC: "+methodLOC[0]);
+				System.out.println("MET_LOC: "+getMethodLOC());
 				JSONArray att = jsonObj.optJSONArray("Attribute List");
 				if (att.getJSONObject(0).getString("att_name").equals("null")){
 					setAttNum(0);
@@ -276,11 +277,11 @@ public class showInfo {
 		return class_LOC;
 	}
 	
-	public void setMethodLOC(List<Integer> num){
+	public void setMethodLOC(HashMap<String, Integer> num){
 		AllMethod_LOC.add(num);
 	}
 	
-	public List<List<Integer>> getMethodLOC(){
+	public List<HashMap<String, Integer>> getMethodLOC(){
 		return AllMethod_LOC;
 	}
 	

@@ -96,7 +96,7 @@ if (content!=null){
 	
 	result.setCouplingAll(coupAll);
 	result.setCouplingHigh(coupHigh);
-	result.setCompHighClass(compMethodHigh);
+	result.setCompHighMethod(compMethodHigh);
 	result.setCompHighClass(compClassHigh);
 	result.setReuseLowClass(reuseLow);
 	result = resultDAO.insertData(result);
