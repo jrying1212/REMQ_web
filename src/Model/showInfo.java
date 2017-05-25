@@ -239,7 +239,7 @@ public class showInfo {
 	}
 	
 	public void setSecNum(int num){
-		sec_num = num;
+		sec_num += num;
 	}
 	
 	public int getSecNum(){
@@ -247,7 +247,7 @@ public class showInfo {
 	}
 	
 	public void setSecHC(int num){
-		sec_hc = num;
+		sec_hc += num;
 	}
 	
 	public int getSecHC(){

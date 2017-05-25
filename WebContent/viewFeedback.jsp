@@ -80,7 +80,7 @@ rs = feedbackDAO.selectAllData();
         <tbody>
         
           <tr>
-          <td data-title="ID"><a href="getResultServlet?param1=<%=ProjectID%>"> <%=ID%> </a></td>          
+          <td data-title="ID"><a href="getResultServlet?param1=<%=ProjectID%>"> <%=ProjectID%> </a></td>          
           <td data-title="Status"><%=PackageName%></td>
           <td data-title="Status"><%=item%></td>
           <td data-title="Name"><%=Content%></td>

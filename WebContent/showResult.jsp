@@ -178,7 +178,7 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<p style="width: 800px; word-break: break-all;">Hard-coded : <%=HC%> , <%=securityHCComment %></p>
 								<%if(AHFData!=null){
 								%>	
-								<p style="width: 800px; word-break: break-all;">宣告為public的屬性: <%=AHFData %></p>
+								<p style="width: 800px; word-break: break-all;">宣告為public的屬性: <br><%=AHFData %></p>
 								<%} %>
 								<%if(HCData!=null){
 								%>								
