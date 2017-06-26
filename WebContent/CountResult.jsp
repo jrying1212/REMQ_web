@@ -109,7 +109,7 @@ if (content!=null){
 				<h1><img src="images/logo.png"></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="showAllResult.jsp">Historical data</a></li>
+						<li><a href="showAllResult.jsp">Past data</a></li>
 						<%						
 						if(session.getAttribute("admin")==null){														
 						%>							
@@ -130,7 +130,7 @@ if (content!=null){
 			<!-- Banner -->
 			<section id="banner">
 			
-				<h2>Hi. Welcome to use RECDQ.</h2>
+				<h2>Hi. Welcome to use Reverse Engineering Class Diagram Quality Inference System.</h2>
 				<p>Press the button to analyze the quality of your project.</p>
 				<form action="countResultServlet" method="post">
 				<li><input value="Get Result" class="special big" type="submit" ></li>									

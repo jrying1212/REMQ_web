@@ -86,8 +86,8 @@ public class getResultServlet extends HttpServlet {
 			CompClassHigh = CompClassHigh.replaceAll("\n", "<br>");
 		}
 		ReuseLow = result.getReuseLowClass();
-		if (ReuseLow!=null && ReuseLow.contains("\n")){
-			ReuseLow = ReuseLow.replaceAll("\n", "<br>");
+		if (ReuseLow!=null && ReuseLow.contains("\r")){
+			ReuseLow = ReuseLow.replaceAll("\r", "<br>");
 		}
 		
 		commentBean comment = new commentBean();

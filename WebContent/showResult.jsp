@@ -113,15 +113,15 @@ String  securityHCComment = (String)request.getAttribute("securityHCComment");
 								<p style="width: 800px; word-break: break-all;"><%=complexityComment %></p>
 								<%if(CompClassHigh!=null){
 								%>	
-								<p style="width: 800px; word-break: break-all;">類別的方法複雜度偏高:<%=CompClassHigh %></p>
+								<p style="width: 800px; word-break: break-all;">類別的方法複雜度偏高:<br><%=CompClassHigh %></p>
 								<%} %>
 								<%if(CompMethodHigh!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">該類別中存在單一方法程式碼行數偏高:<%=CompMethodHigh %></p>
+								<p style="width: 800px; word-break: break-all;">該類別中存在單一方法程式碼行數偏高:<br><%=CompMethodHigh %></p>
 								<%} %>
 								<%if(Reuse_low!=null){
 								%>
-								<p style="width: 800px; word-break: break-all;">類別內存在未被使用方法:<%=Reuse_low %></p>	
+								<p style="width: 800px; word-break: break-all;">類別內存在未被使用方法:<br><%=Reuse_low %></p>	
 								<%} %>				
 							</header>
 						</div>

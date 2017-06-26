@@ -89,7 +89,7 @@ String id = request.getParameter("param1");
         LegendTitle legendtitle = new LegendTitle(spiderwebplot);
         legendtitle.setPosition(RectangleEdge.BOTTOM);
         jfreechart.addSubtitle(legendtitle);
-        ChartUtilities.writeChartAsJPEG(response.getOutputStream(), 1.0f, jfreechart, 500, 300, null);
+        ChartUtilities.writeChartAsJPEG(response.getOutputStream(), 1.0f, jfreechart, 700, 420, null);
   
 	}
 
